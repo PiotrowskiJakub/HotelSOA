@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/test")
 public class TestRest {
 	
-	User user;
+	AccountData user;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody String getUser(){
-		user = new User();
-		user.setName("Aga");
+		user = new AccountData();
+	
 //		user.setAge(22);
 		return "This is rest test ;)";
 //		return user;

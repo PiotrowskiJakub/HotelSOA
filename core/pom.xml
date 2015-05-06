@@ -12,6 +12,7 @@
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<mockito.version>1.9.5</mockito.version>
 		<jackson-mapper.version>1.9.13</jackson-mapper.version>
+		<hibernate.version>4.3.1.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -25,6 +26,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- DB related dependencies -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
 		</dependency>
 
 		<!-- json mapping -->
