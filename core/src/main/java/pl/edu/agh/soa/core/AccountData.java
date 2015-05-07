@@ -2,6 +2,7 @@ package pl.edu.agh.soa.core;
 
 import java.util.Date;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,11 @@ public class AccountData {
 	private Date birthDate;
 	private String accountType;
 	private String accountStatus;
+	
+	@Embedded
 	private Address address;
+	
+	@Embedded
 	private Contact contact;
 	
 	//permissions
