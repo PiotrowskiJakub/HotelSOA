@@ -1,12 +1,15 @@
 package pl.edu.agh.soa.core;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -14,12 +17,15 @@ import javax.persistence.Table;
  *
  * class holds all accounts data with address and contact
  */
+@SuppressWarnings("serial")
 @Entity
-@Table(name="ACCOUNT_DATA")
-public class AccountData {
-	
+@Table(name="ACCOUNT")
+public class Account implements Serializable {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="account_id_seq")
+    @SequenceGenerator(name="account_id_seq", sequenceName="account_id_seq", allocationSize=1)
+	@Column(name="ACCOUNT_ID")
 	private Long id;
 	
 	private String firstName;
