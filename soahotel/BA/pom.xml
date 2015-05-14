@@ -49,6 +49,7 @@
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>core</artifactId>
 			<version>${core.version}</version>
+			<type>jar</type>
 		</dependency>
 
 		<!-- jsp dependencies -->
