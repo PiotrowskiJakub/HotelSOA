@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.edu.agh.soa.soahotel</groupId>
 	<artifactId>BA</artifactId>
-	<version>0.1</version>
 	<packaging>war</packaging>
 	<name>Bussines Application</name>
 	<description>Application for hotel employers</description>
@@ -11,7 +10,7 @@
 	<parent>
 		<groupId>pl.edu.agh.soa</groupId>
 		<artifactId>soahotel</artifactId>
-		<version>${core.version}</version>
+		<version>0.1</version>
 	</parent>
 
 	<properties>
@@ -49,6 +48,7 @@
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>core</artifactId>
+			<version>${core.version}</version>
 		</dependency>
 
 		<!-- jsp dependencies -->
