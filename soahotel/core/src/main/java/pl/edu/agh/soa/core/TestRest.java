@@ -1,27 +1,38 @@
 package pl.edu.agh.soa.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-@Controller
-@RequestMapping("/test")
+
+@Stateless
+@Path("/rest")
 public class TestRest {
 	
 	Account account;
 	
-	@Autowired(required=true)
+	public TestRest(){
+		
+	}
+
+//	@Autowired(required=true)
+	@EJB
 	private AccountService accountService;
 	
 //	@Autowired
 //	private AccountDAO AccountDAO;
-
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody String getUser(){
+	
+	@GET
+//	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/test")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getUser(){
 		account = new Account();
 		account.setAccountStatus(AccountStatus.INACTIVE);
 		account.setAccountType(AccountType.EMPLOYEE);
@@ -37,9 +48,12 @@ public class TestRest {
 //		return user;
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+//	@RequestMapping(method = RequestMethod.PUT )
+//	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@PUT
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public void putAccount(Account account){
+		System.out.println("It works!");
 		accountService.addAccount(account);
 	}
 	

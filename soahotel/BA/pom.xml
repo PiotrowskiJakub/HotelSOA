@@ -19,8 +19,8 @@
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<mockito.version>1.9.5</mockito.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+		<jackson-mapper.version>1.9.13</jackson-mapper.version>
 		<core.version>0.1</core.version>
-		<!-- <jackson-mapper.version>1.9.13</jackson-mapper.version> -->
 	</properties>
 
 	<dependencies>
@@ -58,6 +58,13 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
+		</dependency>
+		
+			<!-- json mapping -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-mapper.version}</version>
 		</dependency>
 
 	</dependencies>

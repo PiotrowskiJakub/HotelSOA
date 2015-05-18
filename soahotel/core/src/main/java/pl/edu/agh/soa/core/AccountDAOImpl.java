@@ -2,30 +2,29 @@ package pl.edu.agh.soa.core;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-@Repository
-@Transactional
+import org.apache.log4j.Logger;
+
 public class AccountDAOImpl implements AccountDAO {
 	
-	@Autowired
-	private SessionFactory sessionFactory;
+//	private SessionFactory sessionFactory;
 	
-	public void setSessionFactory(SessionFactory sessionFactory){
-		this.sessionFactory = sessionFactory;
-	}
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+//	public void setSessionFactory(SessionFactory sessionFactory){
+//		this.sessionFactory = sessionFactory;
+//	}
 	
 	private static final Logger logger = Logger.getLogger(AccountDAOImpl.class);
 
 	@Override
 	public void addAccount(Account account) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(account);
+//		Session session = this.sessionFactory.getCurrentSession();	
+//		session.persist(account);
+		entityManager.persist(account);
 		logger.info("Account saved successfully, AccountDetails = " + account);
 	}
 

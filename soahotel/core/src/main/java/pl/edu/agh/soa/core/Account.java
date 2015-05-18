@@ -34,11 +34,11 @@ public class Account implements Serializable {
 	private String accountType;
 	private String accountStatus;
 	
-	@Embedded
-	private Address address;
-	
-	@Embedded
-	private Contact contact;
+//	@Embedded
+//	private Address address;
+//	
+//	@Embedded
+//	private Contact contact;
 	
 	//permissions
 	private Boolean newsletterPermission;
@@ -74,18 +74,18 @@ public class Account implements Serializable {
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public Contact getContact() {
-		return contact;
-	}
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
+//	public Contact getContact() {
+//		return contact;
+//	}
+//	public void setContact(Contact contact) {
+//		this.contact = contact;
+//	}
 	public Boolean getNewsletterPermission() {
 		return newsletterPermission;
 	}

@@ -2,15 +2,15 @@ package pl.edu.agh.soa.core;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.transaction.Transactional;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-@Service
+@Stateless
+@Path("app")
 public class AccountServiceImpl implements AccountService {
 
-	@Autowired(required=true)
 	private AccountDAO accountDAO;
 	
 	public void setAccountDAO(AccountDAO accountDAO){
@@ -45,6 +45,13 @@ public class AccountServiceImpl implements AccountService {
 	public void removeAccount(Integer id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	@GET
+	public String test() {
+		// TODO Auto-generated method stub
+		return "dupa";
 	}
 
 }
