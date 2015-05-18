@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
 @Path("app")
 public class AccountServiceImpl implements AccountService {
 
-	private AccountDAO accountDAO;
+	private AccountDAO accountDAO = new AccountDAOImpl();
 	
 	public void setAccountDAO(AccountDAO accountDAO){
 		this.accountDAO = accountDAO;
