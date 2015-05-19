@@ -7,7 +7,7 @@ import javax.ejb.Remote;
 import pl.edu.agh.soa.core.bean.Account;
 
 @Remote
-public interface AccountService {
+public interface RegistrationService {
 	public void addAccount(Account account);
 	public void updateAccount(Account account);
 	public List<Account> listAccount();

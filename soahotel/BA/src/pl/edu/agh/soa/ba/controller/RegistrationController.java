@@ -6,16 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.edu.agh.soa.core.Account;
+import pl.edu.agh.soa.core.bean.Account;
 
-
-
+/**
+ * @author Piotr Konsek
+ * registration controller
+ */
 @Controller
-public class RegistrationController {
-
+public class RegistrationController extends BaseController {
 	
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView loadInitialModel(){
@@ -28,7 +28,7 @@ public class RegistrationController {
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String create(@Valid @ModelAttribute("account") Account account){
 		System.out.println("dupa");
-		new RestTemplate().put("http://localhost:8082/core/rest/test", account);
+		put("http://localhost:8082/core-0.1/registration/account", account);
 		return "registration";
 	}
 }

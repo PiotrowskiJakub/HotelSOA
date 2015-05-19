@@ -3,20 +3,19 @@ package pl.edu.agh.soa.core.service.registration.implementation;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dao.AccountDAO;
-import pl.edu.agh.soa.core.dao.implementation.AccountDAOImpl;
-import pl.edu.agh.soa.core.service.registration.AccountService;
+import pl.edu.agh.soa.core.service.registration.RegistrationService;
 
 @Stateless
-@Path("app")
-public class AccountServiceImpl implements AccountService {
+public class RegistrationServiceImpl implements RegistrationService {
 
-	private AccountDAO accountDAO = new AccountDAOImpl();
+	@Inject
+	private AccountDAO accountDAO;
 	
 	public void setAccountDAO(AccountDAO accountDAO){
 		this.accountDAO = accountDAO;

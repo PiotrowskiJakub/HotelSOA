@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.dict.AccountType;
-import pl.edu.agh.soa.core.service.registration.AccountService;
+import pl.edu.agh.soa.core.service.registration.RegistrationService;
 
 
 @Stateless
@@ -27,7 +27,7 @@ public class TestRest {
 
 //	@Autowired(required=true)
 	@EJB
-	private AccountService accountService;
+	private RegistrationService accountService;
 	
 //	@Autowired
 //	private AccountDAO AccountDAO;
