@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core;
+package pl.edu.agh.soa.core.bean;
 
 /**
  * @author piotr

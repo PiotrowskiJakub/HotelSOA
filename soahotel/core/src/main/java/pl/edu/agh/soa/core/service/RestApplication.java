@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core;
+package pl.edu.agh.soa.core.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,10 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/core")
+import pl.edu.agh.soa.core.service.registration.implementation.AccountServiceImpl;
+import pl.edu.agh.soa.core.service.test.TestRest;
+
+@ApplicationPath("/")
 public class RestApplication extends Application {
 
 	@Override

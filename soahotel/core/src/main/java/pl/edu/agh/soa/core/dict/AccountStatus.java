@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core;
+package pl.edu.agh.soa.core.dict;
 
 public interface AccountStatus {
 	public static final String ACTIVE = "A";

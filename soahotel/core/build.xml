@@ -5,7 +5,7 @@
 
 	<target name="copy">
 		<copy todir="${deploy.path}/soahotelcore/deployments" overwrite="true">
-			<fileset file="${maven.repository}\repository\pl\edu\agh\soa\core\0.1\core-0.1.war"/>
+			<fileset file="${maven.repository}\repository\pl\edu\agh\soa\soahotel\core\0.1\core-0.1.war"/>
 		</copy>
 	</target>
 	

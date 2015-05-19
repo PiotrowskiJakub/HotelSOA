@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core;
+package pl.edu.agh.soa.core.service.registration.implementation;
 
 import java.util.List;
 
@@ -6,6 +6,11 @@ import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+
+import pl.edu.agh.soa.core.bean.Account;
+import pl.edu.agh.soa.core.dao.AccountDAO;
+import pl.edu.agh.soa.core.dao.implementation.AccountDAOImpl;
+import pl.edu.agh.soa.core.service.registration.AccountService;
 
 @Stateless
 @Path("app")
