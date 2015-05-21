@@ -10,13 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Jakub Piotrowski
+ *
+ */
 @Entity
 @Table(name="room")
+@SuppressWarnings("serial")
 public class Room implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="roo_id")

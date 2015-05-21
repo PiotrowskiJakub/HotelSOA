@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+
 /**
  * @author Piotr Konsek
  *
@@ -44,6 +46,7 @@ public class Account implements Serializable {
 	protected String lastName;
 
 	@Column(name = "acc_birth_date")
+	@Type(type="date")
 	@NotNull
 	protected Date birthDate;
 

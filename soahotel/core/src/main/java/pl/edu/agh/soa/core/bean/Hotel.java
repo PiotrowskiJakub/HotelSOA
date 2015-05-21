@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
-
 /**
  * @author Piotr Konsek
  *
@@ -36,8 +34,7 @@ public class Hotel implements Serializable {
 	@Column(name="hot_con_id")
 	private Contact contact;
 	
-	@Column(name="hot_avg_rate")
-	@Type(type="NUMERIC(1,2)")
+	@Column(name="hot_avg_rate", precision=1, scale=2)
 	private Double averageRate;
 
 	public long getId() {

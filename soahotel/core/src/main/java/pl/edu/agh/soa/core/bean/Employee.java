@@ -36,19 +36,17 @@ public class Employee extends Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name="hot_id")
-	@Column(name="emp_hotel_id")
+	@JoinColumn(name="emp_hot_id")
 	private Hotel hotel;
 	
 	//I can't inherit those objects.. and I don't figure out why
+	// Resolved - Jakub Piotrowski ;)
 	@OneToOne
-	@JoinColumn(name = "add_id")
-	@Column(name="acc_add_id")
+	@JoinColumn(name = "acc_add_id")
 	protected Address address;
 
 	@OneToOne
-	@JoinColumn(name = "con_id")
-	@Column(name="acc_con_id")
+	@JoinColumn(name = "acc_con_id")
 	protected Contact contact;
 
 }

@@ -14,27 +14,29 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+/**
+ * 
+ * @author Jakub Piotrowski
+ *
+ */
+@SuppressWarnings("serial")
 @Entity
-@Table(name="discount_types")
+@Table(name = "discount_types")
 public class DiscountType implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
-	@Column(name="dst_id")
+	@Column(name = "dst_id")
 	private Long id;
-	@Column(name="dst_name", length=50, nullable=false)
+	@Column(name = "dst_name", length = 50, nullable = false)
 	private String name;
-	@Column(name="dst_description", nullable=false)
+	@Column(name = "dst_description", nullable = false)
+	@Type(type="text")
 	private String description;
-	@Column(name="dst_price", nullable=false)
-	@Type(type="NUMERIC(7,2)")
+	@Column(name = "dst_price", nullable = false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany
+	@OneToMany(mappedBy="discountType")
 	private Set<Reservation> reservations = new HashSet<>(0);
-	
+
 	public DiscountType() {
 	}
 

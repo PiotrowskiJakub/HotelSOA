@@ -14,13 +14,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+/**
+ * 
+ * @author Jakub Piotrowski
+ *
+ */
+@SuppressWarnings("serial")
 @Entity
 @Table(name="additional_services_types")
 public class AdditionalServiceType implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="ast_id")
@@ -28,11 +30,11 @@ public class AdditionalServiceType implements Serializable {
 	@Column(name="ast_name", length=50, nullable=false)
 	private String name;
 	@Column(name="ast_description", nullable=false)
+	@Type(type="text")
 	private String description;
-	@Column(name="dst_price", nullable=false)
-	@Type(type="NUMERIC(7,2)")
+	@Column(name="dst_price", nullable=false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany
+	@OneToMany(mappedBy="serviceType")
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 
 	public AdditionalServiceType() {

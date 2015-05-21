@@ -16,14 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Jakub Piotrowski
+ *
+ */
+@SuppressWarnings("serial")
 @Entity
 @Table(name="reservation")
 public class Reservation implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue
 	@Column(name="res_id")
@@ -46,7 +47,7 @@ public class Reservation implements Serializable {
 	private Date endDate;
 	@Column(name="res_paid", nullable=false)
 	private Boolean paid = false;
-	@OneToMany
+	@OneToMany(mappedBy="reservation")
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 	
 	public Reservation() {

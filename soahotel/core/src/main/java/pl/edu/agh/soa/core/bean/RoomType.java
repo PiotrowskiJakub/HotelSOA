@@ -14,13 +14,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+/**
+ * 
+ * @author Jakub Piotrowsk
+ *
+ */
 @Entity
 @Table(name="room_types")
+@SuppressWarnings("serial")
 public class RoomType implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="rty_id")
@@ -28,11 +30,11 @@ public class RoomType implements Serializable {
 	@Column(name="rty_name", length=50, nullable=false)
 	private String name;
 	@Column(name="rty_description", nullable=false)
+	@Type(type="text")
 	private String description;
-	@Column(name="dst_price", nullable=false)
-	@Type(type="NUMERIC(7,2)")
+	@Column(name="dst_price", nullable=false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany
+	@OneToMany(mappedBy="roomType")
 	private Set<Room> rooms = new HashSet<>(0);
 	
 	public RoomType() {

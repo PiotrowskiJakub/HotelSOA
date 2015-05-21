@@ -13,6 +13,7 @@ import org.hibernate.annotations.Type;
  *
  */
 @Embeddable
+// TODO: Something wrong with this class, hibernate doesn't create a table
 public class Complaint implements Serializable {
 
 	/**
@@ -22,7 +23,7 @@ public class Complaint implements Serializable {
 	
 	@NotNull
 	@Column(name="com_description")
-	@Type(type="TEXT")
+	@Type(type="text")
 	private String description;
 
 	public String getDescription() {
