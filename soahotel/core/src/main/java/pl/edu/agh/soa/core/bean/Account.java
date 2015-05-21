@@ -57,12 +57,10 @@ public class Account implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "add_id")
-	@Column(name="acc_add_id")
 	protected Address address;
 
 	@OneToOne
 	@JoinColumn(name = "con_id")
-	@Column(name="acc_con_id")
 	protected Contact contact;
 
 	// permissions
