@@ -14,6 +14,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="additional_services")
 public class AdditionalService implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="ase_id")

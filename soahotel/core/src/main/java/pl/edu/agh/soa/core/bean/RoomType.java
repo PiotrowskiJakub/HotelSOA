@@ -17,6 +17,10 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="room_types")
 public class RoomType implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="rty_id")

@@ -17,6 +17,10 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="discount_types")
 public class DiscountType implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="dst_id")

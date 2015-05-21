@@ -17,6 +17,10 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="additional_services_types")
 public class AdditionalServiceType implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="ast_id")

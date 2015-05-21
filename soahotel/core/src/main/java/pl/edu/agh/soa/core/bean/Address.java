@@ -1,20 +1,62 @@
 package pl.edu.agh.soa.core.bean;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Piotr Konsek
  * 
  * class holds all address data
  */
-public class Address {
+@Entity
+public class Address implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="add_id")
+	private long id;
+	
+	@NotNull
+	@Column(name="add_street", length=50)
 	private String street;
-	private Integer houseNumber;
+	
+	@NotNull
+	@Column(name="add_house_number", length=10)
+	private String houseNumber;
+	
+	@Column(name="add_flat_number")
 	private Integer flatNumber;
+	
+	@NotNull
+	@Column(name="add_postal_code", length=5)
 	private String postalCode;
+	
+	@NotNull
+	@Column(name="add_city", length=50)
 	private String city;
+	
+	@Column(name="add_state", length=50)
 	private String state;
+	
+	@NotNull
+	@Column(name="add_country", length=50)
 	private String country;
+	
+	@Column(name="add_latitude")
 	private Double latitude;
+	
+	@Column(name="add_longitude")
 	private Double longitude;
 	
 	public String getStreet() {
@@ -23,10 +65,10 @@ public class Address {
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public Integer getHouseNumber() {
+	public String getHouseNumber() {
 		return houseNumber;
 	}
-	public void setHouseNumber(Integer houseNumber) {
+	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
 	}
 	public Integer getFlatNumber() {

@@ -8,93 +8,148 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Piotr Konsek
  *
- * class holds all accounts data with address and contact
+ *  class holds all accounts data with address and contact
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="ACCOUNT")
+@Table(name = "ACCOUNT")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Account implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ACCOUNT_ID")
-	private Long id;
-	
-	private String firstName;
-	private String lastName;
-	private Date birthDate;
-	private String accountType;
-	private String accountStatus;
-	
-//	@Embedded
-//	private Address address;
-//	
-//	@Embedded
-//	private Contact contact;
-	
-	//permissions
-	private Boolean newsletterPermission;
-	private Boolean regulaminAccepted;
-	
+	@Column(name = "acc_id")
+	protected Long id;
+
+	@Column(name = "acc_password")
+	@NotNull
+	protected String password;
+
+	@Column(name = "acc_first_name", length = 50)
+	@NotNull
+	protected String firstName;
+
+	@Column(name = "acc_last_name", length = 50)
+	@NotNull
+	protected String lastName;
+
+	@Column(name = "acc_birth_date")
+	@NotNull
+	protected Date birthDate;
+
+	@Column(name = "acc_type", length = 1)
+	@NotNull
+	protected String accountType;
+
+	@Column(name = "acc_status", length = 1)
+	@NotNull
+	protected String accountStatus;
+
+	@OneToOne
+	@JoinColumn(name = "add_id")
+	@Column(name="acc_add_id")
+	protected Address address;
+
+	@OneToOne
+	@JoinColumn(name = "con_id")
+	@Column(name="acc_con_id")
+	protected Contact contact;
+
+	// permissions
+
+	@Column(name = "acc_newsletter_perm")
+	protected Boolean newsletterPermission;
+
+	@Column(name = "acc_terms_accepted")
+	protected Boolean termsAccepted;
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public Date getBirthDate() {
 		return birthDate;
 	}
+
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+
 	public String getAccountType() {
 		return accountType;
 	}
+
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
+
 	public String getAccountStatus() {
 		return accountStatus;
 	}
+
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-//	public Address getAddress() {
-//		return address;
-//	}
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
-//	public Contact getContact() {
-//		return contact;
-//	}
-//	public void setContact(Contact contact) {
-//		this.contact = contact;
-//	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
 	public Boolean getNewsletterPermission() {
 		return newsletterPermission;
 	}
+
 	public void setNewsletterPermission(Boolean newsletterPermission) {
 		this.newsletterPermission = newsletterPermission;
 	}
+
 	public Boolean getRegulaminAccepted() {
-		return regulaminAccepted;
+		return termsAccepted;
 	}
+
 	public void setRegulaminAccepted(Boolean regulaminAccepted) {
-		this.regulaminAccepted = regulaminAccepted;
+		this.termsAccepted = regulaminAccepted;
 	}
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
