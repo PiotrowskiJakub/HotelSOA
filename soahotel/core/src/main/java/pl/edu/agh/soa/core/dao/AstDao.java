@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.test;
+package pl.edu.agh.soa.core.dao;
 
 import javax.ejb.Local;
 

@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.test;
+package pl.edu.agh.soa.core.dao.impl;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import pl.edu.agh.soa.core.bean.AdditionalServiceType;
+import pl.edu.agh.soa.core.dao.AstDao;
 
 @Local(value=AstDao.class)
 @Stateless

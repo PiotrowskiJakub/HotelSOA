@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.dict.AccountType;
-import pl.edu.agh.soa.core.service.registration.RegistrationService;
+import pl.edu.agh.soa.core.service.RegistrationService;
 
 
 @Stateless

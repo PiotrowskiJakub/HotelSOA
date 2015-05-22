@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.registration.api;
+package pl.edu.agh.soa.core.service.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +7,13 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import pl.edu.agh.soa.core.bean.Account;
-import pl.edu.agh.soa.core.service.registration.RegistrationService;
+import pl.edu.agh.soa.core.service.RegistrationService;
 
 @Stateless
 @Path("registration")
@@ -23,18 +23,11 @@ public class RegisterWS{
 	RegistrationService registrationService;
 
 //	@Override
-	@POST
+	@PUT
 	@Path("account")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addAccount(Account account) {
 		registrationService.addAccount(account);
-	}
-	
-	@GET
-	@Path("test")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String test(){
-		return "test";
 	}
 
 //	@Override
@@ -64,6 +57,12 @@ public class RegisterWS{
 	public void removeAccount(Integer id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+//	@Override
+	public String test() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
