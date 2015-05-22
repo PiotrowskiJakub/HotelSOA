@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import pl.edu.agh.soa.core.service.registration.api.RegisterWS;
+import pl.edu.agh.soa.core.service.test.AstRest;
 import pl.edu.agh.soa.core.service.test.TestRest;
 
 @ApplicationPath("/")
@@ -17,6 +18,7 @@ public class RestApplication extends Application {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(TestRest.class);
 		classes.add(RegisterWS.class);
+		classes.add(AstRest.class);
 		return classes;
 	}
 	

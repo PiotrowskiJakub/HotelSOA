@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.core.service.test;
 
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -33,23 +35,20 @@ public class TestRest {
 //	private AccountDAO AccountDAO;
 	
 	@GET
-//	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/test")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getUser(){
 		account = new Account();
+		account.setPassword("pass");
+		account.setBirthDate(new Date());
 		account.setAccountStatus(AccountStatus.INACTIVE);
 		account.setAccountType(AccountType.EMPLOYEE);
 		account.setFirstName("Piotr");
 		account.setLastName("Konsek");
 		
-//		AccountService accountService = new AccountService();
-//		accountService.setAccountDAO(AccountDAO);
 		accountService.addAccount(account);
 		
-//		user.setAge(22);
 		return "This is rest test ;)";
-//		return user;
 	}
 	
 //	@RequestMapping(method = RequestMethod.PUT )
