@@ -1,7 +1,5 @@
-<jsp:include page="header.jsp"/>
-<body>
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -18,30 +16,11 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="registration">About</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="registration">Registration</a></li>
+				<li><a href="#">LogIn</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container --> </nav>
-
-	<!-- Page Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<h1>Logo Nav by Start Bootstrap</h1>
-				<p>Note: You may need to adjust some CSS based on the size of
-					your logo. The default logo size is 150x50 pixels.</p>
-			</div>
-		</div>
-	</div>
 	<!-- /.container -->
-	<!-- jQuery -->
-<script src="js/jquery.js"/>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"/>
-</body>
-</html>
+</nav>

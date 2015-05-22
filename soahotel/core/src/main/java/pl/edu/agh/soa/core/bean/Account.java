@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -58,12 +59,12 @@ public class Account implements Serializable {
 	@NotNull
 	protected String accountStatus;
 
-	@OneToOne
-	@JoinColumn(name = "add_id")
+	@ManyToOne
+	@JoinColumn(name = "acc_add_id")
 	protected Address address;
 
 	@OneToOne
-	@JoinColumn(name = "con_id")
+	@JoinColumn(name = "acc_con_id")
 	protected Contact contact;
 
 	// permissions
