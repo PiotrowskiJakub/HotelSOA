@@ -13,7 +13,7 @@ http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<context:component-scan base-package="pl.edu.agh.soa.ba" />
-	<!-- <mvc:resources mapping="/**" location="/WEB-INF/resources/" /> -->
+	<mvc:resources mapping="/**" location="/WEB-INF/resources/" />
 	<mvc:annotation-driven />
 
 	<bean id="viewResolver"
