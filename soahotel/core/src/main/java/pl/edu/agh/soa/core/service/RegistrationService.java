@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.registration;
+package pl.edu.agh.soa.core.service;
 
 import java.util.List;
 

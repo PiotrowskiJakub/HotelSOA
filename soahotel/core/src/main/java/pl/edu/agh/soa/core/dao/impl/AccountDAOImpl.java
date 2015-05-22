@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.dao.implementation;
+package pl.edu.agh.soa.core.dao.impl;
 
 import java.util.List;
 

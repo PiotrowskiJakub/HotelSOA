@@ -6,8 +6,8 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import pl.edu.agh.soa.core.service.registration.api.RegisterWS;
-import pl.edu.agh.soa.core.service.test.AstRest;
+import pl.edu.agh.soa.core.service.rest.AstRest;
+import pl.edu.agh.soa.core.service.rest.RegisterWS;
 import pl.edu.agh.soa.core.service.test.TestRest;
 
 @ApplicationPath("/")

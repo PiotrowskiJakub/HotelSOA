@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.test;
+package pl.edu.agh.soa.core.service.rest;
 
 import java.math.BigDecimal;
 
@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import pl.edu.agh.soa.core.bean.AdditionalServiceType;
+import pl.edu.agh.soa.core.service.AstService;
 
 @Stateless
 @Path("ast")

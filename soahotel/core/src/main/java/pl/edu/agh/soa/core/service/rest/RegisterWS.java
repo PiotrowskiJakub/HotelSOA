@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.registration.api;
+package pl.edu.agh.soa.core.service.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import pl.edu.agh.soa.core.bean.Account;
-import pl.edu.agh.soa.core.service.registration.RegistrationService;
+import pl.edu.agh.soa.core.service.RegistrationService;
 
 @Stateless
 @Path("registration")

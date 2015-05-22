@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.service.registration.implementation;
+package pl.edu.agh.soa.core.service.impl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.ws.rs.GET;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dao.AccountDAO;
-import pl.edu.agh.soa.core.service.registration.RegistrationService;
+import pl.edu.agh.soa.core.service.RegistrationService;
 
 @Stateless
 public class RegistrationServiceImpl implements RegistrationService {
