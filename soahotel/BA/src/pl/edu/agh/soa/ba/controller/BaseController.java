@@ -41,5 +41,13 @@ public abstract class BaseController {
 			e.printStackTrace();
 		}	
 	}
+	
+	protected void post(String url, Object request) {
+		try{
+			restTemplate.postForLocation(url, request);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+		}	
+	}
 
 }

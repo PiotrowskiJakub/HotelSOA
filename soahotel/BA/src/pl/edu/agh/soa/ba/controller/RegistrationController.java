@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.ba.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.edu.agh.soa.core.bean.Account;
+import pl.edu.agh.soa.core.dict.AccountType;
 
 /**
  * @author Piotr Konsek
@@ -27,8 +30,10 @@ public class RegistrationController extends BaseController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String create(@Valid @ModelAttribute("account") Account account){
-		System.out.println("dupa");
-		put("http://localhost:8082/core-0.1/registration/account", account);
+		account.setAccountType(AccountType.EMPLOYEE);
+		account.setBirthDate(new Date());
+		account.getAddress().setPostalCode(account.getAddress().getPostalCode().replace("-", ""));
+		post("http://localhost:8082/core-0.1/registration/account", account);
 		return "registration";
 	}
 }
