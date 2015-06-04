@@ -2,8 +2,11 @@ package pl.edu.agh.soa.core.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import pl.edu.agh.soa.core.bean.Account;
 
+@Local
 public interface AccountDAO {
 	public void addAccount(Account account);
 	public void updateAccount(Account account);

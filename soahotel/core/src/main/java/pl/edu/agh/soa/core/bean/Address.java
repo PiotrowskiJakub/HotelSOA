@@ -59,6 +59,9 @@ public class Address implements Serializable {
 	@Column(name="add_longitude")
 	private Double longitude;
 	
+//	@OneToMany(mappedBy="address", cascade=CascadeType.ALL)
+//	private Set<Account> accounts = new HashSet<Account>(0);
+	
 	public String getStreet() {
 		return street;
 	}
@@ -113,4 +116,10 @@ public class Address implements Serializable {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
+//	public Set<Account> getAccounts() {
+//		return accounts;
+//	}
+//	public void setAccounts(Set<Account> accounts) {
+//		this.accounts = accounts;
+//	}
 }

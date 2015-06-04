@@ -12,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import pl.edu.agh.soa.core.bean.Account;
+import pl.edu.agh.soa.core.bean.Address;
+import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.dict.AccountType;
 import pl.edu.agh.soa.core.service.RegistrationService;
@@ -45,7 +47,21 @@ public class TestRest {
 		account.setAccountType(AccountType.EMPLOYEE);
 		account.setFirstName("Piotr");
 		account.setLastName("Konsek");
+		Address address = new Address();
+		address.setCity("City");
+		address.setCountry("Country");
+		address.setFlatNumber(11);
+		address.setState("State");
+		address.setStreet("Street");
+		address.setPostalCode("44200");
+		address.setHouseNumber("5");
 		
+		Contact contact = new Contact();
+		contact.setMail("mail@gmail.com");
+		contact.setPhone("663355925");
+		
+		account.setAddress(address);
+		account.setContact(contact);
 		accountService.addAccount(account);
 		
 		return "This is rest test ;)";

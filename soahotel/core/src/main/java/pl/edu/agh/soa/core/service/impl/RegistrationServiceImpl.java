@@ -2,19 +2,19 @@ package pl.edu.agh.soa.core.service.impl;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dao.AccountDAO;
+import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.service.RegistrationService;
 
 @Stateless
 public class RegistrationServiceImpl implements RegistrationService {
 
-	@Inject
+	@EJB
 	private AccountDAO accountDAO;
 	
 	public void setAccountDAO(AccountDAO accountDAO){
@@ -22,8 +22,11 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 	
 	@Override
-	@Transactional
 	public void addAccount(Account account) {
+//		TODO
+		//every new account is inactive, until mail confirmation
+//		account.setAccountStatus(AccountStatus.INACTIVE);
+		account.setAccountStatus(AccountStatus.ACTIVE);
 		this.accountDAO.addAccount(account);
 	}
 

@@ -3,6 +3,7 @@ package pl.edu.agh.soa.core.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,12 +60,13 @@ public class Account implements Serializable {
 	@NotNull
 	protected String accountStatus;
 
-	@ManyToOne
-	@JoinColumn(name = "acc_add_id")
+	
+	@JoinColumn(name = "acc_add_id", nullable=false)
+	@ManyToOne(cascade = CascadeType.ALL)
 	protected Address address;
 
-	@OneToOne
-	@JoinColumn(name = "acc_con_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "acc_con_id", nullable=false)
 	protected Contact contact;
 
 	// permissions
