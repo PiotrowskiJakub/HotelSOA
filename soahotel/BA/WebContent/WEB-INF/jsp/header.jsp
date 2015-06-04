@@ -12,7 +12,8 @@
 <title>Hotel BA</title>
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/logo-nav.css" rel="stylesheet" />
 
 <!-- Custom CSS -->
-<link href="css/logo-nav.css" rel="stylesheet" />
+<link href="css/main.css" rel="stylesheet" />
 </head>

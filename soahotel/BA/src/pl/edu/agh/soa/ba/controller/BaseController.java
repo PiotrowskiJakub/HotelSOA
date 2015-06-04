@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.ba.controller;
 
+import javax.ws.rs.core.Response;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,12 +44,14 @@ public abstract class BaseController {
 		}	
 	}
 	
-	protected void post(String url, Object request) {
+	protected Response post(String url, Object request) {
+		Response response = null;
 		try{
-			restTemplate.postForLocation(url, request);
+			response = restTemplate.postForObject(url, request, Response.class);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 		}	
+		return response;
 	}
 
 }

@@ -13,4 +13,5 @@ public interface AccountDAO {
 	public List<Account> listAccount();
 	public Account getAccount(Integer id);
 	public void removeAccount(Integer id);
+	public List<Account> getAllAccount();
 }

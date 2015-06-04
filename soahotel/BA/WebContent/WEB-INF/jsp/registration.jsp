@@ -10,7 +10,8 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1>Registration</h1>
-				<form:form action="create" method="POST" modelAttribute="account">
+				<form:form action="create" method="POST" modelAttribute="form">
+				<form:errors path="*" cssClass="errorBlock" element="div"/>
 					<div class="section">
 						<div class="sectionLabel">Basic information</div>
 						<div class="input">
@@ -35,6 +36,14 @@
 							</div>
 							<div class="value">
 								<form:password path="password" />
+							</div>
+						</div>
+						<div class="input">
+							<div class="formLabel">
+								<spring:message code="label.confirmation_password" />
+							</div>
+							<div class="value">
+								<form:password path="confirmationPassword" />
 							</div>
 						</div>
 						<%-- <div class="input">
@@ -138,6 +147,14 @@
 							</div>
 							<div class="value">
 								<form:checkbox path="contact.smsPermission" />
+							</div>
+						</div>
+						<div class="input">
+							<div class="formLabel">
+								<spring:message code="label.regulamin_accepted" />
+							</div>
+							<div class="value">
+								<form:checkbox path="regulaminAccepted" />
 							</div>
 						</div>
 						<%-- <div class="input">

@@ -33,7 +33,6 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addAccount(Account account) {
-	
 		em.persist(account);
 		logger.info("Account saved successfully, AccountDetails = " + account);
 	}
@@ -60,6 +59,13 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	public void removeAccount(Integer id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Account> getAllAccount() {
+		logger.info("Listing all accounts");
+		return em.createNativeQuery("select * from soahotel.account").getResultList();
 	}
 
 }

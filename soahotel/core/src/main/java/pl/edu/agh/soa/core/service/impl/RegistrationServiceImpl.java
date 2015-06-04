@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dao.AccountDAO;
@@ -53,12 +52,16 @@ public class RegistrationServiceImpl implements RegistrationService {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public List<Account> getAccountList() {
+		return this.accountDAO.getAllAccount();
+	}
 
 	@Override
-	@GET
 	public String test() {
 		// TODO Auto-generated method stub
-		return "dupa";
+		return null;
 	}
 
 }

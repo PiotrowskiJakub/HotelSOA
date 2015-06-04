@@ -14,4 +14,5 @@ public interface RegistrationService {
 	public Account getAccount(Integer id);
 	public void removeAccount(Integer id);
 	public String test();
+	public List<Account> getAccountList();
 }
