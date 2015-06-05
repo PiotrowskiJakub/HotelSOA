@@ -1,6 +1,5 @@
 package pl.edu.agh.soa.core.service.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;

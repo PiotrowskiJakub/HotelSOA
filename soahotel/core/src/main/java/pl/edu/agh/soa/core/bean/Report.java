@@ -32,9 +32,9 @@ public class Report implements Serializable {
 	@ManyToOne
 	private ReportType reportType;
 	
-	@JoinColumn(name = "rep_emp_id")
-	@ManyToOne
-	private Employee employeeId;
+//	@JoinColumn(name = "rep_emp_id")
+//	@ManyToOne
+//	private Employee employeeId;
 	
 	@Column(name= "rep_document")
 	private byte [] document;
@@ -48,12 +48,12 @@ public class Report implements Serializable {
 	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
-	public Employee getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
-	}
+//	public Employee getEmployeeId() {
+//		return employeeId;
+//	}
+//	public void setEmployeeId(Employee employeeId) {
+//		this.employeeId = employeeId;
+//	}
 	public byte[] getReport() {
 		return document;
 	}

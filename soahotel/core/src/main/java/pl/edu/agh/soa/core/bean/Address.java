@@ -1,12 +1,16 @@
 package pl.edu.agh.soa.core.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -59,8 +63,8 @@ public class Address implements Serializable {
 	@Column(name="add_longitude")
 	private Double longitude;
 	
-//	@OneToMany(mappedBy="address", cascade=CascadeType.ALL)
-//	private Set<Account> accounts = new HashSet<Account>(0);
+	@OneToMany(mappedBy="address", cascade=CascadeType.ALL)
+	private Set<Account> accounts = new HashSet<Account>(0);
 	
 	public String getStreet() {
 		return street;
@@ -116,10 +120,10 @@ public class Address implements Serializable {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-//	public Set<Account> getAccounts() {
-//		return accounts;
-//	}
-//	public void setAccounts(Set<Account> accounts) {
-//		this.accounts = accounts;
-//	}
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
 }

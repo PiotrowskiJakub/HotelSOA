@@ -14,4 +14,5 @@ public interface AccountDAO {
 	public Account getAccount(Integer id);
 	public void removeAccount(Integer id);
 	public List<Account> getAllAccount();
+	public Account getAccount(String mail);
 }

@@ -6,11 +6,10 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -27,7 +26,7 @@ import org.hibernate.annotations.Type;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "ACCOUNT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Account implements Serializable {
 
 	@Id
@@ -62,10 +61,10 @@ public class Account implements Serializable {
 
 	
 	@JoinColumn(name = "acc_add_id", nullable=false)
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	protected Address address;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	@JoinColumn(name = "acc_con_id", nullable=false)
 	protected Contact contact;
 
