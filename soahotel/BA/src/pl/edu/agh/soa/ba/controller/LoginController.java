@@ -1,7 +1,5 @@
 package pl.edu.agh.soa.ba.controller;
 
-import java.util.Date;
-
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -14,38 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.edu.agh.soa.ba.form.RegistrationForm;
-import pl.edu.agh.soa.core.dict.AccountType;
+import pl.edu.agh.soa.ba.form.LoginForm;
 
-/**
- * @author Piotr Konsek
- * registration controller
- */
 @Controller
-public class RegistrationController extends BaseController {
+public class LoginController extends BaseController {
 
-	@RequestMapping(value="/registration", method = RequestMethod.GET)
+	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView loadInitialModel(){
-		ModelAndView modelAndView = new ModelAndView("registration");
-		modelAndView.addObject("form", new RegistrationForm());
+		ModelAndView modelAndView = new ModelAndView("login");
+		modelAndView.addObject("form", new LoginForm());
 		return modelAndView;
-	}	
+	}
 	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String create(@Valid @ModelAttribute("form") RegistrationForm registrationForm, BindingResult result){
-		registrationForm.setAccountType(AccountType.EMPLOYEE);
-		registrationForm.setBirthDate(new Date());
-		registrationForm.getAddress().setPostalCode(registrationForm.getAddress().getPostalCode().replace("-", ""));
-		ResponseEntity<String> response = post(BASE_URL + "/registration/account", registrationForm.getAccount());
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public String login(@Valid @ModelAttribute("form") LoginForm form, BindingResult result){
+		if(result.hasErrors())
+			return "login";
+		
+		ResponseEntity<String> response = post(BASE_URL + "/login/in/" + form.getMail() + "/" + form.getPassword() , null);
+		
 		if(response == null )
 			result.addError(new ObjectError("Core connection", "Oops, something wrong happend, please try later"));
 		else
 			if(response.getStatusCode() != HttpStatus.OK)
 				result.addError(new ObjectError("Server error", (String) response.getBody()));
 		if(result.hasErrors())
-			return "registration";
-		else
 			return "login";
+		else
+			return "home";
 		
 	}
 }

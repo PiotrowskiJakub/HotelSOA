@@ -17,7 +17,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="registration">Registration</a></li>
-				<li><a href="#">LogIn</a></li>
+				<li><a href="login">LogIn</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

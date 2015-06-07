@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 /**
@@ -67,6 +69,11 @@ public class Account implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	@JoinColumn(name = "acc_con_id", nullable=false)
 	protected Contact contact;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="acc_hot_id")
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Hotel hotel;
 
 	// permissions
 
@@ -154,5 +161,13 @@ public class Account implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 }
