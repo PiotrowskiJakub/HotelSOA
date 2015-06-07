@@ -29,7 +29,7 @@ public class LoginWS {
 		HttpSession session = request.getSession();
 		Account account = accountDao.getAccount(mail);
 		if(account == null)
-			return Response.status(Response.Status.NOT_FOUND.getStatusCode()).entity("There is no user with this login!").build();
+			return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).entity("There is no user with this login!").build();
 		if(!account.getPassword().equals(password))
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).entity("Wrong password").build();
 		session.setAttribute("LOGIN", "OK");
