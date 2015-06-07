@@ -1,50 +1,65 @@
 package pl.edu.agh.soa.core.service.rest;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.service.ReservationService;
 
+import java.util.List;
+
 @Stateless
 @Path("/reservation")
-public class ReservationWS implements ReservationService {
+public class ReservationWS {
 
-	@Override
-	public Response getReservation(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+	@EJB
+	ReservationService reservationService;
+
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReservation(@QueryParam("id") Long id) {
+		Reservation reservation = reservationService.getReservation(id);
+		return Response.ok(reservation, MediaType.APPLICATION_JSON).build();
 	}
 
-	@Override
-	public Response getReservations(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	@GET
+	@Path("/client/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReservations(@QueryParam("id") Long id) {
+		List<Reservation> reservationList = reservationService.getReservations(id);
+		return Response.ok(reservationList,  MediaType.APPLICATION_JSON).build();
 	}
 
-	@Override
 	public Response getTermins(Integer year) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createReservation(Reservation reservation) {
-		// TODO Auto-generated method stub
-		return null;
+		reservationService.createReservation(reservation);
+		return Response.ok().build();
 	}
 
-	@Override
+	@PUT
+	@Path("/")
 	public Response updateReservation(Reservation reservation) {
-		// TODO Auto-generated method stub
-		return null;
+		reservationService.updateReservation(reservation);
+		return Response.ok().build();
 	}
 
-	@Override
-	public Response reservationDelete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	@DELETE
+	@Path("/{id}")
+	public Response reservationDelete(@QueryParam("id") Long id) {
+		reservationService.reservationDelete(id);
+		return Response.ok().build();
 	}
 	
 }
