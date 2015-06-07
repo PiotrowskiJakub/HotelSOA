@@ -37,11 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
 		return this.reservationDAO.getReservations(id);
 	}
 
-	@Override
-	public List<Pair<Date, Date>> getTermins(Integer year) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Pair<Date, Date>> getTermins(Integer year) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public void createReservation(Reservation reservation) {

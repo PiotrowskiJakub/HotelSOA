@@ -31,7 +31,7 @@ public interface ReservationService {
 	 * @param year
 	 * @return 200 and list of free termins
 	 */
-	public List<Pair<Date,Date>> getTermins(Integer year);
+	//public List<Pair<Date,Date>> getTermins(Integer year);
 		
 	//POST
 	/**
