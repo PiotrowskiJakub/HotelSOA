@@ -13,12 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author Piotr Konsek
  * 
  * class holds all address data
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address implements Serializable {
 	
 	/**
@@ -63,6 +68,7 @@ public class Address implements Serializable {
 	@Column(name="add_longitude")
 	private Double longitude;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="address", cascade=CascadeType.ALL)
 	private Set<Account> accounts = new HashSet<Account>(0);
 	
