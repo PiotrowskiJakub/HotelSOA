@@ -1,9 +1,11 @@
 package pl.edu.agh.soa.core.service.rest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,7 +33,7 @@ public class LoginWS {
 	@Produces(MediaType.APPLICATION_JSON)	
 	@Path("/in/{mail}/{password}")
 	public Response login(@PathParam("mail") String mail, @PathParam("password") String password, @Context HttpServletRequest request){
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 		Account account = accountDao.getAccount(mail);
 		if(account == null)
 			return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).entity("There is no user with this login!").build();
@@ -39,7 +41,11 @@ public class LoginWS {
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).entity("Wrong password").build();
 //		session.setAttribute("LOGIN", "OK");
 		Token token = loginService.createToken();
-		return Response.ok().entity(token.getToken()).entity(account).build();
+		
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		responseMap.put("token", token.getToken());
+		responseMap.put("account", account);
+		return Response.ok().entity(responseMap).build();
 	}
 	
 	@POST
