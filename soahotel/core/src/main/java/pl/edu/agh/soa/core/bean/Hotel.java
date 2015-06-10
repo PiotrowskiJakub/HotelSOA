@@ -36,13 +36,35 @@ public class Hotel implements Serializable {
 	
 	@Column(name="hot_avg_rate", precision=1, scale=2)
 	private Double averageRate;
+	
+	@Column(name="hot_name", length=255)
+	private String name;
 
+	@Column(name="hot_desc", length=1000)
+	private String desc;
+	
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public Address getAddress() {

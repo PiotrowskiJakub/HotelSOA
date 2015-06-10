@@ -17,45 +17,20 @@
 						<div class="sectionLabel">Basic information</div>
 						<div class="input">
 							<div class="formLabel">
-								<spring:message code="label.first_name" />
+								<spring:message code="label.hotel_name" />
 							</div>
 							<div class="value">
-								<form:input path="firstName" />
+								<form:input path="name" />
 							</div>
 						</div>
 						<div class="input">
 							<div class="formLabel">
-								<spring:message code="label.last_name" />
+								<spring:message code="label.hotel_desc" />
 							</div>
 							<div class="value">
-								<form:input path="lastName" />
+								<form:input path="desc" />
 							</div>
 						</div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.password" />
-							</div>
-							<div class="value">
-								<form:password path="password" />
-							</div>
-						</div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.confirmation_password" />
-							</div>
-							<div class="value">
-								<form:password path="confirmationPassword" />
-							</div>
-						</div>
-						<%-- <div class="input">
-							<div class="formLabel">
-								<spring:message code="label.birth_date" />
-							</div>
-							<div class="value">
-								<form:input path="birthDate" />
-							</div>
-						</div> --%>
-					</div>
 					
 					<div class="section">
 						<div class="sectionLabel"><spring:message code="label.address"/></div>
@@ -126,44 +101,6 @@
 							</div>
 							<div class="value">
 								<form:input path="contact.fax" />
-							</div>
-						</div> --%>
-					</div>
-					
-					<!-- Permissions -->
-					
-					<div class="section">
-						<div class="sectionLabel"><spring:message code="label.permissions"/></div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.mail_permission" />
-							</div>
-							<div class="value">
-								<form:checkbox  path="contact.mailPermission" />
-							</div>
-						</div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.sms_permission" />
-							</div>
-							<div class="value">
-								<form:checkbox path="contact.smsPermission" />
-							</div>
-						</div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.regulamin_accepted" />
-							</div>
-							<div class="value">
-								<form:checkbox path="regulaminAccepted" />
-							</div>
-						</div>
-						<%-- <div class="input">
-							<div class="formLabel">
-								<spring:message code="label.fax_permission" />
-							</div>
-							<div class="value">
-								<form:checkbox path="contact.faxPermission" />
 							</div>
 						</div> --%>
 					</div>

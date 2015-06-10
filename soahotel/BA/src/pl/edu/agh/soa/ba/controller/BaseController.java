@@ -2,13 +2,10 @@ package pl.edu.agh.soa.ba.controller;
 
 import java.io.IOException;
 
-import javax.xml.ws.BindingProvider;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.DefaultResponseErrorHandler;
@@ -56,12 +53,15 @@ public abstract class BaseController {
 			restTemplate.put(url, request);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
-//				String responseString = e.getResponseBodyAsString();
-//				ObjectMapper mapper = new ObjectMapper();
-//				String result = mapper.readValue(responseString, String.class);
 		}	
 	}
 
+	/**
+	 *  post for entity
+	 * @param url
+	 * @param request
+	 * @return
+	 */
 	protected ResponseEntity<String> post(String url, Object request) {
 		ResponseEntity<String> response = null;
 		try{
