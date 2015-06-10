@@ -5,13 +5,14 @@
 
 
 	<jsp:include page="menu.jsp" />
+	<jsp:include page="hotel_links.jsp"/>
 
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1>Registration</h1>
-				<form:form action="create" method="POST" modelAttribute="form">
+				<h1>Create hotel</h1>
+				<form:form action="createHotel" method="POST" modelAttribute="form">
 				<form:errors path="*" cssClass="errorBlock" element="div"/>
 					<div class="section">
 						<div class="sectionLabel">Basic information</div>
@@ -39,7 +40,7 @@
 								<spring:message code="label.street" />
 							</div>
 							<div class="value">
-								<form:input path="address.street" />
+								<form:input path="street" />
 							</div>
 						</div>
 						<div class="input">
@@ -47,7 +48,7 @@
 								<spring:message code="label.house_number" />
 							</div>
 							<div class="value">
-								<form:input path="address.houseNumber" />
+								<form:input path="houseNumber" />
 							</div>
 						</div>
 						<div class="input">
@@ -55,7 +56,7 @@
 								<spring:message code="label.country" />
 							</div>
 							<div class="value">
-								<form:input path="address.country" />
+								<form:input path="country" />
 							</div>
 						</div>
 						<div class="input">
@@ -63,7 +64,7 @@
 								<spring:message code="label.postal_code" />
 							</div>
 							<div class="value">
-								<form:input path="address.postalCode" />
+								<form:input path="postalCode" />
 							</div>
 						</div>
 						<div class="input">
@@ -71,7 +72,7 @@
 								<spring:message code="label.city" />
 							</div>
 							<div class="value">
-								<form:input path="address.city" />
+								<form:input path="city" />
 							</div>
 						</div>
 					</div>
@@ -84,7 +85,7 @@
 								<spring:message code="label.phone_number" />
 							</div>
 							<div class="value">
-								<form:input path="contact.phone" />
+								<form:input path="phone" />
 							</div>
 						</div>
 						<div class="input">
@@ -92,17 +93,9 @@
 								<spring:message code="label.mail" />
 							</div>
 							<div class="value">
-								<form:input path="contact.mail" />
+								<form:input path="mail" />
 							</div>
 						</div>
-						<%-- <div class="input">
-							<div class="formLabel">
-								<spring:message code="label.fax" />
-							</div>
-							<div class="value">
-								<form:input path="contact.fax" />
-							</div>
-						</div> --%>
 					</div>
 					
 					<!-- Submit  -->

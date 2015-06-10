@@ -4,11 +4,113 @@ import pl.edu.agh.soa.core.bean.Address;
 import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.bean.Hotel;
 
+/**
+ * @author Agnieszka Szczurek
+ *
+ */
 public class CreateHotelForm {
 	private Hotel hotel;
+	private Address address;
+	private Contact contact;
 	
-	
-	
+	public CreateHotelForm(){
+		hotel = new Hotel();
+		address = new Address();
+		contact = new Contact();
+	}
+
+	public String getCity() {
+		return address.getCity();
+	}
+
+	public String getCountry() {
+		return address.getCountry();
+	}
+
+	public Integer getFlatNumber() {
+		return address.getFlatNumber();
+	}
+
+	public String getHouseNumber() {
+		return address.getHouseNumber();
+	}
+
+	public Double getLatitude() {
+		return address.getLatitude();
+	}
+
+	public Double getLongitude() {
+		return address.getLongitude();
+	}
+
+	public String getPostalCode() {
+		return address.getPostalCode();
+	}
+
+	public String getState() {
+		return address.getState();
+	}
+
+	public String getStreet() {
+		return address.getStreet();
+	}
+
+	public void setCity(String city) {
+		address.setCity(city);
+	}
+
+	public void setCountry(String country) {
+		address.setCountry(country);
+	}
+
+	public void setFlatNumber(Integer flatNumber) {
+		address.setFlatNumber(flatNumber);
+	}
+
+	public void setHouseNumber(String houseNumber) {
+		address.setHouseNumber(houseNumber);
+	}
+
+	public void setLatitude(Double latitude) {
+		address.setLatitude(latitude);
+	}
+
+	public void setLongitude(Double longitude) {
+		address.setLongitude(longitude);
+	}
+
+	public void setPostalCode(String postalCode) {
+		address.setPostalCode(postalCode);
+	}
+
+	public void setState(String state) {
+		address.setState(state);
+	}
+
+	public void setStreet(String street) {
+		address.setStreet(street);
+	}
+
+	public String getMail() {
+		return contact.getMail();
+	}
+
+	public Boolean getMailPermission() {
+		return contact.getMailPermission();
+	}
+
+	public String getPhone() {
+		return contact.getPhone();
+	}
+
+	public void setMail(String mail) {
+		contact.setMail(mail);
+	}
+
+	public void setPhone(String phone) {
+		contact.setPhone(phone);
+	}
+
 	public String getDesc() {
 		return hotel.getDesc();
 	}
@@ -26,7 +128,7 @@ public class CreateHotelForm {
 	}
 
 	public Address getAddress() {
-		return hotel.getAddress();
+		return address;
 	}
 
 	public Double getAverageRate() {
@@ -34,11 +136,11 @@ public class CreateHotelForm {
 	}
 
 	public Contact getContact() {
-		return hotel.getContact();
+		return contact;
 	}
 
 	public void setAddress(Address address) {
-		hotel.setAddress(address);
+		this.address = address;
 	}
 
 	public void setAverageRate(Double averageRate) {
@@ -46,7 +148,7 @@ public class CreateHotelForm {
 	}
 
 	public void setContact(Contact contact) {
-		hotel.setContact(contact);
+		this.contact = contact;
 	}
 
 	public Hotel getHotel() {

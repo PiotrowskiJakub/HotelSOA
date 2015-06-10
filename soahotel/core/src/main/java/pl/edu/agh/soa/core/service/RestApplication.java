@@ -7,6 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import pl.edu.agh.soa.core.service.rest.AstRest;
+import pl.edu.agh.soa.core.service.rest.HotelWS;
 import pl.edu.agh.soa.core.service.rest.LoginWS;
 import pl.edu.agh.soa.core.service.rest.RegisterWS;
 import pl.edu.agh.soa.core.service.test.TestRest;
@@ -21,6 +22,7 @@ public class RestApplication extends Application {
 		classes.add(RegisterWS.class);
 		classes.add(AstRest.class);
 		classes.add(LoginWS.class);
+		classes.add(HotelWS.class);
 		return classes;
 	}
 	
