@@ -2,11 +2,13 @@ package pl.edu.agh.soa.core.service;
 
 import pl.edu.agh.soa.core.bean.Payment;
 
+import javax.ejb.Remote;
 import java.util.List;
 
 /**
  * Created by Ala Czyz.
  */
+@Remote
 public interface PaymentManageService {
     List<Payment> getPaymentsList(Long userId);
     List<Payment> getUnpaidPaymentsList(Long userId);

@@ -50,6 +50,10 @@ public class Payment  implements Serializable{
     @Column(name="pay_due_date", nullable=false)
     private Date  dueDate;
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Column(name="pay_status", nullable=false)
     Status status = Status.UNPAID;
 
