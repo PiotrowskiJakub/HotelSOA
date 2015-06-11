@@ -2,6 +2,7 @@ package pl.edu.agh.soa.ba.controller;
 
 import java.io.IOException;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,12 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public abstract class BaseController {
 	private RestTemplate restTemplate;
+	ObjectMapper objectMapper;
 
 	public static final String BASE_URL = "http://localhost:8082/core-0.1";
 
 	public BaseController() {
+		objectMapper = new ObjectMapper();
 		restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 				restTemplate.setErrorHandler(new DefaultResponseErrorHandler(){

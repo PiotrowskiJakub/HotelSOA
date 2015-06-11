@@ -48,4 +48,19 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.listRoom(id);
 	}
 
+	@Override
+	public Hotel getHotelById(Long id) {
+		return hotelDao.getHotelById(id);
+	}
+
+	@Override
+	public List<RoomType> getRoomTypes() {
+		return hotelDao.getRoomTypes();
+	}
+
+	@Override
+	public RoomType getRoomTypeById(Long id) {
+		return hotelDao.getRoomById(id);
+	}
+
 }

@@ -32,6 +32,17 @@ public class HotelWS {
 		hotelService.createHotel(hotel);
 		return Response.ok().build();
 	}
+	
+	@GET
+	@Path("/hotel/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getHotelById(@PathParam("id") String id){
+		Hotel hotel = hotelService.getHotelById(Long.parseLong(id));
+		if(hotel == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+		else
+			return Response.ok(hotel, MediaType.APPLICATION_JSON).build();	
+	}
 
 	@GET
 	@Path("/hotels")
@@ -62,5 +73,27 @@ public class HotelWS {
 	public Response createRoomType(RoomType roomType){
 		hotelService.addRoomType(roomType);
 		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("/roomType/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRoomType(@PathParam("id") String id){
+		RoomType roomType = hotelService.getRoomTypeById(Long.parseLong(id));
+		if(roomType == null)
+			return Response.status(Response.Status.NO_CONTENT).build();
+		else
+			return Response.ok(roomType, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("/roomTypes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRoomTypes(){
+		List<RoomType> roomTypes = hotelService.getRoomTypes();
+		if(roomTypes == null) 
+			return Response.status(Response.Status.NOT_FOUND).build();
+		else
+			return Response.ok(roomTypes, MediaType.APPLICATION_JSON).build();
 	}
 }

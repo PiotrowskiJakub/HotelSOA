@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 /**
@@ -22,6 +25,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="room_types")
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomType implements Serializable {
 	@Id
 	@GeneratedValue
@@ -34,6 +38,9 @@ public class RoomType implements Serializable {
 	private String description;
 	@Column(name="dst_price", nullable=false, precision=7, scale=2)
 	private BigDecimal price;
+	
+	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="roomType")
 	private Set<Room> rooms = new HashSet<>(0);
 	

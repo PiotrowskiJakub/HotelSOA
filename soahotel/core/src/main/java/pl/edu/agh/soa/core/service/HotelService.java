@@ -40,4 +40,10 @@ public interface HotelService {
 	 * @return list of room in hotel with given id
 	 */
 	public List<Room> listRoom(Long id);
+
+	public Hotel getHotelById(Long parseLong);
+
+	public List<RoomType> getRoomTypes();
+
+	public RoomType getRoomTypeById(Long parseLong);
 }

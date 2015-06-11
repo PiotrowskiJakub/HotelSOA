@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.QueryParam;
-
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,12 +15,17 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.edu.agh.soa.ba.form.CreateHotelForm;
+import pl.edu.agh.soa.ba.form.RoomForm;
+import pl.edu.agh.soa.ba.form.RoomTypeForm;
 import pl.edu.agh.soa.core.bean.Address;
 import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.bean.Hotel;
+import pl.edu.agh.soa.core.bean.Room;
+import pl.edu.agh.soa.core.bean.RoomType;
 
 @Controller
 public class HotelController extends BaseController{
@@ -65,7 +68,7 @@ public class HotelController extends BaseController{
 		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels");
 		if(response.getStatusCode() == HttpStatus.OK){
 			JSONArray hotels = new JSONArray(response.getBody().toString());
-			ObjectMapper objectMapper = new ObjectMapper();
+			
 			List<Hotel> hotelList = new ArrayList<Hotel>();
 			for(int i=0;i<hotels.length();i++){
 				try {
@@ -82,10 +85,93 @@ public class HotelController extends BaseController{
 	}
 
 	@RequestMapping(value="/edit_hotel")
-	public ModelAndView editHotel(@QueryParam("hotel") Hotel hotel){
+	public ModelAndView editHotel(@RequestParam String id){
 		ModelAndView modelAndView = new ModelAndView();
-		
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotel/" + id);
+		if(response.getStatusCode() == HttpStatus.OK){
+			Hotel hotel;
+			try {
+				hotel = objectMapper.readValue(new JSONObject(response.getBody().toString()).toString(), Hotel.class);
+				modelAndView.setViewName("hotel_edit");				
+				modelAndView.addObject("hotel", hotel);
+				ResponseEntity<String> responseRooms = get(BASE_URL + "/hotel/rooms/" + id);
+				List<Room> rooms = new ArrayList<Room>();
+				JSONArray roomsJsonArray = new JSONArray(responseRooms.getBody().toString());
+				for(int i=0;i<roomsJsonArray.length();i++){
+					Room room = objectMapper.readValue(roomsJsonArray.getJSONObject(i).toString(), Room.class);
+					rooms.add(room);
+				}
+				modelAndView.addObject("rooms", rooms);
+				
+			} catch (JSONException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+		else{
+			//TODO NOT FOUND
+		}
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/add_room", method=RequestMethod.GET)
+	public ModelAndView addRoomInitial(@RequestParam String id){
+		ModelAndView modelAndView = new ModelAndView("add_room");
+		RoomForm roomForm = new RoomForm();
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/roomTypes/");
+		JSONArray jsonArray = new JSONArray(response.getBody().toString());
+		List<RoomType> roomTypes = new ArrayList<RoomType>();
+		for(int i=0;i<jsonArray.length();i++){
+			RoomType roomType;
+			try {
+				roomType = objectMapper.readValue(jsonArray.getJSONObject(i).toString(), RoomType.class);
+				roomTypes.add(roomType);
+			} catch (JSONException | IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		modelAndView.addObject("roomTypes", roomTypes);
+		modelAndView.addObject("form", roomForm);
+		modelAndView.addObject("hotelID", id);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/createRoom", method=RequestMethod.POST)
+	public String addRoomCreate(@ModelAttribute("form") RoomForm roomForm, @RequestParam String id, BindingResult result){
+		Room room = roomForm.getRoom();
+		ResponseEntity<String> responseRoomType = get(BASE_URL + "/hotel/roomType/" + roomForm.getRoomTypeID());
+		RoomType roomType;
+		try {
+			roomType = objectMapper.readValue(new JSONObject(responseRoomType.getBody().toString()).toString(), RoomType.class);
+			room.setRoomType(roomType);	
+			ResponseEntity<String> responseHotel = get(BASE_URL + "/hotel/hotel/" + id);
+			Hotel hotel = objectMapper.readValue(new JSONObject(responseHotel.getBody().toString()).toString(), Hotel.class);
+			room.setHotel(hotel);
+			ResponseEntity<String> response = post(BASE_URL + "/hotel/room", room);
+			if(response.getStatusCode() == HttpStatus.OK  && !result.hasErrors())
+				return "hotel_management";
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+			}
+			return "createRoom";
+	}
+	
+	@RequestMapping(value="/add_room_type", method=RequestMethod.GET)
+	public ModelAndView addRoomTypeInitial(){
+		ModelAndView modelAndView = new ModelAndView("add_room_type");
+		RoomTypeForm roomTypeForm = new RoomTypeForm();
+		roomTypeForm.setRoomType(new RoomType());
+		modelAndView.addObject("form", roomTypeForm);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/createRoomType", method=RequestMethod.POST)
+	public String addRoomTypeCreate(@ModelAttribute("form") RoomTypeForm roomTypeForm, BindingResult result){
+		ResponseEntity<String> response = post(BASE_URL + "/hotel/roomType", roomTypeForm.getRoomType());
+		if(response.getStatusCode() == HttpStatus.OK && !result.hasErrors())
+			return "/hotel_management";
+		else
+			return "/niefart";
+	}
 }

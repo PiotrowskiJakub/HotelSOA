@@ -13,9 +13,6 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 
-import pl.edu.agh.soa.core.bean.Account;
-import pl.edu.agh.soa.core.bean.Address;
-import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.bean.Hotel;
 import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.bean.RoomType;
@@ -60,6 +57,23 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<Room> listRoom(Long id) {
 		Session session = (Session) em.getDelegate();
-		return (List<Room>) session.createSQLQuery("select {r.*},{h.*},{rt.*} from soahotel.room as r natural join soahotel.hotel as h natural join soahotel.room_type as rt").addEntity(Room.class).addEntity(Hotel.class).addEntity(RoomType.class).list();
+		return (List<Room>) session.createSQLQuery("select r.*, h.* , rt.* from soahotel.room r natural join soahotel.hotel h natural join soahotel.room_types rt").addEntity(Room.class).list();
+	}
+
+	@Override
+	public Hotel getHotelById(Long id) {
+		return em.find(Hotel.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RoomType> getRoomTypes() {	
+		Session session = (Session) em.getDelegate();
+		return (List<RoomType>) session.createSQLQuery("select rt.* from soahotel.room_types rt").addEntity(RoomType.class).list();
+	}
+
+	@Override
+	public RoomType getRoomById(Long id) {
+		return em.find(RoomType.class, id);
 	}
 }

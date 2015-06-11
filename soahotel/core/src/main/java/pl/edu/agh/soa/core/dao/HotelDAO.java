@@ -15,4 +15,7 @@ public interface HotelDAO {
 	public void addRoom(Room room);
 	public void addRoomType(RoomType roomType);
 	public List<Room> listRoom(Long id);
+	public Hotel getHotelById(Long id);
+	public List<RoomType> getRoomTypes();
+	public RoomType getRoomById(Long id);
 }
