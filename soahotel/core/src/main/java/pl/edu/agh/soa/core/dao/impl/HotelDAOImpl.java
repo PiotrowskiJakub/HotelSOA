@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Session;
 
 import pl.edu.agh.soa.core.bean.Account;
+import pl.edu.agh.soa.core.bean.Address;
 import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.bean.Hotel;
 import pl.edu.agh.soa.core.bean.Room;
@@ -42,7 +43,7 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<Hotel> list() {
 		Session session = (Session) em.getDelegate();
-		return (List<Hotel>) session.createSQLQuery("select {h.*},{a.*},{c.*} from soahotel.hotel as h natural join soahotel.address as a natural join soahotel.contact as c").addEntity(Hotel.class).addEntity(Account.class).addEntity(Contact.class).list();
+		return (List<Hotel>) session.createSQLQuery("select h.* , a.* , c.* from soahotel.hotel h natural join soahotel.address a natural join soahotel.contact c").addEntity(Hotel.class).list();
 	}
 
 	@Override

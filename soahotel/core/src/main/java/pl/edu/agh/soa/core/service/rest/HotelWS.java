@@ -37,7 +37,7 @@ public class HotelWS {
 	@Path("/hotels")
 	public Response listHotel() {
 		List<Hotel> hotels = hotelService.listHotel();
-		return Response.ok(hotels).build();
+		return Response.ok(hotels, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@GET

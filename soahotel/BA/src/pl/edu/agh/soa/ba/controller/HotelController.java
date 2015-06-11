@@ -1,5 +1,12 @@
 package pl.edu.agh.soa.ba.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -48,6 +55,28 @@ public class HotelController extends BaseController{
 		if(result.hasErrors())
 			return "create_hotel";
 		return "succes";
+	}
+	
+	@RequestMapping(value="/hotel_list", method = RequestMethod.GET)
+	public ModelAndView initialListHotel(){
+		ModelAndView modelAndView = new ModelAndView("hotel_list");
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels");
+		if(response.getStatusCode() == HttpStatus.OK){
+			JSONArray hotels = new JSONArray(response.getBody().toString());
+			ObjectMapper objectMapper = new ObjectMapper();
+			List<Hotel> hotelList = new ArrayList<Hotel>();
+			for(int i=0;i<hotels.length();i++){
+				try {
+					Hotel hotel = objectMapper.readValue(hotels.getJSONObject(i).toString(), Hotel.class);
+					hotelList.add(hotel);
+				} catch (JSONException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			modelAndView.addObject("hotelList", hotelList);
+		}
+		return modelAndView;
 	}
 	
 }
