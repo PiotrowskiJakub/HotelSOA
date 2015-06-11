@@ -77,7 +77,7 @@ public class Address implements Serializable {
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public String getHouseNumber() {
+	public String getHouseNumber() {	
 		return houseNumber;
 	}
 	public void setHouseNumber(String houseNumber) {

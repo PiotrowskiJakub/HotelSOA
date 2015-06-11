@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.edu.agh.soa.ba.form.RegistrationForm;
+import pl.edu.agh.soa.ba.form.AccountForm;
 import pl.edu.agh.soa.core.dict.AccountType;
 
 /**
@@ -27,12 +27,12 @@ public class RegistrationController extends BaseController {
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView loadInitialModel(){
 		ModelAndView modelAndView = new ModelAndView("registration");
-		modelAndView.addObject("form", new RegistrationForm());
+		modelAndView.addObject("form", new AccountForm());
 		return modelAndView;
 	}	
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String create(@Valid @ModelAttribute("form") RegistrationForm registrationForm, BindingResult result){
+	public String create(@Valid @ModelAttribute("form") AccountForm registrationForm, BindingResult result){
 		registrationForm.setAccountType(AccountType.EMPLOYEE);
 		registrationForm.setBirthDate(new Date());
 		registrationForm.getAddress().setPostalCode(registrationForm.getAddress().getPostalCode().replace("-", ""));

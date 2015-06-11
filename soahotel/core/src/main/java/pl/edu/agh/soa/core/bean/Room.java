@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author Jakub Piotrowski
@@ -18,6 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="room")
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Room implements Serializable {
 	@Id
 	@GeneratedValue
@@ -39,11 +42,10 @@ public class Room implements Serializable {
 	public Room() {
 	}
 
-	public Room(Long id, Hotel hotel, RoomType roomType, Integer floor,
+	public Room(Long id, RoomType roomType, Integer floor,
 			Integer number, Integer size) {
 		super();
 		this.id = id;
-		this.hotel = hotel;
 		this.roomType = roomType;
 		this.floor = floor;
 		this.number = number;

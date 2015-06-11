@@ -18,6 +18,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="registration">Registration</a></li>
 				<li><a href="login">LogIn</a></li>
+				<li><a href="hotel_management">Hotel management</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
