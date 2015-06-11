@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.QueryParam;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,6 +78,13 @@ public class HotelController extends BaseController{
 			}
 			modelAndView.addObject("hotelList", hotelList);
 		}
+		return modelAndView;
+	}
+
+	@RequestMapping(value="/edit_hotel")
+	public ModelAndView editHotel(@QueryParam("hotel") Hotel hotel){
+		ModelAndView modelAndView = new ModelAndView();
+		
 		return modelAndView;
 	}
 	
