@@ -24,20 +24,32 @@ public class ReservationWS {
 	@GET
 	@Path("/reservation/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReservation(@QueryParam("id") Long id) {
+	public Response getReservation(@PathParam("id") Long id) {
 		Reservation reservation = reservationService.getReservation(id);
 		return Response.ok(reservation, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReservation(){
+		List<Reservation> reservations = reservationService.getReservations();
+		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("/client/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReservations(@QueryParam("id") Long id) {
+	public Response getReservations(@PathParam("id") Long id) {
 		List<Reservation> reservationList = reservationService.getReservations(id);
 		return Response.ok(reservationList,  MediaType.APPLICATION_JSON).build();
 	}
+	
 
-	public Response getTermins(Integer year) {
+	@GET
+	@Path("/termins/{id}/{rt}/{year}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTermins(@PathParam("id") String hotelID ,@PathParam("rt") String roomTypeID, @PathParam("year") Integer year) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,7 +71,7 @@ public class ReservationWS {
 
 	@DELETE
 	@Path("reservation/{id}")
-	public Response reservationDelete(@QueryParam("id") Long id) {
+	public Response reservationDelete(@PathParam("id") Long id) {
 		reservationService.reservationDelete(id);
 		return Response.ok().build();
 	}

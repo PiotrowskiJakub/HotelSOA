@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author Jakub Piotrowski
@@ -15,6 +17,7 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="reservation")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Reservation implements Serializable {
 	@Id
 	@GeneratedValue
@@ -23,13 +26,13 @@ public class Reservation implements Serializable {
 	
 	@Embedded
 	private Complaint complaint;
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="res_roo_id", nullable=false)
 	private Room room;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="res_acc_id", nullable=false)
 	private Account account;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="res_dst_id")
 	private DiscountType discountType;
 	@Column(name="res_start_date", nullable=false)
@@ -38,7 +41,7 @@ public class Reservation implements Serializable {
 	private Date endDate;
 	@Column(name="res_paid", nullable=false)
 	private Boolean paid = false;
-	@OneToMany(mappedBy="reservation")
+	@OneToMany(mappedBy="reservation", fetch=FetchType.EAGER)
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 	
 	public Reservation() {

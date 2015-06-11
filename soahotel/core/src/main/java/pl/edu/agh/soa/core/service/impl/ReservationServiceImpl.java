@@ -1,19 +1,13 @@
 package pl.edu.agh.soa.core.service.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.naming.spi.ResolveResult;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
 
-import javafx.util.Pair;
 import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
 import pl.edu.agh.soa.core.service.ReservationService;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author Agnieszka Szczurek
@@ -58,6 +52,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public void reservationDelete(Long id) {
 		this.reservationDAO.removeReservation(id);
 
+	}
+
+	@Override
+	public List<Reservation> getReservations() {
+		return reservationDAO.getReservations();
 	}
 
 }

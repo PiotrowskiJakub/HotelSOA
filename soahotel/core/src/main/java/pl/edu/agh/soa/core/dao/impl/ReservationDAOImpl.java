@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.core.dao.impl;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -7,11 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.bean.Reservation;
+import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
-
-import java.util.List;
 
 /**
  * @author Agnieszka Szczurek
@@ -31,21 +35,15 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Reservation> listReservation() {
-        logger.info("Get all reservations");
-        return em.createNativeQuery("select * from soahotel.reservation").getResultList();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
     public Reservation getReservation(Long id) {
-        return (Reservation) em.createNativeQuery("select * from soahotel.reservation where '"+id+"' = soahotel.reservation.res_id");
+    	return (Reservation) em.find(Reservation.class, id);  
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Reservation> getReservations(Long id) {
-        return em.createNativeQuery("select * from soahotel.reservation where '" +id+ "' = soahotel.reservation.res_acc_id").getResultList();
+    	Session session = (Session) em.getDelegate();
+    	return session.createSQLQuery("select r.*, a.*, ro.* from soahotel.reservation r natural join soahotel.account a natural join soahotel.room ro where '" + id + "' = soahotel.reservation.res.acc_id").addEntity(Reservation.class).list();
     }
 
     @SuppressWarnings("unchecked")
@@ -67,4 +65,10 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
     public void updateReservation(Reservation reservation) {
         em.merge(reservation);
     }
+
+	@Override
+	public List<Reservation> getReservations() {
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select r.*, a.*, ro.* from soahotel.reservation r natural join soahotel.room ro natural join soahotel.account a").addEntity(Reservation.class).list();
+	}
 }
