@@ -15,7 +15,7 @@ import pl.edu.agh.soa.core.bean.Contact;
  * @author Piotr Konsek
  *
  */
-public class RegistrationForm {
+public class AccountForm {
 	private Account account;
 	
 	@NotEmpty(message = "Confirmation password can't be empty!")
@@ -29,7 +29,7 @@ public class RegistrationForm {
 		this.confirmationPassword = confirmationPassword;
 	}
 
-	public RegistrationForm(){
+	public AccountForm(){
 		account = new Account();
 	}
 

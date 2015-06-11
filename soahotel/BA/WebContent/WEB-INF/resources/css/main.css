@@ -1,3 +1,34 @@
 .errorBlock {
 	color: red;
 }
+
+.tableRight {
+	float: right;
+}
+
+.tableLeft{
+	float: left;
+}
+
+.section {
+	width: 30%;
+}
+
+.clear {
+	clear:both;
+}
+
+.sectionLabel{
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.sideMenu {
+	max-width : 10%;
+	float : left;
+}
+
+.container {
+	float:right;
+	max-width: 90%;
+}
