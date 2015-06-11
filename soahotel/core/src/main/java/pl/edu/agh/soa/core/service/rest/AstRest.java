@@ -18,6 +18,7 @@ import org.apache.camel.cdi.CdiCamelContext;
 import org.apache.camel.cdi.ContextName;
 
 import pl.edu.agh.soa.core.bean.AdditionalServiceType;
+import pl.edu.agh.soa.core.dict.EmailMessages;
 import pl.edu.agh.soa.core.service.AstService;
 
 @Stateless
@@ -40,8 +41,8 @@ public class AstRest {
 		ProducerTemplate producer = context.createProducerTemplate();
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("To", "qballonix@gmail.com");
-		headers.put("Subject", "[SOAHotel] Twoje konto zostało utworzone");
-		producer.sendBodyAndHeaders("direct:mail", "Twoje konto w systemie SOAHotel zostało pomyślnie utworzone.\n\nPozdrawiamy,\nZespół SOAHotel", headers);
+		headers.put("Subject", EmailMessages.SUBJECT);
+		producer.sendBodyAndHeaders("direct:mail", EmailMessages.MESSAGE, headers);
 
 		return ast;
 	}

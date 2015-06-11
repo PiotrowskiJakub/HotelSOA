@@ -116,7 +116,7 @@
         
         <dependency>
 		    <groupId>org.apache.camel</groupId>
-		    <artifactId>camel-gae</artifactId>
+		    <artifactId>camel-mail</artifactId>
 		    <scope>provided</scope>
 		</dependency>
 	</dependencies>
