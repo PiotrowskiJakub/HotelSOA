@@ -16,4 +16,16 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <servlet>
+      <display-name>Camel Http Transport Servlet</display-name>
+      <servlet-name>CamelServlet</servlet-name>
+      <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>CamelServlet</servlet-name>
+      <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

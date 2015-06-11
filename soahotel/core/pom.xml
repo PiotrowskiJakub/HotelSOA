@@ -106,6 +106,19 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		
+		<!-- Apache Camel -->
+		<dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cdi</artifactId>
+	        <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-gae</artifactId>
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
