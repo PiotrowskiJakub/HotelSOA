@@ -15,10 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.hibernate.annotations.FetchProfile;
-
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
@@ -68,10 +67,7 @@ public class Account implements Serializable {
 	
 	@JoinColumn(name = "acc_add_id", nullable=false)
 	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
-<<<<<<< HEAD
 	@JsonBackReference
-=======
->>>>>>> refs/remotes/origin/hotelWS
 	protected Address address;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)

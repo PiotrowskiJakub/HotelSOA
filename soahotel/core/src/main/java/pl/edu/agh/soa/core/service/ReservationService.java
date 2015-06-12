@@ -50,5 +50,7 @@ public interface ReservationService {
 	public void reservationDelete(Long id);
 
 	public List<Reservation> getReservations();
+
+	public List<Reservation> getReservations(Long hotelID, Long roomTypeID, Integer year);
 	
 }

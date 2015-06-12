@@ -59,4 +59,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDAO.getReservations();
 	}
 
+	@Override
+	public List<Reservation> getReservations(Long hotelID, Long roomTypeID,
+			Integer year) {
+		return reservationDAO.getReservations(hotelID, roomTypeID, year);
+	}
+
 }

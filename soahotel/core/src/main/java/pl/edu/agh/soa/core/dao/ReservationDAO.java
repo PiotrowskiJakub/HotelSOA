@@ -3,6 +3,7 @@ package pl.edu.agh.soa.core.dao;
 import pl.edu.agh.soa.core.bean.Reservation;
 
 import javax.ejb.Local;
+
 import java.util.List;
 
 @Local
@@ -14,5 +15,6 @@ public interface ReservationDAO {
     public void removeReservation(Long id);
     public void updateReservation(Reservation reservation);
 	public List<Reservation> getReservations();
+	public List<Reservation> getReservations(Long hotelID, Long roomTypeID, Integer year);
 
 }

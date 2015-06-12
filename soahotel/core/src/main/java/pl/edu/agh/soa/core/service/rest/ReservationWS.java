@@ -49,9 +49,9 @@ public class ReservationWS {
 	@GET
 	@Path("/termins/{id}/{rt}/{year}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTermins(@PathParam("id") String hotelID ,@PathParam("rt") String roomTypeID, @PathParam("year") Integer year) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @PathParam("year") Integer year) {
+		List<Reservation> reservations = reservationService.getReservations(hotelID, roomTypeID, year);
+		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
 	}
 
 	@POST
