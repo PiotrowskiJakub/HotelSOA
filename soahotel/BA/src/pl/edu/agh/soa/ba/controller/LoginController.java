@@ -39,7 +39,7 @@ public class LoginController extends BaseController {
 		if(result.hasErrors())
 			return "login";
 		else
-			return "home";
+			return "hotel_management";
 		
 	}
 }

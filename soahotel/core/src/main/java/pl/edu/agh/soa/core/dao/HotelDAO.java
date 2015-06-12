@@ -17,5 +17,6 @@ public interface HotelDAO {
 	public List<Room> listRoom(Long id);
 	public Hotel getHotelById(Long id);
 	public List<RoomType> getRoomTypes();
-	public RoomType getRoomById(Long id);
+	public RoomType getRoomTypeById(Long id);
+	public List<RoomType> getRoomTypes(Long id);
 }

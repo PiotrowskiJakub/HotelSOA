@@ -26,8 +26,9 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-//	public static final String BASE_URL = "http://localhost:8082/core-0.1";
-	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
+	public static final String BASE_URL = "http://localhost:8082/core-0.1";
+//	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
+
 
 	public BaseController() {
 		objectMapper = new ObjectMapper();

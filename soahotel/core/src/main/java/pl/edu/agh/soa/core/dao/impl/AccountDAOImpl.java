@@ -68,7 +68,8 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	public List<Account> getAllAccount() {
 		logger.info("Listing all accounts");
 		Session session = (Session) em.getDelegate();
-		return session.createSQLQuery("select a.*, ad.*, c.* from soahotel.account a natural join soahotel.address ad natural join soahotel.contact c").addEntity(Account.class).list();
+		return session.createSQLQuery("select a.* from soahotel.account a ").addEntity(Account.class).list();
+
 	}
 
 	@Override

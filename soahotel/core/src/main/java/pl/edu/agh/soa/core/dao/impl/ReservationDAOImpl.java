@@ -16,6 +16,8 @@ import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
+import pl.edu.agh.soa.core.bean.Reservation;
+import pl.edu.agh.soa.core.dao.AbstractDAO;
 
 /**
  * @author Agnieszka Szczurek
@@ -69,6 +71,6 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 	@Override
 	public List<Reservation> getReservations() {
 		Session session = (Session) em.getDelegate();
-		return session.createSQLQuery("select r.*, a.*, ro.* from soahotel.reservation r natural join soahotel.room ro natural join soahotel.account a").addEntity(Reservation.class).list();
+		return session.createSQLQuery("select r.* from soahotel.reservation r").addEntity(Reservation.class).list();
 	}
 }

@@ -59,7 +59,7 @@ public class HotelController extends BaseController{
 				result.addError(new ObjectError("Server error", (String) response.getBody()));
 		if(result.hasErrors())
 			return "create_hotel";
-		return "succes";
+		return "hotel_management";
 	}
 	
 	@RequestMapping(value="/hotel_list", method = RequestMethod.GET)

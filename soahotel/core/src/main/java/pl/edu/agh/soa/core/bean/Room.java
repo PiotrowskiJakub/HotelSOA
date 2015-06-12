@@ -2,7 +2,16 @@ package pl.edu.agh.soa.core.bean;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -20,9 +29,11 @@ public class Room implements Serializable {
 	@GeneratedValue
 	@Column(name="roo_id")
 	private Long id;
+
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="roo_hot_id", nullable=false)
 	private Hotel hotel;
+
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="roo_rty_id", nullable=false)
 	private RoomType roomType;
