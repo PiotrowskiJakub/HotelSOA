@@ -73,7 +73,17 @@ public class HotelDAOImpl implements HotelDAO {
 	}
 
 	@Override
-	public RoomType getRoomById(Long id) {
+	public RoomType getRoomTypeById(Long id) {
 		return em.find(RoomType.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RoomType> getRoomTypes(Long hotelID) {
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery(""
+				+ "select distinct rt.* from soahotel.room_types rt "
+				+ "inner join soahotel.room r on r.roo_rty_id = rt.rty_id "
+				+ "inner join soahotel.hotel h on h.hot_id = r.roo_hot_id where h.hot_id = " + hotelID).addEntity(RoomType.class).list();
 	}
 }

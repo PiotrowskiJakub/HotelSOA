@@ -60,7 +60,12 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public RoomType getRoomTypeById(Long id) {
-		return hotelDao.getRoomById(id);
+		return hotelDao.getRoomTypeById(id);
+	}
+
+	@Override
+	public List<RoomType> getRoomTypes(Long id) {
+		return hotelDao.getRoomTypes(id);
 	}
 
 }

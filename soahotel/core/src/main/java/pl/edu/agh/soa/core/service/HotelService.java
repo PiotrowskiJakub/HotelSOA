@@ -44,6 +44,8 @@ public interface HotelService {
 	public Hotel getHotelById(Long parseLong);
 
 	public List<RoomType> getRoomTypes();
+	
+	public List<RoomType> getRoomTypes(Long id);
 
-	public RoomType getRoomTypeById(Long parseLong);
+	public RoomType getRoomTypeById(Long id);
 }

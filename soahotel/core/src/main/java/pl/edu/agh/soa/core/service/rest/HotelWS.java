@@ -96,4 +96,15 @@ public class HotelWS {
 		else
 			return Response.ok(roomTypes, MediaType.APPLICATION_JSON).build();
 	}
+	
+	@GET
+	@Path("/roomTypes/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRoomTypesInHotelById(@PathParam("id") String id){
+		List<RoomType> roomTypes = hotelService.getRoomTypes(Long.parseLong(id));
+		if(roomTypes == null) 
+			return Response.status(Response.Status.NOT_FOUND).build();
+		else
+			return Response.ok(roomTypes, MediaType.APPLICATION_JSON).build();
+	}
 }
