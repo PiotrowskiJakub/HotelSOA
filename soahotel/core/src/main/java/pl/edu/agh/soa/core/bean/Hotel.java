@@ -2,11 +2,15 @@ package pl.edu.agh.soa.core.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,11 +31,13 @@ public class Hotel implements Serializable {
 	private long id;
 	
 	@NotNull
-	@Column(name="hot_add_id")
+	@JoinColumn(name="hot_add_id")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Address address;
 	
 	@NotNull
-	@Column(name="hot_con_id")
+	@JoinColumn(name="hot_con_id")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Contact contact;
 	
 	@Column(name="hot_avg_rate", precision=1, scale=2)

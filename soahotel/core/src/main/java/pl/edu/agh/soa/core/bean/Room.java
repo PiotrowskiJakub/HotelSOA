@@ -2,8 +2,10 @@ package pl.edu.agh.soa.core.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,10 +28,12 @@ public class Room implements Serializable {
 	@GeneratedValue
 	@Column(name="roo_id")
 	private Long id;
-	@ManyToOne
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="roo_hot_id", nullable=false)
 	private Hotel hotel;
-	@ManyToOne
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="roo_rty_id", nullable=false)
 	private RoomType roomType;
 	@Column(name="roo_floor", nullable=false)

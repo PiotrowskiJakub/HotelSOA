@@ -40,12 +40,12 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<Hotel> list() {
 		Session session = (Session) em.getDelegate();
-		return (List<Hotel>) session.createSQLQuery("select h.* , a.* , c.* from soahotel.hotel h natural join soahotel.address a natural join soahotel.contact c").addEntity(Hotel.class).list();
+		return (List<Hotel>) session.createSQLQuery("select h.* from soahotel.hotel h").addEntity(Hotel.class).list();
 	}
 
 	@Override
 	public void addRoom(Room room) {
-		em.persist(room);
+		em.merge(room);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<Room> listRoom(Long id) {
 		Session session = (Session) em.getDelegate();
-		return (List<Room>) session.createSQLQuery("select r.*, h.* , rt.* from soahotel.room r natural join soahotel.hotel h natural join soahotel.room_types rt").addEntity(Room.class).list();
+		return (List<Room>) session.createSQLQuery("select r.* from soahotel.room r where roo_hot_id=" + id).addEntity(Room.class).list();
 	}
 
 	@Override
