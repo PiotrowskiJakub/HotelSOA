@@ -67,7 +67,8 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	@Override
 	public List<Account> getAllAccount() {
 		logger.info("Listing all accounts");
-		return em.createNativeQuery("select * from soahotel.account").getResultList();
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select a.* from soahotel.account a ").addEntity(Account.class).list();
 	}
 
 	@Override
