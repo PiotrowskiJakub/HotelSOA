@@ -12,9 +12,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import pl.edu.agh.soa.core.bean.Reservation;
-import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
-import pl.edu.agh.soa.core.dao.ReservationDAO;
 
 /**
  * @author Agnieszka Szczurek
