@@ -69,7 +69,7 @@ public class RegisterWS {
 
 	// @Override
 	public Account getAccount(Integer id) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
 		return null;
 	}
 

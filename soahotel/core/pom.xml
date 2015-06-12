@@ -24,8 +24,23 @@
 		<maven-ejb-plugin.version>2.5</maven-ejb-plugin.version>
 		<ejb.version>3.2</ejb.version>
 
-		<wildfly-management-http.port>9991</wildfly-management-http.port>
+		<wildfly-management-http.port>9992</wildfly-management-http.port>
 	</properties>
+	
+		<dependencyManagement>
+    	<dependencies>
+        
+	   		 <!-- Apache Camel -->
+	        <dependency>
+	            <groupId>org.apache.camel</groupId>
+	            <artifactId>camel-parent</artifactId>
+	            <version>2.15.2</version>
+	            <scope>import</scope>
+	            <type>pom</type>
+	        </dependency>
+            
+    	</dependencies>
+    </dependencyManagement>
 
 	<dependencies>
 
