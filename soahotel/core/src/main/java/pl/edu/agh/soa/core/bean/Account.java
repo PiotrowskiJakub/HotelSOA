@@ -67,18 +67,18 @@ public class Account implements Serializable {
 	
 	@JoinColumn(name = "acc_add_id", nullable=false)
 	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
-	@JsonBackReference
+//	@JsonBackReference
 	protected Address address;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name = "acc_con_id", nullable=false)
-	@JsonBackReference
+//	@JsonBackReference
 	protected Contact contact;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name="acc_hot_id")
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonBackReference
+//	@JsonBackReference
 	private Hotel hotel;
 	// permissions
 

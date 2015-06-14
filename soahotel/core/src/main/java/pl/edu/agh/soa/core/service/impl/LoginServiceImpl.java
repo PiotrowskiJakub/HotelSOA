@@ -26,4 +26,9 @@ public class LoginServiceImpl implements LoginService {
 		return token;
 	}
 
+	@Override
+	public boolean checkToken(String token) {
+		return tokenDAO.checkToken(token);
+	}
+
 }

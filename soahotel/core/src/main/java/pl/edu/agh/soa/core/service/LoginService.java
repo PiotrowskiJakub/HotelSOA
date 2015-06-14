@@ -4,4 +4,5 @@ import pl.edu.agh.soa.core.bean.Token;
 
 public interface LoginService {
 	public Token createToken();
+	public boolean checkToken(String token);
 }

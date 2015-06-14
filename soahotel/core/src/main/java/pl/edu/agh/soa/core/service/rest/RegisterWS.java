@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,7 +21,9 @@ import org.apache.camel.cdi.CdiCamelContext;
 import org.apache.camel.cdi.ContextName;
 
 import pl.edu.agh.soa.core.bean.Account;
+import pl.edu.agh.soa.core.bean.Token;
 import pl.edu.agh.soa.core.dict.EmailMessages;
+import pl.edu.agh.soa.core.service.LoginService;
 import pl.edu.agh.soa.core.service.RegistrationService;
 
 @Stateless
@@ -29,6 +32,8 @@ public class RegisterWS {
 
 	@EJB
 	RegistrationService registrationService;
+	@EJB
+	LoginService loginService;
 
 	@Inject
 	@ContextName("camel-context")
@@ -46,10 +51,22 @@ public class RegisterWS {
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("To", account.getContact().getMail());
 		headers.put("Subject", EmailMessages.SUBJECT);
+		Token token = loginService.createToken();
 		producer.sendBodyAndHeaders("direct:mail", account.getFirstName()
-				+ EmailMessages.MESSAGE, headers);
+				+ EmailMessages.MESSAGE + token.getToken() + EmailMessages.END_MESSAGE, headers);
 
 		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("confirm/{token}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response confirmAccount(@PathParam("token") String token) {
+		if(loginService.checkToken(token)) {
+			return Response.ok("Twoje konto zostalo aktywowane.").build();
+		}
+
+		return Response.ok("Twoje konto nie zostalo aktywowane.").build();
 	}
 
 	// @Override

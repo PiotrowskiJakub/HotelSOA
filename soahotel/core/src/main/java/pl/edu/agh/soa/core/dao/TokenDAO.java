@@ -8,4 +8,5 @@ import pl.edu.agh.soa.core.bean.Token;
 public interface TokenDAO {
 	public boolean saveToken(Token token);
 	public Token getToken(String mail);	
+	public boolean checkToken(String token);
 }
