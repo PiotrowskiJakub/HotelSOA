@@ -34,14 +34,16 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void addAccount(Account account) {
+	public Account addAccount(Account account) {
 		em.persist(account);
 		logger.info("Account saved successfully, AccountDetails = " + account);
+		em.flush();
+		return account;
 	}
 
 	@Override
 	public void updateAccount(Account account) {
-		// TODO Auto-generated method stub
+		em.merge(account);
 
 	}
 
@@ -52,9 +54,10 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	}
 
 	@Override
-	public Account getAccount(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account getAccount(Long id) {
+		logger.info("Find account by id");
+		Session session = (Session) em.getDelegate();
+		return (Account) session.createSQLQuery("select a.* from soahotel.account a where acc_id = " + id).addEntity(Account.class).uniqueResult();
 	}
 
 	@Override

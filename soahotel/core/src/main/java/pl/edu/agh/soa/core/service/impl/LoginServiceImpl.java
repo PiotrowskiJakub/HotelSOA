@@ -25,10 +25,4 @@ public class LoginServiceImpl implements LoginService {
 		tokenDAO.saveToken(token);
 		return token;
 	}
-
-	@Override
-	public boolean checkToken(String token) {
-		return tokenDAO.checkToken(token);
-	}
-
 }

@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -88,6 +87,14 @@ public class Account implements Serializable {
 	@Column(name = "acc_terms_accepted")
 	protected Boolean termsAccepted;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -174,5 +181,5 @@ public class Account implements Serializable {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
-	}
+	}	
 }

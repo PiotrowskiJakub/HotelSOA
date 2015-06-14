@@ -38,6 +38,7 @@ public class TokenDAOImpl implements TokenDAO {
 		Session session = (Session) em.getDelegate();
 		Token tokenObj = (Token) session.createSQLQuery("select * from soahotel.token where tok_token = '" + token + "'").addEntity(Token.class).uniqueResult();
 		if(tokenObj != null) {
+			em.remove(tokenObj);
 			checkTokenFlag = true;
 		}
 		return checkTokenFlag;

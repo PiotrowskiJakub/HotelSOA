@@ -8,11 +8,13 @@ import pl.edu.agh.soa.core.bean.Account;
 
 @Remote
 public interface RegistrationService {
-	public void addAccount(Account account);
+	public Account addAccount(Account account);
 	public void updateAccount(Account account);
 	public List<Account> listAccount();
-	public Account getAccount(Integer id);
+	public Account getAccount(Long id);
+	public Account getAccount(String mail);
 	public void removeAccount(Integer id);
 	public String test();
 	public List<Account> getAccountList();
+	public boolean checkToken(String token);
 }

@@ -22,6 +22,7 @@ import org.apache.camel.cdi.ContextName;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.bean.Token;
+import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.dict.EmailMessages;
 import pl.edu.agh.soa.core.service.LoginService;
 import pl.edu.agh.soa.core.service.RegistrationService;
@@ -44,7 +45,7 @@ public class RegisterWS {
 	@Path("account")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addAccount(Account account) {
-		registrationService.addAccount(account);
+		account = registrationService.addAccount(account);
 
 		// Send email to new user
 		ProducerTemplate producer = context.createProducerTemplate();
@@ -53,20 +54,23 @@ public class RegisterWS {
 		headers.put("Subject", EmailMessages.SUBJECT);
 		Token token = loginService.createToken();
 		producer.sendBodyAndHeaders("direct:mail", account.getFirstName()
-				+ EmailMessages.MESSAGE + token.getToken() + EmailMessages.END_MESSAGE, headers);
+				+ EmailMessages.MESSAGE + account.getId() + "/" + token.getToken() + EmailMessages.END_MESSAGE, headers);
 
 		return Response.ok().build();
 	}
 	
 	@GET
-	@Path("confirm/{token}")
+	@Path("confirm/{accountId}/{token}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response confirmAccount(@PathParam("token") String token) {
-		if(loginService.checkToken(token)) {
+	public Response confirmAccount(@PathParam("accountId") Long accountId, @PathParam("token") String token) {
+		if(registrationService.checkToken(token)) {
+			Account account = registrationService.getAccount(accountId);
+			account.setAccountStatus(AccountStatus.ACTIVE);
+			registrationService.updateAccount(account);
 			return Response.ok("Twoje konto zostalo aktywowane.").build();
 		}
 
-		return Response.ok("Twoje konto nie zostalo aktywowane.").build();
+		return Response.ok("Link nieaktywny").build();
 	}
 
 	// @Override
