@@ -27,15 +27,19 @@ public class DiscountType implements Serializable {
 	@GeneratedValue
 	@Column(name = "dst_id")
 	private Long id;
+	
 	@Column(name = "dst_name", length = 50, nullable = false)
 	private String name;
+	
 	@Column(name = "dst_description", nullable = false)
 	@Type(type="text")
 	private String description;
+	
 	@Column(name = "dst_price", nullable = false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany(mappedBy="discountType")
-	private Set<Reservation> reservations = new HashSet<>(0);
+	
+//	@OneToMany(mappedBy="discountType")
+//	private Set<Reservation> reservations = new HashSet<>(0);
 
 	public DiscountType() {
 	}
@@ -80,12 +84,12 @@ public class DiscountType implements Serializable {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-
-	public Set<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(Set<Reservation> reservations) {
-		this.reservations = reservations;
-	}
+//
+//	public Set<Reservation> getReservations() {
+//		return reservations;
+//	}
+//
+//	public void setReservations(Set<Reservation> reservations) {
+//		this.reservations = reservations;
+//	}
 }

@@ -37,10 +37,13 @@ public class Room implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="roo_rty_id", nullable=false)
 	private RoomType roomType;
+	
 	@Column(name="roo_floor", nullable=false)
 	private Integer floor;
+	
 	@Column(name="roo_number", nullable=false)
 	private Integer number;
+	
 	@Column(name="roo_size", nullable=false)
 	private Integer size;
 	
