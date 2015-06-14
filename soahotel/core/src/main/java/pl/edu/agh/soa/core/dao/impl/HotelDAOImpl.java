@@ -33,7 +33,8 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void saveHotel(Hotel hotel) {
-		em.persist(hotel);
+		em.merge(hotel);
+		
 	}
 
 	@SuppressWarnings("unchecked")

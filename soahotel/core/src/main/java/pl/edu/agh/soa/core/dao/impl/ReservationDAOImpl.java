@@ -11,13 +11,9 @@ import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.bean.Reservation;
-import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
-import pl.edu.agh.soa.core.bean.Reservation;
-import pl.edu.agh.soa.core.dao.AbstractDAO;
 
 /**
  * @author Agnieszka Szczurek
@@ -81,7 +77,7 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 		Session session = (Session) em.getDelegate();
 		return session.createSQLQuery(""
 				+ "select distinct r.* from soahotel.reservation r "
-				+ "natural join soahotel.room ro "
+				+ "inner join soahotel.room ro on ro.roo_id = r.res_roo_id "
 				+ "where ro.roo_hot_id=" + hotelID
 				+ " and ro.roo_rty_id=" + roomTypeID
 				+ " and ( extract(year from r.res_start_date)=" + year 
