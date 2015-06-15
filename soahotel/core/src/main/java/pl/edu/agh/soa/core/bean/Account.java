@@ -84,6 +84,10 @@ public class Account implements Serializable {
 	@Column(name = "acc_terms_accepted")
 	protected Boolean termsAccepted;
 
+	public Long getId() {
+		return id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
