@@ -94,14 +94,14 @@ public class RegisterWS {
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(
-								"qballonix@gmail.com", "line6spideriii");
+								"soa.hotel@gmail.com", "zaq1@WSXxsw2!QAZ");
 					}
 				});
 		try {
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("qballonix@gmail.com"));
-			message.addRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("qballonix@gmail.com"));
+			message.setFrom(new InternetAddress("soa.hotel@gmail.com"));
+			message.addRecipient(Message.RecipientType.TO,
+					new InternetAddress("qballonix@gmail.com"));
 			message.setSubject("SOAHOTEL");
 			message.setText("SOAHOTEL");
 
