@@ -13,10 +13,23 @@ public class CreateHotelForm {
 	private Address address;
 	private Contact contact;
 	
+	private Long id;
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public CreateHotelForm(){
-		hotel = new Hotel();
-		address = new Address();
-		contact = new Contact();
+		if(hotel == null)
+			hotel = new Hotel();
+		if(address == null)
+			address = new Address();
+		if(contact == null)
+			contact = new Contact();
 	}
 
 	public String getCity() {

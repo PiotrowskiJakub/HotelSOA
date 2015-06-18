@@ -54,10 +54,11 @@ public abstract class BaseController {
 	 * put object to given url
 	 * @param url
 	 * @param request
+	 * @return 
 	 */
 	protected void put(String url, Object request) {		
 		try{
-			restTemplate.put(url, request);
+			 restTemplate.put(url, request);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 		}	
@@ -88,6 +89,10 @@ public abstract class BaseController {
 			e.printStackTrace();
 		}	
 		return response;
+	}
+	
+	protected void delete(String url) {
+		restTemplate.delete(url);
 	}
 	
 	private HttpHeaders getHeadersWithAuth(String token){

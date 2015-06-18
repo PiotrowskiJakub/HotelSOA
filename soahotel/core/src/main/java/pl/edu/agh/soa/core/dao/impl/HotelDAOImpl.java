@@ -87,4 +87,14 @@ public class HotelDAOImpl implements HotelDAO {
 				+ "inner join soahotel.room r on r.roo_rty_id = rt.rty_id "
 				+ "inner join soahotel.hotel h on h.hot_id = r.roo_hot_id where h.hot_id = " + hotelID).addEntity(RoomType.class).list();
 	}
+
+	@Override
+	public void updateHotel(Hotel hotel) {
+		em.merge(hotel);
+	}
+
+	@Override
+	public void deleteHotel(Long id) {
+		em.remove(em.find(Hotel.class, id));
+	}
 }

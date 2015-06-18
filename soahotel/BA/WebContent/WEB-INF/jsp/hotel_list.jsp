@@ -13,7 +13,7 @@
 		<c:if test="${not empty hotelList}">
 			<ul>
 				<c:forEach var="hotel" items="${hotelList}">
-					<li><a href="edit_hotel?id=${hotel.id}">${hotel.name}</a></li>
+					<li><a href="hotel_info?id=${hotel.id}">${hotel.name}</a></li>
 				</c:forEach>
 			</ul>
 		</c:if>
