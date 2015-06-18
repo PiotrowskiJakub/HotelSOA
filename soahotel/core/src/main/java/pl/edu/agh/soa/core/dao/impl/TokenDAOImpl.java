@@ -25,11 +25,28 @@ public class TokenDAOImpl implements TokenDAO {
 		em.persist(token);
 		return true;
 	}
+	
+	@Override
+	public Token updateToken(Token token) {
+		em.merge(token);
+		em.flush();
+		return token;
+	}
 
 	@Override
-	public Token getToken(String mail) {
+	public Token getTokenByMail(String mail) {
 
 		return null;
+	}
+
+	@Override
+	public Token getToken(String token) {
+		Session session = (Session) em.getDelegate();
+		return (Token) session
+				.createSQLQuery(
+						"select * from soahotel.token where tok_token = '"
+								+ token + "'").addEntity(Token.class)
+				.uniqueResult();
 	}
 
 	@Override
