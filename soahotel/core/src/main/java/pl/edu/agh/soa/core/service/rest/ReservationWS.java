@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,6 +30,7 @@ import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.bean.RoomType;
 import pl.edu.agh.soa.core.bean.Termin;
+import pl.edu.agh.soa.core.interceptor.CheckToken;
 import pl.edu.agh.soa.core.service.ReservationService;
 
 @Stateless
@@ -41,7 +44,8 @@ public class ReservationWS {
 	@GET
 	@Path("/reservation/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReservation(@PathParam("id") Long id) {
+	@CheckToken
+	public Response getReservation(@PathParam("id") Long id, @Context HttpServletRequest request) {
 		Reservation reservation = reservationService.getReservation(id);
 		return Response.ok(reservation, MediaType.APPLICATION_JSON).build();
 	}
@@ -49,15 +53,17 @@ public class ReservationWS {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReservation(){
+	@CheckToken
+	public Response getReservation(@Context HttpServletRequest request){
 		List<Reservation> reservations = reservationService.getReservations();
 		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("/client/{id}")
+	@CheckToken
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReservations(@PathParam("id") Long id) {
+	public Response getReservations(@PathParam("id") Long id, @Context HttpServletRequest request) {
 		List<Reservation> reservationList = reservationService.getReservations(id);
 		return Response.ok(reservationList,  MediaType.APPLICATION_JSON).build();
 	}
@@ -66,7 +72,8 @@ public class ReservationWS {
 	@GET
 	@Path("/termins/{id}/{rt}/{year}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @PathParam("year") Integer year) {
+	@CheckToken
+	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @PathParam("year") Integer year, @Context HttpServletRequest request) {
 		List<Reservation> reservations = reservationService.getReservations(hotelID, roomTypeID, year);
 		Calendar cal = Calendar.getInstance();
 		
@@ -123,21 +130,24 @@ public class ReservationWS {
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createReservation(Reservation reservation) {
+	@CheckToken
+	public Response createReservation(Reservation reservation, @Context HttpServletRequest request) {
 		reservationService.createReservation(reservation);
 		return Response.ok().build();
 	}
 
 	@PUT
 	@Path("/")
-	public Response updateReservation(Reservation reservation) {
+	@CheckToken
+	public Response updateReservation(Reservation reservation, @Context HttpServletRequest request) {
 		reservationService.updateReservation(reservation);
 		return Response.ok().build();
 	}
 
 	@DELETE
 	@Path("reservation/{id}")
-	public Response reservationDelete(@PathParam("id") Long id) {
+	@CheckToken
+	public Response reservationDelete(@PathParam("id") Long id, @Context HttpServletRequest request) {
 		reservationService.reservationDelete(id);
 		return Response.ok().build();
 	}

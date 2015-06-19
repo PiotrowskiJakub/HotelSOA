@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,11 +49,11 @@ public class HotelController extends BaseController{
 	}
 	
 	@RequestMapping(value="/createHotel", method = RequestMethod.POST)
-	public String createHotel(@ModelAttribute("form") CreateHotelForm form, BindingResult result){
+	public String createHotel(@ModelAttribute("form") CreateHotelForm form, BindingResult result, HttpSession session){
 		Hotel hotel = form.getHotel();
 		hotel.setContact(form.getContact());
 		hotel.setAddress(form.getAddress());
-		ResponseEntity<String> response = post(BASE_URL + "/hotel/hotel", hotel);
+		ResponseEntity<String> response = post(BASE_URL + "/hotel/hotel", hotel, session);
 		if(response == null )
 			result.addError(new ObjectError("Core connection", "Oops, something wrong happend, please try later"));
 		else
@@ -61,11 +63,11 @@ public class HotelController extends BaseController{
 			return "create_hotel";
 		return "hotel_management";
 	}
-	
+
 	@RequestMapping(value="/hotel_list", method = RequestMethod.GET)
-	public ModelAndView initialListHotel(){
+	public ModelAndView initialListHotel(HttpSession session){
 		ModelAndView modelAndView = new ModelAndView("hotel_list");
-		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels");
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels", session);
 		if(response.getStatusCode() == HttpStatus.OK){
 			JSONArray hotels = new JSONArray(response.getBody().toString());
 			
@@ -85,16 +87,16 @@ public class HotelController extends BaseController{
 	}
 
 	@RequestMapping(value="/edit_hotel")
-	public ModelAndView editHotel(@RequestParam String id){
+	public ModelAndView editHotel(@RequestParam String id, HttpSession session){
 		ModelAndView modelAndView = new ModelAndView();
-		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotel/" + id);
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotel/" + id, session);
 		if(response.getStatusCode() == HttpStatus.OK){
 			Hotel hotel;
 			try {
 				hotel = objectMapper.readValue(new JSONObject(response.getBody().toString()).toString(), Hotel.class);
 				modelAndView.setViewName("hotel_edit");				
 				modelAndView.addObject("hotel", hotel);
-				ResponseEntity<String> responseRooms = get(BASE_URL + "/hotel/rooms/" + id);
+				ResponseEntity<String> responseRooms = get(BASE_URL + "/hotel/rooms/" + id, session);
 				List<Room> rooms = new ArrayList<Room>();
 				JSONArray roomsJsonArray = new JSONArray(responseRooms.getBody().toString());
 				for(int i=0;i<roomsJsonArray.length();i++){
@@ -115,10 +117,10 @@ public class HotelController extends BaseController{
 	}
 	
 	@RequestMapping(value="/add_room", method=RequestMethod.GET)
-	public ModelAndView addRoomInitial(@RequestParam String id){
+	public ModelAndView addRoomInitial(@RequestParam String id, HttpSession session){
 		ModelAndView modelAndView = new ModelAndView("add_room");
 		RoomForm roomForm = new RoomForm();
-		ResponseEntity<String> response = get(BASE_URL + "/hotel/roomTypes/");
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/roomTypes/", session);
 		JSONArray jsonArray = new JSONArray(response.getBody().toString());
 		List<RoomType> roomTypes = new ArrayList<RoomType>();
 		for(int i=0;i<jsonArray.length();i++){
@@ -138,17 +140,17 @@ public class HotelController extends BaseController{
 	}
 	
 	@RequestMapping(value="/createRoom", method=RequestMethod.POST)
-	public String addRoomCreate(@ModelAttribute("form") RoomForm roomForm, @RequestParam String id, BindingResult result){
+	public String addRoomCreate(@ModelAttribute("form") RoomForm roomForm, @RequestParam String id, BindingResult result, HttpSession session){
 		Room room = roomForm.getRoom();
-		ResponseEntity<String> responseRoomType = get(BASE_URL + "/hotel/roomType/" + roomForm.getRoomTypeID());
+		ResponseEntity<String> responseRoomType = get(BASE_URL + "/hotel/roomType/" + roomForm.getRoomTypeID(), session);
 		RoomType roomType;
 		try {
 			roomType = objectMapper.readValue(new JSONObject(responseRoomType.getBody().toString()).toString(), RoomType.class);
 			room.setRoomType(roomType);	
-			ResponseEntity<String> responseHotel = get(BASE_URL + "/hotel/hotel/" + id);
+			ResponseEntity<String> responseHotel = get(BASE_URL + "/hotel/hotel/" + id, session);
 			Hotel hotel = objectMapper.readValue(new JSONObject(responseHotel.getBody().toString()).toString(), Hotel.class);
 			room.setHotel(hotel);
-			ResponseEntity<String> response = post(BASE_URL + "/hotel/room", room);
+			ResponseEntity<String> response = post(BASE_URL + "/hotel/room", room, session);
 			if(response.getStatusCode() == HttpStatus.OK  && !result.hasErrors())
 				return "hotel_management";
 		} catch (JSONException | IOException e) {
@@ -167,8 +169,8 @@ public class HotelController extends BaseController{
 	}
 	
 	@RequestMapping(value="/createRoomType", method=RequestMethod.POST)
-	public String addRoomTypeCreate(@ModelAttribute("form") RoomTypeForm roomTypeForm, BindingResult result){
-		ResponseEntity<String> response = post(BASE_URL + "/hotel/roomType", roomTypeForm.getRoomType());
+	public String addRoomTypeCreate(@ModelAttribute("form") RoomTypeForm roomTypeForm, BindingResult result, HttpSession session){
+		ResponseEntity<String> response = post(BASE_URL + "/hotel/roomType", roomTypeForm.getRoomType(), session);
 		if(response.getStatusCode() == HttpStatus.OK && !result.hasErrors())
 			return "/hotel_management";
 		else

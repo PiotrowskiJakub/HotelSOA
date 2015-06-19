@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -18,7 +19,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="registration">Registration</a></li>
 				<li><a href="login">LogIn</a></li>
-				<li><a href="hotel_management">Hotel management</a></li>
+				<c:if test="${!empty sessionScope.TOKEN}">
+					<li><a href="hotel_management">Hotel management</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

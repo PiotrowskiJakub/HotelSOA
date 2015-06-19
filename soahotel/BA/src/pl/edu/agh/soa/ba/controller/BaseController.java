@@ -2,7 +2,11 @@ package pl.edu.agh.soa.ba.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
@@ -29,6 +33,9 @@ public abstract class BaseController {
 
 	public static final String BASE_URL = "http://localhost:8082/core-0.1";
 //	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
+	
+	public static final String TOKEN = "TOKEN";
+	public static final String ACCOUNT = "ACCOUNT";
 
 
 	public BaseController() {
@@ -62,6 +69,18 @@ public abstract class BaseController {
 			e.printStackTrace();
 		}	
 	}
+	
+	protected ResponseEntity<String> put(String url, Object object, HttpSession session) {		
+		ResponseEntity<String> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(object, getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url, HttpMethod.PUT, request, String.class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
+		}	
+		return response;
+	}
 
 	/**
 	 *  post for entity
@@ -73,9 +92,20 @@ public abstract class BaseController {
 		ResponseEntity<String> response = null;
 		try{
 			response = restTemplate.postForEntity(url, request, String.class);
-//			response = restTemplate.exchange(url, HttpMethod.POST, request, )
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
+		}	
+		return response;
+	}
+	
+	protected ResponseEntity<String> post(String url, Object object, HttpSession session) {
+		ResponseEntity<String> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(object, getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
 		}	
 		return response;
 	}
@@ -90,9 +120,21 @@ public abstract class BaseController {
 		return response;
 	}
 	
+	protected ResponseEntity<String> get(String url, HttpSession session) {
+		ResponseEntity<String> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url,  HttpMethod.GET, request, String.class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
+		}	
+		return response;
+	}
+	
 	private HttpHeaders getHeadersWithAuth(String token){
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", token);
+		headers.set("Token-Auth", token);
 		return headers;
 	}
 }

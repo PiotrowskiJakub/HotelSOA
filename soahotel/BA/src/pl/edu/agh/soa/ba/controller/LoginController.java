@@ -1,7 +1,9 @@
 package pl.edu.agh.soa.ba.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,7 @@ public class LoginController extends BaseController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("form") LoginForm form, BindingResult result){
+	public String login(@Valid @ModelAttribute("form") LoginForm form, BindingResult result, HttpSession session){
 		if(result.hasErrors())
 			return "login";
 		
@@ -33,9 +35,15 @@ public class LoginController extends BaseController {
 		
 		if(response == null )
 			result.addError(new ObjectError("Core connection", "Oops, something wrong happend, please try later"));
-		else
+		else{
 			if(response.getStatusCode() != HttpStatus.OK)
 				result.addError(new ObjectError("Server error", (String) response.getBody()));
+			
+			JSONObject jsonObject = new JSONObject(response.getBody().toString());
+			String token = jsonObject.getString("token");
+			session.setAttribute(TOKEN, token);
+			session.setAttribute(ACCOUNT, jsonObject.get("account"));
+		}
 		if(result.hasErrors())
 			return "login";
 		else
