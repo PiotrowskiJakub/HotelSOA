@@ -6,7 +6,7 @@
 	float: right;
 }
 
-.tableLeft{
+.tableLeft {
 	float: left;
 }
 
@@ -15,21 +15,46 @@
 }
 
 .clear {
-	clear:both;
+	clear: both;
 }
 
-.sectionLabel{
+.sectionLabel {
 	text-transform: uppercase;
 	font-weight: bold;
 }
 
 .sideMenu {
-	max-width : 10%;
-	float : left;
+	float: left;
+	background: #888888;
+	display: block;
+	position: fixed;
+	height: 100%;
+	width : 10%;
+	max-width: 10%;
+	padding : 5px;
+}
+
+.hotelList {
+	padding: 10px;
+	float: left;
+	display: block;
+	position: fixed;
+	height: 100%;
+	max-width: 10%;
+}
+
+.sideMenu a {
+	text-decoration: none;
+	color: #4d4d4d;
+}
+
+.hotelList a {
+	text-decoration: none;
+	color: #9d9d9d;
 }
 
 .container {
-	float:right;
+	float: right;
 	max-width: 90%;
 }
 

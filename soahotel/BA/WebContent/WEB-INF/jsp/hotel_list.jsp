@@ -6,17 +6,19 @@
 
 
 	<jsp:include page="menu.jsp" />
-	<jsp:include page="hotel_links.jsp"/>
+	<jsp:include page="hotel_links.jsp" />
 
 	<!-- Page Content -->
 	<div class="container">
-		<c:if test="${not empty hotelList}">
-			<ul>
-				<c:forEach var="hotel" items="${hotelList}">
-					<li><a href="hotel_info?id=${hotel.id}">${hotel.name}</a></li>
-				</c:forEach>
-			</ul>
-		</c:if>
+		<div class="hotelList">
+			<c:if test="${not empty hotelList}">
+				<ul>
+					<c:forEach var="hotel" items="${hotelList}">
+						<li><a href="hotel_info?id=${hotel.id}">${hotel.name}</a></li>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</div>
 	</div>
 	<!-- /.container -->
 	<!-- jQuery -->

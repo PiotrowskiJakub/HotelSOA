@@ -11,7 +11,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"> <img
-				src="http://placehold.it/150x50&text=Logo" alt=""></a>
+				src="images/reception.png" width="100px" height="auto" alt=""></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
