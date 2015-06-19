@@ -81,4 +81,12 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 				+ " and ( extract(year from r.res_start_date)=" + year 
 				+ " or extract(year from r.res_end_date)=" + year +")").addEntity(Reservation.class).list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reservation> getHotelReservations(Long id) {
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select distinct r.* from soahotel.reservation r "
+				+ "natural join soahotel.room ro where ro.roo_hot_id=" + id).addEntity(Reservation.class).list();
+	}
 }

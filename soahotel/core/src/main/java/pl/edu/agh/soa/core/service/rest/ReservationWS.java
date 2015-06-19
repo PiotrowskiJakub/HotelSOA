@@ -40,6 +40,13 @@ public class ReservationWS {
 
 	@EJB
 	ReservationService reservationService;
+	
+	@GET
+	@Path("/hotel/{id}")
+	public Response getHotelReservations(@PathParam("id") Long id){
+		List<Reservation> reservations = reservationService.getHotelReservations(id);
+		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
+	}
 
 	@GET
 	@Path("/reservation/{id}")
@@ -157,8 +164,8 @@ public class ReservationWS {
 	public Response createMockReservation() {
 		Reservation reservation = new Reservation();
 		reservation.setAccount(mockAccount());
-		reservation.setStartDate(new Date(34323234));
-		reservation.setEndDate(new Date(34323300));
+		reservation.setStartDate(new Date(1433966851));
+		reservation.setEndDate(new Date(1435694851));
 		reservation.setRoom(mockRoom());
 		reservation.setDiscountType(mockDiscountType());
 		reservation.setPaid(true);
@@ -219,7 +226,7 @@ public class ReservationWS {
 		hotel.setAddress(mockAddress());
 		hotel.setAverageRate(4.5);
 		hotel.setContact(mockContact());
-
+		hotel.setName("NAME");
 		return hotel;
 	}
 

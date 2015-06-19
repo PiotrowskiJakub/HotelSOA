@@ -6,8 +6,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -118,5 +120,21 @@ public class HotelWS {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		else
 			return Response.ok(roomTypes, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@PUT
+	@Path("/hotel")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateHotel(Hotel hotel){
+		hotelService.updateHotel(hotel);
+		return Response.ok().build();
+	}
+	
+	@DELETE
+	@Path("/hotel/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response deleteHotel(@PathParam("id") Long id){
+		hotelService.deleteHotel(id);
+		return Response.ok().build();
 	}
 }

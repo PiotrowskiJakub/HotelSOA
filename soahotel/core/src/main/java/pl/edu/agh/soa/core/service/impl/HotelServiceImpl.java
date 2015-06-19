@@ -68,4 +68,14 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.getRoomTypes(id);
 	}
 
+	@Override
+	public void updateHotel(Hotel hotel) {
+		hotelDao.updateHotel(hotel);
+	}
+
+	@Override
+	public void deleteHotel(Long id) {
+		hotelDao.deleteHotel(id);
+	}
+
 }

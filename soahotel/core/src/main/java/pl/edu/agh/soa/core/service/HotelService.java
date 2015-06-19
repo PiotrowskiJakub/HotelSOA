@@ -48,4 +48,8 @@ public interface HotelService {
 	public List<RoomType> getRoomTypes(Long id);
 
 	public RoomType getRoomTypeById(Long id);
+
+	public void updateHotel(Hotel hotel);
+
+	public void deleteHotel(Long id);
 }

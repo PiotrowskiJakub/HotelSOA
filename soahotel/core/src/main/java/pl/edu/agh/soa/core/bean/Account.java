@@ -72,7 +72,7 @@ public class Account implements Serializable {
 	@JoinColumn(name = "acc_con_id", nullable=false)
 	protected Contact contact;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@ManyToOne( fetch= FetchType.EAGER)
 	@JoinColumn(name="acc_hot_id")
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Hotel hotel;

@@ -27,15 +27,15 @@ public class Reservation implements Serializable {
 	@Embedded
 	private Complaint complaint;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="res_roo_id", nullable=false)
 	private Room room;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="res_acc_id", nullable=false)
 	private Account account;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="res_dst_id")
 	private DiscountType discountType;
 	

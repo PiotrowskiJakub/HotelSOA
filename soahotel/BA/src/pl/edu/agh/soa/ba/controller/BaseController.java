@@ -3,7 +3,6 @@ package pl.edu.agh.soa.ba.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -61,10 +60,11 @@ public abstract class BaseController {
 	 * put object to given url
 	 * @param url
 	 * @param request
+	 * @return 
 	 */
 	protected void put(String url, Object request) {		
 		try{
-			restTemplate.put(url, request);
+			 restTemplate.put(url, request);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 		}	
@@ -131,8 +131,24 @@ public abstract class BaseController {
 		}	
 		return response;
 	}
+
+	protected void delete(String url) {
+		restTemplate.delete(url);
+	}
 	
-	private HttpHeaders getHeadersWithAuth(String token){
+	protected ResponseEntity<String> delete(String url, HttpSession session) {
+		ResponseEntity<String> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url,  HttpMethod.DELETE, request, String.class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
+		}	
+		return response;
+	}
+	
+	protected HttpHeaders getHeadersWithAuth(String token){
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Token-Auth", token);
 		return headers;
