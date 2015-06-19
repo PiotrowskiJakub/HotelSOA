@@ -37,6 +37,13 @@ public class ReservationWS {
 
 	@EJB
 	ReservationService reservationService;
+	
+	@GET
+	@Path("/hotel/{id}")
+	public Response getHotelReservations(@PathParam("id") Long id){
+		List<Reservation> reservations = reservationService.getHotelReservations(id);
+		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
+	}
 
 	@GET
 	@Path("/reservation/{id}")
@@ -209,7 +216,7 @@ public class ReservationWS {
 		hotel.setAddress(mockAddress());
 		hotel.setAverageRate(4.5);
 		hotel.setContact(mockContact());
-
+		hotel.setName("NAME");
 		return hotel;
 	}
 

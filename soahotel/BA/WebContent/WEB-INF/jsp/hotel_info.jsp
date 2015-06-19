@@ -153,6 +153,25 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		
+		<div class="section" id="reservations">
+			<div class="sectionLabel">
+				<spring:message code="label.reservations" />
+			</div>
+			<c:forEach var="reservation" items="${reservations}">
+				<div class="output">
+					<div class="tableLeft">
+						<c:out value="${reservation.room.number}" />
+						<c:out value="${reservation.account.firstName}" />
+						<c:out value="${reservation.account.lastName}" />
+					</div>
+					<div class="tableRight">
+						<a href="remove_reservation?id=${reservation.id}">-</a>
+					</div>
+					<div class="clear"></div> 
+				</div>
+			</c:forEach>
+		</div>
 
 		<div class="section">
 			<div class="sectionLabel">

@@ -16,5 +16,6 @@ public interface ReservationDAO {
     public void updateReservation(Reservation reservation);
 	public List<Reservation> getReservations();
 	public List<Reservation> getReservations(Long hotelID, Long roomTypeID, Integer year);
+	public List<Reservation> getHotelReservations(Long id);
 
 }

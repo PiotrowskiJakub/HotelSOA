@@ -2,7 +2,6 @@ package pl.edu.agh.soa.ba.controller;
 
 import java.io.IOException;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
@@ -95,9 +94,9 @@ public abstract class BaseController {
 		restTemplate.delete(url);
 	}
 	
-	private HttpHeaders getHeadersWithAuth(String token){
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", token);
-		return headers;
-	}
+//	private HttpHeaders getHeadersWithAuth(String token){
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.set("Authorization", token);
+//		return headers;
+//	}
 }

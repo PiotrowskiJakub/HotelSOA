@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 import org.json.JSONArray;
@@ -27,6 +26,7 @@ import pl.edu.agh.soa.ba.form.RoomTypeForm;
 import pl.edu.agh.soa.core.bean.Address;
 import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.bean.Hotel;
+import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.bean.RoomType;
 
@@ -142,7 +142,13 @@ public class HotelController extends BaseController{
 					rooms.add(room);
 				}
 				modelAndView.addObject("rooms", rooms);
-
+				
+				ResponseEntity<String> reservations = get(BASE_URL + "/reservation/hotel/" + id);
+				JSONArray jsonArray = new JSONArray(reservations.getBody().toString());
+				List<Reservation> reservationList = new ArrayList<Reservation>();
+				for(int i=0;i<jsonArray.length();i++)
+					reservationList.add(objectMapper.readValue(new JSONObject(jsonArray.get(i).toString()).toString(), Reservation.class));
+				modelAndView.addObject("reservations", reservationList);
 			} catch (JSONException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -218,6 +224,12 @@ public class HotelController extends BaseController{
 	@RequestMapping(value="/hotelRemove", method=RequestMethod.POST)
 	public String removeHotel(@QueryParam("id") String id){
 		delete(BASE_URL + "/hotel/hotel/" + id);
+		return "hotel_management";
+	}
+	
+	@RequestMapping(value="/remove_reservation", method = RequestMethod.GET)
+	public String removeReservation(@QueryParam("id") Long id){
+		delete(BASE_URL + "/reservation/reservation/" + id);
 		return "hotel_management";
 	}
 }
