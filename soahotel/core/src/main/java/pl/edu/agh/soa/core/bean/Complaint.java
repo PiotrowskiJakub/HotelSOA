@@ -1,26 +1,31 @@
 package pl.edu.agh.soa.core.bean;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Piotr Konsek
  *
  */
-@Embeddable
-// TODO: Something wrong with this class, hibernate doesn't create a table
+@Entity
+@Table(name = "complaint")
 public class Complaint implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;	
-	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Reservation reservation;
+
 	@NotNull
 	@Column(name="com_description")
 	@Type(type="text")
@@ -34,4 +39,11 @@ public class Complaint implements Serializable {
 		this.description = description;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

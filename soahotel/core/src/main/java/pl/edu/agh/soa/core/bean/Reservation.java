@@ -1,13 +1,12 @@
 package pl.edu.agh.soa.core.bean;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * 
@@ -23,9 +22,6 @@ public class Reservation implements Serializable {
 	@GeneratedValue
 	@Column(name="res_id")
 	private Long id;
-	
-	@Embedded
-	private Complaint complaint;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="res_roo_id", nullable=false)
