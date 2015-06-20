@@ -61,3 +61,14 @@
 .hidden {
 	display: none;
 }
+
+.editButton{
+	text-align: right;
+}
+
+.removeButton {
+	text-align: right;
+}
+#submit {
+	border: none;
+}

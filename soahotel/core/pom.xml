@@ -152,6 +152,12 @@
 					<execution>
 						<id>make-a-jar</id>
 						<phase>compile</phase>
+						<configuration>
+						<includes>
+							<include>**/bean/*</include>
+							<include>**/dict/*</include>
+						</includes>
+						</configuration>
 						<goals>
 							<goal>jar</goal>
 						</goals>

@@ -49,7 +49,7 @@ public class HotelController extends BaseController{
 		modelAndView.addObject("form", createHotelForm);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="/editHotel", method = RequestMethod.POST)
 	public String editHotel(@ModelAttribute("form") CreateHotelForm form, BindingResult bindingResult){
 		Hotel hotel = form.getHotel();
@@ -57,7 +57,7 @@ public class HotelController extends BaseController{
 		hotel.setContact(form.getContact());
 		hotel.setAddress(form.getAddress());
 		put(BASE_URL + "/hotel/hotel", hotel);
-//		return new ModelAndView("hotel_info?id=" + hotel.getId());
+		//		return new ModelAndView("hotel_info?id=" + hotel.getId());
 		return "hotel_management";
 	}
 
@@ -69,7 +69,7 @@ public class HotelController extends BaseController{
 			ResponseEntity<String> responseHotel= get(BASE_URL + "/hotel/hotel/" + id);
 
 			if(responseHotel == null ){
-//				result.addError(new ObjectError("Core connection", "Oops, something wrong happend, please try later"));
+				//				result.addError(new ObjectError("Core connection", "Oops, something wrong happend, please try later"));
 			} else {
 				if(responseHotel.getStatusCode() == HttpStatus.OK){
 					Hotel hotel = objectMapper.readValue(new JSONObject(responseHotel.getBody().toString()).toString(), Hotel.class);
@@ -86,7 +86,7 @@ public class HotelController extends BaseController{
 		modelAndView.addObject("form", createHotelForm);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="/createHotel", method = RequestMethod.POST)
 	public String createHotel(@ModelAttribute("form") CreateHotelForm form, BindingResult result, HttpSession session){
 		Hotel hotel = form.getHotel();
@@ -144,13 +144,15 @@ public class HotelController extends BaseController{
 					rooms.add(room);
 				}
 				modelAndView.addObject("rooms", rooms);
-				
+
 				ResponseEntity<String> reservations = get(BASE_URL + "/reservation/hotel/" + id);
-				JSONArray jsonArray = new JSONArray(reservations.getBody().toString());
-				List<Reservation> reservationList = new ArrayList<Reservation>();
-				for(int i=0;i<jsonArray.length();i++)
-					reservationList.add(objectMapper.readValue(new JSONObject(jsonArray.get(i).toString()).toString(), Reservation.class));
-				modelAndView.addObject("reservations", reservationList);
+				if(reservations.getStatusCode() == HttpStatus.OK){
+					JSONArray jsonArray = new JSONArray(reservations.getBody().toString());
+					List<Reservation> reservationList = new ArrayList<Reservation>();
+					for(int i=0;i<jsonArray.length();i++)
+						reservationList.add(objectMapper.readValue(new JSONObject(jsonArray.get(i).toString()).toString(), Reservation.class));
+					modelAndView.addObject("reservations", reservationList);
+				}
 			} catch (JSONException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -222,13 +224,13 @@ public class HotelController extends BaseController{
 		else
 			return "/niefart";
 	}
-	
-	@RequestMapping(value="/hotelRemove", method=RequestMethod.POST)
+
+	@RequestMapping(value="/hotelRemove", method=RequestMethod.GET)
 	public String removeHotel(@QueryParam("id") String id){
 		delete(BASE_URL + "/hotel/hotel/" + id);
 		return "hotel_management";
 	}
-	
+
 	@RequestMapping(value="/remove_reservation", method = RequestMethod.GET)
 	public String removeReservation(@QueryParam("id") Long id){
 		delete(BASE_URL + "/reservation/reservation/" + id);
