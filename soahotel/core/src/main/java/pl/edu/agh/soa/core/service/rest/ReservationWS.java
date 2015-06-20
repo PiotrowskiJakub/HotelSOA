@@ -61,7 +61,7 @@ public class ReservationWS {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	@CheckToken
+//	@CheckToken
 	public Response getReservation(@Context HttpServletRequest request){
 		List<Reservation> reservations = reservationService.getReservations();
 		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
@@ -80,7 +80,7 @@ public class ReservationWS {
 	@GET
 	@Path("/hotel/{id}/roomType/{rt}/termins")
 	@Produces(MediaType.APPLICATION_JSON)
-	@CheckToken
+//	@CheckToken
 	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @QueryParam("year") Integer year, @Context HttpServletRequest request) {
 		List<Reservation> reservations = reservationService.getReservations(hotelID, roomTypeID, year);
 		Calendar cal = Calendar.getInstance();

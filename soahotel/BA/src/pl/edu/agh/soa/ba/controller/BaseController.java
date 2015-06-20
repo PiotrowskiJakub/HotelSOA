@@ -31,8 +31,8 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-	//	public static final String BASE_URL = "http://localhost:8082/core-0.1";
-	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
+		public static final String BASE_URL = "http://localhost:8082/core-0.1";
+//	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
 
 	public static final String TOKEN = "TOKEN";
 	public static final String ACCOUNT = "ACCOUNT";
@@ -129,7 +129,8 @@ public abstract class BaseController {
 				HttpEntity<Object> request = new HttpEntity<Object>(getHeadersWithAuth(token.toString()));
 				response = restTemplate.exchange(url,  HttpMethod.GET, request, String.class);
 			}
-			response = get(url);
+			else
+				response = get(url);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 			session.removeAttribute(TOKEN);
