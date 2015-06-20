@@ -17,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -77,10 +78,10 @@ public class ReservationWS {
 	
 
 	@GET
-	@Path("/termins/{id}/{rt}/{year}")
+	@Path("/hotel/{id}/roomType/{rt}/termins")
 	@Produces(MediaType.APPLICATION_JSON)
 	@CheckToken
-	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @PathParam("year") Integer year, @Context HttpServletRequest request) {
+	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @QueryParam("year") Integer year, @Context HttpServletRequest request) {
 		List<Reservation> reservations = reservationService.getReservations(hotelID, roomTypeID, year);
 		Calendar cal = Calendar.getInstance();
 		
