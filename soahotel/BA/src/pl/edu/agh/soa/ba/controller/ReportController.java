@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,23 +25,26 @@ import pl.edu.agh.soa.core.bean.Hotel;
 public class ReportController extends BaseController {
 
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
-	public ModelAndView loadInitialModel() {
+	public ModelAndView loadInitialModel(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("report");
 		ReportForm reportForm = new ReportForm();
 		// Get all hotels
-		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels/");
-		JSONArray jsonArray = new JSONArray(response.getBody().toString());
+		ResponseEntity<String> response = get(BASE_URL + "/hotel/hotels/", session);
 		List<Hotel> hotels = new ArrayList<Hotel>();
-		for (int i = 0; i < jsonArray.length(); i++) {
-			Hotel hotel;
-			try {
-				hotel = objectMapper.readValue(jsonArray.getJSONObject(i)
-						.toString(), Hotel.class);
-				hotels.add(hotel);
-			} catch (JSONException | IOException e) {
-				e.printStackTrace();
-			}
+		if(response.getStatusCode() == HttpStatus.OK) {
+			JSONArray jsonArray = new JSONArray(response.getBody().toString());
+			
+			for (int i = 0; i < jsonArray.length(); i++) {
+				Hotel hotel;
+				try {
+					hotel = objectMapper.readValue(jsonArray.getJSONObject(i)
+							.toString(), Hotel.class);
+					hotels.add(hotel);
+				} catch (JSONException | IOException e) {
+					e.printStackTrace();
+				}
 
+			}
 		}
 
 		modelAndView.addObject("hotels", hotels);
@@ -49,21 +53,24 @@ public class ReportController extends BaseController {
 	}
 
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
-	public void generateReport(@ModelAttribute("form") ReportForm reportForm,
-			HttpServletResponse response) throws IOException {
-		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=Raport_rezerwacji.pdf");
+	public String generateReport(@ModelAttribute("form") ReportForm reportForm,
+			HttpServletResponse response, HttpSession session) throws IOException {
 
-		ServletOutputStream out = response.getOutputStream();
+		ResponseEntity<byte[]> responseReport = getFile(BASE_URL + "/report/" + reportForm.getHotelID(), session);
+		if(responseReport.getStatusCode() == HttpStatus.OK && responseReport.getBody() != null) {
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-Disposition",
+					"attachment;filename=Raport_rezerwacji.pdf");
 
-		ResponseEntity<byte[]> responseReport = getFile(BASE_URL + "/report/" + reportForm.getHotelID());
+			ServletOutputStream out = response.getOutputStream();
 
-		if(responseReport.getStatusCode() == HttpStatus.OK) {
+			
 			out.write(responseReport.getBody());
+			out.flush();
+			out.close();
+			return null;
 		}
-
-		out.flush();
-		out.close();
+		
+		return "report";
 	}
 }
