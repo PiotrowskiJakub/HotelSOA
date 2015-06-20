@@ -102,4 +102,12 @@ public class HotelDAOImpl implements HotelDAO {
 	public Room getRoom(Long roomId) {
 		return em.find(Room.class, roomId);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Room> getRoomsByHotelAndType(Long hotelId, Long roomTypeId) {
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select roo.* from soahotel.room roo where roo.roo_hot_id = " + hotelId +
+									" and roo.roo_rty_id = " + roomTypeId).addEntity(Room.class).list();
+	}
 }

@@ -22,4 +22,5 @@ public interface HotelDAO {
 	public void updateHotel(Hotel hotel);
 	public void deleteHotel(Long id);
 	public Room getRoom(Long roomId);
+	public List<Room> getRoomsByHotelAndType(Long hotelId, Long roomTypeId);
 }

@@ -77,7 +77,7 @@ public class ReservationWS {
 	}
 
 	@GET
-	@Path("/client/{id}")
+	@Path("/client/{id}/reservations")
 	@CheckToken
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getReservations(@PathParam("id") Long id, @Context HttpServletRequest request) {
@@ -147,7 +147,7 @@ public class ReservationWS {
 	@POST
 	@Path("/reservation")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@CheckToken
+//	@CheckToken
 	public Response createReservation(ReservationDTO reservationDto, @Context HttpServletRequest request) {
 		Reservation reservation = createReservationFromDTO(reservationDto);
 		
@@ -161,9 +161,8 @@ public class ReservationWS {
 		reservation.setStartDate(reservationDto.getStartDate());
 		reservation.setEndDate(reservationDto.getEndDate());
 		reservation.setPaid(false);
-		reservation.setRoom(hotelService.getRoom(reservationDto.getRoomId()));
-//		reservation.setDiscountType(discountType);
-//		reservation.setAdditionalServices(additionalServices);
+		Room room = hotelService.getRoomByHotelAndType(reservationDto.getHotelId(), reservationDto.getRoomTypeId());
+		reservation.setRoom(room);
 		return reservation;
 	}
 

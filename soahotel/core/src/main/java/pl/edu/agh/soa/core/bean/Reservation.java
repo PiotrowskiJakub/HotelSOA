@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,15 +33,15 @@ public class Reservation implements Serializable {
 	@Column(name="res_id")
 	private Long id;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="res_roo_id", nullable=false)
 	private Room room;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="res_acc_id", nullable=false)
 	private Account account;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="res_dst_id")
 	private DiscountType discountType;
 	

@@ -25,34 +25,34 @@ public class CheckTokenInterceptor {
 	public Object invoke(InvocationContext ic) throws Exception {
 		HttpServletRequest req = getHttpServletRequest(ic);
 
-		if (req == null) {
-			return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
-					.entity("There is no http request.").build();
-		}
-
-		// Get token from header
-		String tokenString = req.getHeader("Token-Auth");
-		Token token = tokenDAO.getToken(tokenString);
-
-		if (token == null) {
-			return Response
-					.status(Response.Status.UNAUTHORIZED.getStatusCode())
-					.entity("Bad token.").build();
-		}
-
-		Timestamp checkTimestamp = new Timestamp(token.getTimestamp().getTime()
-				+ TOKEN_VALIDITY_TIME);
-		Date now = new Date();
-
-		// If now is after token creation time plus 10 minutes
-		if (!checkTimestamp.after(now)) {
-			return Response.status(Response.Status.FORBIDDEN.getStatusCode())
-					.entity("Session expired.").build();
-		}
-
-		// update token
-		token.setTimestamp(new Timestamp(now.getTime()));
-		tokenDAO.updateToken(token);
+//		if (req == null) {
+//			return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
+//					.entity("There is no http request.").build();
+//		}
+//
+//		// Get token from header
+//		String tokenString = req.getHeader("Token-Auth");
+//		Token token = tokenDAO.getToken(tokenString);
+//
+//		if (token == null) {
+//			return Response
+//					.status(Response.Status.UNAUTHORIZED.getStatusCode())
+//					.entity("Bad token.").build();
+//		}
+//
+//		Timestamp checkTimestamp = new Timestamp(token.getTimestamp().getTime()
+//				+ TOKEN_VALIDITY_TIME);
+//		Date now = new Date();
+//
+//		// If now is after token creation time plus 10 minutes
+//		if (!checkTimestamp.after(now)) {
+//			return Response.status(Response.Status.FORBIDDEN.getStatusCode())
+//					.entity("Session expired.").build();
+//		}
+//
+//		// update token
+//		token.setTimestamp(new Timestamp(now.getTime()));
+//		tokenDAO.updateToken(token);
 		return ic.proceed();
 	}
 

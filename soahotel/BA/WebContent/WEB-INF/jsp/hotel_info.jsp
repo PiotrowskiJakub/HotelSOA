@@ -172,7 +172,9 @@
 						<c:out value="${reservation.account.lastName}" />
 					</div>
 					<div class="tableRight">
-						<a href="remove_reservation?id=${reservation.id}">-</a>
+						<a href="remove_reservation?id=${reservation.id}">
+							<span id="removeButton" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</a>
 					</div>
 					<div class="clear"></div>
 				</div>

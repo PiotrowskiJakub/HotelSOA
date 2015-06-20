@@ -11,12 +11,29 @@ public class ReservationDTO {
 
 	private Long id;	
 	private Long complaintId;	
-	private Long roomId;	
+	private Long roomTypeId;	
+	private Long hotelId;
 	private Long accountId;	
 	private Long discountId;	
 	private Date startDate;	
 	private Date endDate;	
 	private List<Long> additionalServicesID;
+	
+	public Long getRoomTypeId() {
+		return roomTypeId;
+	}
+
+	public void setRoomTypeId(Long roomTypeId) {
+		this.roomTypeId = roomTypeId;
+	}
+
+	public Long getHotelId() {
+		return hotelId;
+	}
+
+	public void setHotelId(Long hotelId) {
+		this.hotelId = hotelId;
+	}
 	
 	public Long getId() {
 		return id;
@@ -35,11 +52,11 @@ public class ReservationDTO {
 	}
 
 	public Long getRoomId() {
-		return roomId;
+		return roomTypeId;
 	}
 
 	public void setRoomId(Long roomId) {
-		this.roomId = roomId;
+		this.roomTypeId = roomId;
 	}
 
 	public Long getAccountId() {
