@@ -2,11 +2,13 @@ package pl.edu.agh.soa.core.service;
 
 import pl.edu.agh.soa.core.bean.Complaint;
 
+import javax.ejb.Remote;
 import java.util.List;
 
 /**
  * Created by agnieszkaszczurek on 20.06.15.
  */
+@Remote
 public interface ComplaintService {
 
     public void createComplaint(Complaint complaint);

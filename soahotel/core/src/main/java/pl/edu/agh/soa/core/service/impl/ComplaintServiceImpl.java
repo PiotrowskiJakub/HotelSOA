@@ -5,11 +5,13 @@ import pl.edu.agh.soa.core.dao.ComplaintDAO;
 import pl.edu.agh.soa.core.service.ComplaintService;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.List;
 
 /**
  * Created by agnieszkaszczurek on 20.06.15.
  */
+@Stateless
 public class ComplaintServiceImpl  implements ComplaintService{
 
 
