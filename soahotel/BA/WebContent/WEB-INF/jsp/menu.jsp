@@ -19,6 +19,7 @@
 				<li><a href="registration">Registration</a></li>
 				<li><a href="login">LogIn</a></li>
 				<li><a href="hotel_management">Hotel management</a></li>
+				<li><a href="report">Reports</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

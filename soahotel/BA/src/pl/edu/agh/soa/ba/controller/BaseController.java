@@ -27,7 +27,7 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-	public static final String BASE_URL = "http://localhost:8082/core-0.1";
+	public static final String BASE_URL = "http://localhost:8080/core";
 //	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
 
 
@@ -84,6 +84,16 @@ public abstract class BaseController {
 		ResponseEntity<String> response = null;
 		try{
 			response = restTemplate.getForEntity(url, String.class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+		}	
+		return response;
+	}
+	
+	protected ResponseEntity<byte[]> getFile(String url) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			response = restTemplate.getForEntity(url, byte[].class);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 		}	

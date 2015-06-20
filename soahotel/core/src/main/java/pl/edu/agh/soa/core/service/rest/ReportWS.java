@@ -10,20 +10,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import pl.edu.agh.soa.core.service.RaportService;
+import pl.edu.agh.soa.core.service.ReportService;
 
 @Stateless
-@Path("raport")
-public class RaportWS {
+@Path("report")
+public class ReportWS {
 
 	@EJB
-	RaportService raportService;
+	ReportService reportService;
 	
 	@GET
 	@Path("{hotelId}")
 	@Produces("application/pdf")
 	public Response getPDF(@PathParam("hotelId") Long hotelId) {
-		File file = raportService.generateHotelReservationsRaport(hotelId);
+		File file = reportService.generateHotelReservationsReport(hotelId);
 		Response.ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition",
 				"attachment; filename=\"Raport_rezerwacji.pdf\"");

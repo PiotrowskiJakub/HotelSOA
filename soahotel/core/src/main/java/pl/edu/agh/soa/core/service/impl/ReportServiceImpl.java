@@ -16,7 +16,7 @@ import pl.edu.agh.soa.core.bean.Hotel;
 import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.dao.HotelDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
-import pl.edu.agh.soa.core.service.RaportService;
+import pl.edu.agh.soa.core.service.ReportService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -29,7 +29,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 @Stateless
-public class RaportServiceImpl implements RaportService {
+public class ReportServiceImpl implements ReportService {
 
 	public static final String RESULT = "Raport_rezerwacji.pdf";
 	private Document document;
@@ -43,7 +43,7 @@ public class RaportServiceImpl implements RaportService {
 	private HotelDAO hotelDAO;
 
 	@Override
-	public File generateHotelReservationsRaport(Long hotelId) {
+	public File generateHotelReservationsReport(Long hotelId) {
 		List<Reservation> reservations = reservationDAO
 				.getReservationsForHotel(hotelId);
 		

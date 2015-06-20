@@ -5,7 +5,7 @@ import java.io.File;
 import javax.ejb.Remote;
 
 @Remote
-public interface RaportService {
+public interface ReportService {
 
-	public File generateHotelReservationsRaport(Long hotelId);
+	public File generateHotelReservationsReport(Long hotelId);
 }
