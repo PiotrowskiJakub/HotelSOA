@@ -16,6 +16,7 @@ public interface ComplaintService {
     public void updateComplaint(Complaint complaint);
     public void deleteComplaint(Long id);
     public List<Complaint> getAllComplaints();
+    public Complaint getComplaintByReservationId(Long id);
 
 }
 

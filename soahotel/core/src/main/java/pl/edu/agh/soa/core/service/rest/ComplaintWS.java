@@ -1,8 +1,10 @@
 package pl.edu.agh.soa.core.service.rest;
 
 import pl.edu.agh.soa.core.bean.Complaint;
+import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.interceptor.CheckToken;
 import pl.edu.agh.soa.core.service.ComplaintService;
+import pl.edu.agh.soa.core.service.ReservationService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -23,6 +25,8 @@ public class ComplaintWS {
 
     @EJB
     ComplaintService complaintService;
+    @EJB
+    ReservationService reservationService;
 
     @POST
     @Path("/complaint")
@@ -43,6 +47,29 @@ public class ComplaintWS {
             return Response.status(Response.Status.NOT_FOUND).build();
         else
             return Response.ok(complaint, MediaType.APPLICATION_JSON).build();
+    }
+
+    @GET
+    @Path("/complaint/reservation/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @CheckToken
+    public Response getComplaintByReservationId(@PathParam("id") Long id, @Context HttpServletRequest request){
+        Complaint complaint = complaintService.getComplaintByReservationId(id);
+        if(complaint == null)
+            return Response.status(Response.Status.NOT_FOUND).build();
+        else
+            return Response.ok(complaint, MediaType.APPLICATION_JSON).build();
+    }
+
+    @POST
+    @Path("/complaint/reservation/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @CheckToken
+    public Response createComplaintWithReservationId(Complaint complaint, @PathParam("id") Long id,@Context HttpServletRequest request) {
+        Reservation reservation = reservationService.getReservation(id);
+        complaint.setReservation(reservation);
+        complaintService.createComplaint(complaint);
+        return Response.ok().build();
     }
 
     @GET

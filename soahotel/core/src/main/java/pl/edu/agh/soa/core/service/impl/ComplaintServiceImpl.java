@@ -26,7 +26,7 @@ public class ComplaintServiceImpl  implements ComplaintService{
 
     @Override
     public Complaint getComplaint(Long id) {
-        return complaintDAO.getComplaintByReservaitonId(id);
+        return complaintDAO.getComplaintById(id);
     }
 
     @Override
@@ -42,5 +42,10 @@ public class ComplaintServiceImpl  implements ComplaintService{
     @Override
     public List<Complaint> getAllComplaints() {
         return complaintDAO.getAllComplaints();
+    }
+
+    @Override
+    public Complaint getComplaintByReservationId(Long id) {
+        return complaintDAO.getComplaintByReservaitonId(id);
     }
 }

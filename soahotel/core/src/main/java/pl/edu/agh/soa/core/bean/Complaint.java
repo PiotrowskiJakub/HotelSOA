@@ -24,6 +24,7 @@ public class Complaint implements Serializable {
 	private Long id;
 
 	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "com_res_id")
 	private Reservation reservation;
 
 	@NotNull
@@ -45,5 +46,13 @@ public class Complaint implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 }

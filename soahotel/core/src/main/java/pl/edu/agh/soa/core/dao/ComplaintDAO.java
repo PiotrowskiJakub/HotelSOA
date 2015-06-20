@@ -13,8 +13,9 @@ import java.util.List;
 public interface ComplaintDAO {
 
     public void addComplaint(Complaint complaint);
-    public Complaint getComplaintByReservaitonId(Long id);
+    public Complaint getComplaintById(Long id);
     public void updateComplaint(Complaint complaint);
     public void removeComplaint(Long id);
     public List<Complaint> getAllComplaints();
+    public Complaint getComplaintByReservaitonId(Long id);
 }

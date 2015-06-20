@@ -30,7 +30,8 @@ public class ComplaintDAOImpl implements ComplaintDAO {
     }
 
     @Override
-    public Complaint getComplaintByReservaitonId(Long id) {
+    public Complaint getComplaintById(Long id) {
+
         return em.find(Complaint.class, id);
     }
 
@@ -49,5 +50,11 @@ public class ComplaintDAOImpl implements ComplaintDAO {
     public List<Complaint> getAllComplaints() {
         Session session = (Session) em.getDelegate();
         return (List<Complaint>) session.createSQLQuery("select c.* from soahotel.complaint c").addEntity(Complaint.class).list();
+    }
+
+    @Override
+    public Complaint getComplaintByReservaitonId(Long id) {
+        Session session = (Session) em.getDelegate();
+        return  (Complaint) session.createSQLQuery("select c.* from soahotel.complaint c where c.com_res_id =" +id).addEntity(Complaint.class).list().get(0);
     }
 }
