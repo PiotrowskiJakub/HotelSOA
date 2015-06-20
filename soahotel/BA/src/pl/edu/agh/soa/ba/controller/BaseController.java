@@ -152,8 +152,30 @@ public abstract class BaseController {
 		}	
 		return response;
 	}
-
-	protected HttpHeaders getHeadersWithAuth(String token){
+	
+	protected ResponseEntity<byte[]> getFile(String url) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			response = restTemplate.getForEntity(url, byte[].class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+		}	
+		return response;
+	}
+	
+	protected ResponseEntity<byte[]> getFile(String url, HttpSession session) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url,  HttpMethod.GET, request, byte[].class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
+		}	
+		return response;
+	}
+	
+	private HttpHeaders getHeadersWithAuth(String token){
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Token-Auth", token);
 		return headers;

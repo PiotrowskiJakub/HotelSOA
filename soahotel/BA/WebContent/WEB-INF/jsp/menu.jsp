@@ -21,6 +21,7 @@
 				<li><a href="login">LogIn</a></li>
 				<c:if test="${!empty sessionScope.TOKEN}">
 					<li><a href="hotel_management">Hotel management</a></li>
+					<li><a href="report">Reports</a></li>
 				</c:if>
 			</ul>
 		</div>

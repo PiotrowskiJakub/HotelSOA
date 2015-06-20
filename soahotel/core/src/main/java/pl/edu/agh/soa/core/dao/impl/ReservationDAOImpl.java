@@ -56,6 +56,15 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
         em.remove(reservation);
         logger.info("Removed reservation with details: " + reservation);
     }
+    
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reservation> getReservationsForHotel(Long hotelId) {
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select distinct r.* from soahotel.reservation r "
+				+ "inner join soahotel.room ro on ro.roo_id = r.res_roo_id "
+				+ "where ro.roo_hot_id = " + hotelId).addEntity(Reservation.class).list();
+	}
 
     @Override
     public void updateReservation(Reservation reservation) {
