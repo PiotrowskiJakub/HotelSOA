@@ -35,9 +35,6 @@ public class Reservation implements Serializable {
 	@Column(name="res_id")
 	private Long id;
 	
-	@Embedded
-	private Complaint complaint;
-	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="res_roo_id", nullable=false)
 	private Room room;
