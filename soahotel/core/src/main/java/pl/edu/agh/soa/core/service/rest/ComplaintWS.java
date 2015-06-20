@@ -7,7 +7,6 @@ import pl.edu.agh.soa.core.service.ComplaintService;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -38,8 +37,8 @@ public class ComplaintWS {
     @Path("/complaint/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @CheckToken
-    public Response getComplaintById(@PathParam("id") String id,@Context HttpServletRequest request) {
-        Complaint complaint = complaintService.getComplaint(Long.parseLong(id));
+    public Response getComplaintById(@PathParam("id") Long id,@Context HttpServletRequest request) {
+        Complaint complaint = complaintService.getComplaint(id);
         if(complaint == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         else
@@ -50,7 +49,7 @@ public class ComplaintWS {
     @Path("/complaints")
     @Produces(MediaType.APPLICATION_JSON)
     @CheckToken
-    public Response getAllComplaints() {
+    public Response getAllComplaints(@Context HttpServletRequest request) {
         List<Complaint> complaints = complaintService.getAllComplaints();
         return Response.ok(complaints,MediaType.APPLICATION_JSON).build();
     }
@@ -59,7 +58,7 @@ public class ComplaintWS {
     @Path("/complaint")
     @Consumes(MediaType.APPLICATION_JSON)
     @CheckToken
-    public Response updateComplaint(Complaint complaint) {
+    public Response updateComplaint(Complaint complaint, @Context HttpServletRequest request) {
         complaintService.updateComplaint(complaint);
         return Response.ok().build();
     }
@@ -68,9 +67,18 @@ public class ComplaintWS {
     @Path("/complaint/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @CheckToken
-    public Response deleteComplaint(@PathParam("id") Long id) {
+    public Response deleteComplaint(@PathParam("id") Long id, @Context HttpServletRequest request) {
         complaintService.deleteComplaint(id);
         return Response.ok().build();
     }
 
+    @GET
+    @Path("/mock")
+    public Response mockComplaint() {
+        Complaint complaint = new Complaint();
+        complaint.setDescription("W ogóle badziew totalny!");
+
+        complaintService.createComplaint(complaint);
+        return Response.ok().build();
+    }
 }
