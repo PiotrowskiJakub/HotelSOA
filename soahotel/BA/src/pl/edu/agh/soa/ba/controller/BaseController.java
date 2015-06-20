@@ -30,7 +30,7 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-	public static final String BASE_URL = "http://localhost:8082/core-0.1";
+	public static final String BASE_URL = "http://localhost:8080/core";
 //	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
 	
 	public static final String TOKEN = "TOKEN";
@@ -148,7 +148,17 @@ public abstract class BaseController {
 		return response;
 	}
 	
-	protected HttpHeaders getHeadersWithAuth(String token){
+	protected ResponseEntity<byte[]> getFile(String url) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			response = restTemplate.getForEntity(url, byte[].class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+		}	
+		return response;
+	}
+	
+	private HttpHeaders getHeadersWithAuth(String token){
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Token-Auth", token);
 		return headers;
