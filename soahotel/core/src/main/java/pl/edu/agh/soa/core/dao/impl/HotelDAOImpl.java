@@ -97,4 +97,9 @@ public class HotelDAOImpl implements HotelDAO {
 	public void deleteHotel(Long id) {
 		em.remove(em.find(Hotel.class, id));
 	}
+
+	@Override
+	public Room getRoom(Long roomId) {
+		return em.find(Room.class, roomId);
+	}
 }

@@ -78,4 +78,9 @@ public class HotelServiceImpl implements HotelService {
 		hotelDao.deleteHotel(id);
 	}
 
+	@Override
+	public Room getRoom(Long roomId) {
+		return hotelDao.getRoom(roomId);
+	}
+
 }

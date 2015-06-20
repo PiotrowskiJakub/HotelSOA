@@ -31,7 +31,10 @@ import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.bean.Room;
 import pl.edu.agh.soa.core.bean.RoomType;
 import pl.edu.agh.soa.core.bean.Termin;
+import pl.edu.agh.soa.core.dto.ReservationDTO;
 import pl.edu.agh.soa.core.interceptor.CheckToken;
+import pl.edu.agh.soa.core.service.HotelService;
+import pl.edu.agh.soa.core.service.RegistrationService;
 import pl.edu.agh.soa.core.service.ReservationService;
 
 @Stateless
@@ -41,6 +44,12 @@ public class ReservationWS {
 
 	@EJB
 	ReservationService reservationService;
+	
+	@EJB
+	RegistrationService registrationService;
+	
+	@EJB
+	HotelService hotelService;
 	
 	@GET
 	@Path("/hotel/{id}")
@@ -136,18 +145,33 @@ public class ReservationWS {
 	}
 
 	@POST
-	@Path("/")
+	@Path("/reservation")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@CheckToken
-	public Response createReservation(Reservation reservation, @Context HttpServletRequest request) {
+	public Response createReservation(ReservationDTO reservationDto, @Context HttpServletRequest request) {
+		Reservation reservation = createReservationFromDTO(reservationDto);
+		
 		reservationService.createReservation(reservation);
 		return Response.ok().build();
 	}
 
+	private Reservation createReservationFromDTO(ReservationDTO reservationDto) {
+		Reservation reservation = new Reservation();
+		reservation.setAccount(registrationService.getAccount(reservationDto.getAccountId()));
+		reservation.setStartDate(reservationDto.getStartDate());
+		reservation.setEndDate(reservationDto.getEndDate());
+		reservation.setPaid(false);
+		reservation.setRoom(hotelService.getRoom(reservationDto.getRoomId()));
+//		reservation.setDiscountType(discountType);
+//		reservation.setAdditionalServices(additionalServices);
+		return reservation;
+	}
+
 	@PUT
-	@Path("/")
+	@Path("/reservation")
 	@CheckToken
 	public Response updateReservation(Reservation reservation, @Context HttpServletRequest request) {
+		
 		reservationService.updateReservation(reservation);
 		return Response.ok().build();
 	}

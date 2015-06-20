@@ -52,4 +52,6 @@ public interface HotelService {
 	public void updateHotel(Hotel hotel);
 
 	public void deleteHotel(Long id);
+
+	public Room getRoom(Long roomId);
 }
