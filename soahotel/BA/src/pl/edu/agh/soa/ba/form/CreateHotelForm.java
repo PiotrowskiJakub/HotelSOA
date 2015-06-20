@@ -13,14 +13,15 @@ public class CreateHotelForm {
 	private Address address;
 	private Contact contact;
 	
-	private Long id;
+	private Long id = 0l;
 	
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(Long id) {
+		if(this != null)
+			this.id = id;
 	}
 
 	public CreateHotelForm(){

@@ -10,17 +10,23 @@
 
 	<!-- Page Content -->
 	<div class="container">
-		<div class="button">
-			<a href="hotel_edit?id=${hotel.id}">Edit Hotel</a>
-		</div>
-
-		<form:form action="hotelRemove?id=${hotel.id}" method="POST">
-			<div class="button">
-				<input type="submit" />
-			</div>
-		</form:form>
-
 		<div class="section">
+			<div class="button editButton">
+				<a href="hotel_edit?id=${hotel.id}"> <span
+					class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				</a>
+			</div>
+
+			<%-- <form:form id="removeForm" action="hotelRemove?id=${hotel.id}" method="POST">--%>
+			<div class="button removeButton">
+				<!-- <input id="submit" type="image" class="glyphicon glyphicon-remove" alt=" "/> -->
+				<a href="hotelRemove?id=${hotel.id}"><span id="removeButton"
+					class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+
+			</div>
+			<%-- 	</form:form>
+ --%>
+
 			<div class="sectionLabel">
 				<spring:message code="label.basic_information" />
 			</div>
@@ -153,7 +159,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		
+
 		<div class="section" id="reservations">
 			<div class="sectionLabel">
 				<spring:message code="label.reservations" />
@@ -168,7 +174,7 @@
 					<div class="tableRight">
 						<a href="remove_reservation?id=${reservation.id}">-</a>
 					</div>
-					<div class="clear"></div> 
+					<div class="clear"></div>
 				</div>
 			</c:forEach>
 		</div>

@@ -87,8 +87,8 @@
 			</div>
 		</div>
 	</div>
-</div>
-	<form:input path="id" />
+</div> 
+	
 <div class="hidden">
-
+	<form:input path="id" />
 </div>
