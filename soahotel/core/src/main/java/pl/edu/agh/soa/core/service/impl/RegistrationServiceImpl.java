@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.dao.AccountDAO;
+import pl.edu.agh.soa.core.dao.TokenDAO;
 import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.service.RegistrationService;
 
@@ -15,24 +16,28 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@EJB
 	private AccountDAO accountDAO;
-	
-	public void setAccountDAO(AccountDAO accountDAO){
+
+	@EJB
+	private TokenDAO tokenDAO;
+
+	public void setAccountDAO(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
 	}
-	
+
 	@Override
-	public void addAccount(Account account) {
-//		TODO
-		//every new account is inactive, until mail confirmation
-//		account.setAccountStatus(AccountStatus.INACTIVE);
-		account.setAccountStatus(AccountStatus.ACTIVE);
-		this.accountDAO.addAccount(account);
+	public Account addAccount(Account account) {
+		account.setAccountStatus(AccountStatus.INACTIVE);
+		return accountDAO.addAccount(account);
 	}
 
 	@Override
 	public void updateAccount(Account account) {
-		// TODO Auto-generated method stub
+		accountDAO.updateAccount(account);
+	}
 
+	@Override
+	public Account getAccount(Long id) {
+		return accountDAO.getAccount(id);
 	}
 
 	@Override
@@ -42,17 +47,11 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public Account getAccount(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void removeAccount(Integer id) {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public List<Account> getAccountList() {
 		return this.accountDAO.getAllAccount();
@@ -64,4 +63,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 		return null;
 	}
 
+	@Override
+	public boolean checkToken(String token) {
+		return tokenDAO.checkToken(token);
+	}
 }

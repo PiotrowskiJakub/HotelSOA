@@ -24,7 +24,7 @@
 		<maven-ejb-plugin.version>2.5</maven-ejb-plugin.version>
 		<ejb.version>3.2</ejb.version>
 
-		<wildfly-management-http.port>9991</wildfly-management-http.port>
+		<wildfly-management-http.port>9992</wildfly-management-http.port>
 	</properties>
 
 	<dependencies>
@@ -106,6 +106,13 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		
+		<!-- PDF Library -->
+  		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+  		</dependency>
 	</dependencies>
 
 	<build>
@@ -114,8 +121,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source> <!-- yours Java version -->
-					<target>1.8</target> <!-- yours Java version -->
+					<source>1.7</source> <!-- yours Java version -->
+					<target>1.7</target> <!-- yours Java version -->
 				</configuration>
 			</plugin>
 
@@ -145,6 +152,12 @@
 					<execution>
 						<id>make-a-jar</id>
 						<phase>compile</phase>
+						<configuration>
+						<includes>
+							<include>**/bean/*</include>
+							<include>**/dict/*</include>
+						</includes>
+						</configuration>
 						<goals>
 							<goal>jar</goal>
 						</goals>

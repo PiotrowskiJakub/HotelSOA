@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<project name="core" default="" basedir=".">
+<project name="soahotel" default="" basedir=".">
 	<property file="build.properties" />
 
-	<target name="copy">
+	<target name="copyEJB">
 		<copy todir="${deploy.path}/soahotelcore/deployments" overwrite="true">
 			<fileset file="${maven.repository}\repository\pl\edu\agh\soa\soahotel\core\0.1\core-0.1.war"/>
 		</copy>
 	</target>
+	
+	<target name="copyBA">
+			<copy todir="${deploy.path}/soahotelba/deployments" overwrite="true">
+				<fileset file="${maven.repository}\repository\pl\edu\agh\soa\soahotel\BA\0.1\BA-0.1.war"/>
+			</copy>
+		</target>
 	
 	<macrodef name="git">
 			<attribute name="command" />
@@ -38,6 +44,7 @@
 				<git command="push" />
 	</target>
 	
-	<target name="all" depends="copy,commit">
-	</target>
+	<target name="all EJB" depends="copyEJB,commit"/>
+	<target name="all BA" depends="copyBA,commit"/>
+
 </project>

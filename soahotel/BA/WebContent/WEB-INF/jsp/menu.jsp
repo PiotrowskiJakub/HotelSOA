@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -10,7 +11,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"> <img
-				src="http://placehold.it/150x50&text=Logo" alt=""></a>
+				src="images/reception.png" width="100px" height="auto" alt=""></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -18,6 +19,10 @@
 			<ul class="nav navbar-nav">
 				<li><a href="registration">Registration</a></li>
 				<li><a href="login">LogIn</a></li>
+				<c:if test="${!empty sessionScope.TOKEN}">
+					<li><a href="hotel_management">Hotel management</a></li>
+					<li><a href="report">Reports</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

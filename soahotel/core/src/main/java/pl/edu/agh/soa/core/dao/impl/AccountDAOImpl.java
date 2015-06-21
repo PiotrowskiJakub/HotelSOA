@@ -19,14 +19,14 @@ import pl.edu.agh.soa.core.bean.Contact;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
 import pl.edu.agh.soa.core.dao.AccountDAO;
 
-@Local(value=AccountDAO.class)
+@Local(value = AccountDAO.class)
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
-	
-	@PersistenceContext(unitName="soahoteldb")
+public class AccountDAOImpl extends AbstractDAO implements AccountDAO {
+
+	@PersistenceContext(unitName = "soahoteldb")
 	EntityManager em;
-	
+
 	public AccountDAOImpl() {
 		super();
 		logger = Logger.getLogger(AccountDAOImpl.class);
@@ -34,25 +34,31 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void addAccount(Account account) {
+	public Account addAccount(Account account) {
 		em.persist(account);
 		logger.info("Account saved successfully, AccountDetails = " + account);
+		em.flush();
+		return account;
 	}
 
 	@Override
 	public void updateAccount(Account account) {
-		// TODO Auto-generated method stub
+		em.merge(account);
 
+	}
+
+	@Override
+	public Account getAccount(Long id) {
+		logger.info("Find account by id");
+		Session session = (Session) em.getDelegate();
+		return (Account) session
+				.createSQLQuery(
+						"select a.* from soahotel.account a where acc_id = "
+								+ id).addEntity(Account.class).uniqueResult();
 	}
 
 	@Override
 	public List<Account> listAccount() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Account getAccount(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -67,7 +73,10 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 	@Override
 	public List<Account> getAllAccount() {
 		logger.info("Listing all accounts");
-		return em.createNativeQuery("select * from soahotel.account").getResultList();
+		Session session = (Session) em.getDelegate();
+		return session.createSQLQuery("select a.* from soahotel.account a ")
+				.addEntity(Account.class).list();
+
 	}
 
 	@Override
@@ -75,16 +84,23 @@ public class AccountDAOImpl extends AbstractDAO implements AccountDAO  {
 		logger.info("Find account by mail");
 		Session session = (Session) em.getDelegate();
 		Object result = null;
-		try{
-			result = ((Object[])session.createSQLQuery("select {a.*}, {c.*} from soahotel.account a inner join soahotel.contact c on a.acc_con_id=c.con_id where c.con_mail='" + mail + "'").addEntity("a", Account.class).addEntity("c", Contact.class).list().get(0))[0];
-		} catch (Exception e){
+		try {
+			result = ((Object[]) session
+					.createSQLQuery(
+							"select {a.*}, {c.*} from soahotel.account a inner join soahotel.contact c on a.acc_con_id=c.con_id where c.con_mail='"
+									+ mail + "'").addEntity("a", Account.class)
+					.addEntity("c", Contact.class).list().get(0))[0];
+		} catch (Exception e) {
 			return null;
 		}
 		return (Account) result;
-		
-		
-//		Contact contact = (Contact) em.createNativeQuery("select * from soahotel.contact where con_mail=\'"+ mail +"\'", Contact.class).getSingleResult();
-//		return (Account) em.createNativeQuery("select * from soahotel.account where acc_con_id=" + contact.getId(), Account.class).getSingleResult();
+
+		// Contact contact = (Contact)
+		// em.createNativeQuery("select * from soahotel.contact where con_mail=\'"+
+		// mail +"\'", Contact.class).getSingleResult();
+		// return (Account)
+		// em.createNativeQuery("select * from soahotel.account where acc_con_id="
+		// + contact.getId(), Account.class).getSingleResult();
 	}
 
 }

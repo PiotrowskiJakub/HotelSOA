@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * 
@@ -24,30 +26,35 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="reservation")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Reservation implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="res_id")
 	private Long id;
 	
-	@Embedded
-	private Complaint complaint;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="res_roo_id", nullable=false)
 	private Room room;
-	@ManyToOne
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="res_acc_id", nullable=false)
 	private Account account;
-	@ManyToOne
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="res_dst_id")
 	private DiscountType discountType;
+	
 	@Column(name="res_start_date", nullable=false)
 	private Date startDate;
+	
 	@Column(name="res_end_date", nullable=false)
 	private Date endDate;
+	
 	@Column(name="res_paid", nullable=false)
 	private Boolean paid = false;
-	@OneToMany(mappedBy="reservation")
+	
+	@OneToMany(mappedBy="reservation", fetch=FetchType.EAGER)
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 	
 	public Reservation() {

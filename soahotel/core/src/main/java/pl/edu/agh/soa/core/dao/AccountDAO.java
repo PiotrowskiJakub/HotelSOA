@@ -8,10 +8,10 @@ import pl.edu.agh.soa.core.bean.Account;
 
 @Local
 public interface AccountDAO {
-	public void addAccount(Account account);
+	public Account addAccount(Account account);
 	public void updateAccount(Account account);
 	public List<Account> listAccount();
-	public Account getAccount(Integer id);
+	public Account getAccount(Long id);
 	public void removeAccount(Integer id);
 	public List<Account> getAllAccount();
 	public Account getAccount(String mail);

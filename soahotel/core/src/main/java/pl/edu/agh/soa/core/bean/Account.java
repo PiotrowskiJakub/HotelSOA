@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
@@ -29,6 +30,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "ACCOUNT")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account implements Serializable {
 
 	@Id
@@ -63,18 +65,17 @@ public class Account implements Serializable {
 
 	
 	@JoinColumn(name = "acc_add_id", nullable=false)
-	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	protected Address address;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name = "acc_con_id", nullable=false)
 	protected Contact contact;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne( fetch= FetchType.EAGER)
 	@JoinColumn(name="acc_hot_id")
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Hotel hotel;
-
 	// permissions
 
 	@Column(name = "acc_newsletter_perm")
@@ -83,6 +84,10 @@ public class Account implements Serializable {
 	@Column(name = "acc_terms_accepted")
 	protected Boolean termsAccepted;
 
+	public Long getId() {
+		return id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
