@@ -31,7 +31,7 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-		public static final String BASE_URL = "http://localhost:8082/core-0.1";
+		public static final String BASE_URL = "http://localhost:8080/core";
 //	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
 
 	public static final String TOKEN = "TOKEN";
@@ -169,6 +169,28 @@ public abstract class BaseController {
 		try{
 			HttpEntity<Object> request = new HttpEntity<Object>(getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
 			response = restTemplate.exchange(url,  HttpMethod.GET, request, byte[].class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+			session.removeAttribute(TOKEN);
+		}	
+		return response;
+	}
+	
+	protected ResponseEntity<byte[]> postFile(String url, Object request) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			response = restTemplate.postForEntity(url, request, byte[].class);
+		} catch (HttpClientErrorException e){
+			e.printStackTrace();
+		}	
+		return response;
+	}
+	
+	protected ResponseEntity<byte[]> postFile(String url, Object object, HttpSession session) {
+		ResponseEntity<byte[]> response = null;
+		try{
+			HttpEntity<Object> request = new HttpEntity<Object>(object, getHeadersWithAuth(session.getAttribute(TOKEN).toString()));
+			response = restTemplate.exchange(url,  HttpMethod.POST, request, byte[].class);
 		} catch (HttpClientErrorException e){
 			e.printStackTrace();
 			session.removeAttribute(TOKEN);
