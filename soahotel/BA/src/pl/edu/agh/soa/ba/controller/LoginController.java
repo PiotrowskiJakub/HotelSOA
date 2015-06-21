@@ -70,13 +70,4 @@ public class LoginController extends BaseController {
 		session.removeAttribute(TOKEN);
 		return loadInitialModel();
 	}
-	
-//	@RequestMapping(value="/logout", method=RequestMethod.GET)
-//	public ModelAndView logout(){
-////		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-////		HttpSession session = attr.getRequest().getSession();
-////		session.removeAttribute(ACCOUNT);
-////		session.removeAttribute(TOKEN);
-//		return new ModelAndView("login");
-//	}
 }
