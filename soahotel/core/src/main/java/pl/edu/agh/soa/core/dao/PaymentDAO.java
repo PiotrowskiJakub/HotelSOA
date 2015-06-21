@@ -1,10 +1,10 @@
 package pl.edu.agh.soa.core.dao;
 
-import pl.edu.agh.soa.core.bean.Payment;
+import java.util.List;
 
 import javax.ejb.Local;
-import java.math.BigDecimal;
-import java.util.List;
+
+import pl.edu.agh.soa.core.bean.Payment;
 
 /**
  * Created by Ala Czyz.
@@ -21,4 +21,5 @@ public interface PaymentDAO {
     public void removePayment(Long paymentId);
     public void updatePayment(Payment Payment);
     public void removePaymentByResrvationId(Long id);
+	public Payment listPaymentByReservation(Long id);
 }

@@ -1,7 +1,7 @@
 package pl.edu.agh.soa.core.dict;
 
 public interface EmailMessages {
-	public static final String ACCOUNT_ACTIVATION_LINK = "http://localhost:8082/core-0.1/registration/confirm/";
+	public static final String ACCOUNT_ACTIVATION_LINK = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1/registration/confirm/";
 	public static final String SUBJECT = "[SOAHotel] Twoje konto zostało utworzone";
 	public static final String MESSAGE = ",\n\nTwoje konto w systemie SoaHotel zostało utworzone.\n\nKliknij w poniższy link, aby aktywować konto:\n" + ACCOUNT_ACTIVATION_LINK;
 	public static final String END_MESSAGE = "\n\nPozdrawiamy,\nZespół SoaHotel";
