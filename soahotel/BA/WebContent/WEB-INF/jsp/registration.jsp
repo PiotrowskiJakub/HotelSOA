@@ -12,7 +12,7 @@
 			<div class="col-lg-12">
 				<h1>Registration</h1>
 				<form:form action="create" method="POST" modelAttribute="form">
-				<form:errors path="*" cssClass="errorBlock" element="div"/>
+					<form:errors path="*" cssClass="errorBlock" element="div" />
 					<div class="section">
 						<div class="sectionLabel">Basic information</div>
 						<div class="input">
@@ -56,9 +56,11 @@
 							</div>
 						</div> --%>
 					</div>
-					
+
 					<div class="section">
-						<div class="sectionLabel"><spring:message code="label.address"/></div>
+						<div class="sectionLabel">
+							<spring:message code="label.address" />
+						</div>
 						<div class="input">
 							<div class="formLabel">
 								<spring:message code="label.street" />
@@ -100,27 +102,28 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!-- Contact info -->
 					<div class="section">
-						<div class="sectionLabel"><spring:message code="label.contact"/>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.phone_number" />
+						<div class="sectionLabel">
+							<spring:message code="label.contact" />
+							<div class="input">
+								<div class="formLabel">
+									<spring:message code="label.phone_number" />
+								</div>
+								<div class="value">
+									<form:input path="contact.phone" />
+								</div>
 							</div>
-							<div class="value">
-								<form:input path="contact.phone" />
+							<div class="input">
+								<div class="formLabel">
+									<spring:message code="label.mail" />
+								</div>
+								<div class="value">
+									<form:input path="contact.mail" />
+								</div>
 							</div>
-						</div>
-						<div class="input">
-							<div class="formLabel">
-								<spring:message code="label.mail" />
-							</div>
-							<div class="value">
-								<form:input path="contact.mail" />
-							</div>
-						</div>
-						<%-- <div class="input">
+							<%-- <div class="input">
 							<div class="formLabel">
 								<spring:message code="label.fax" />
 							</div>
@@ -128,18 +131,21 @@
 								<form:input path="contact.fax" />
 							</div>
 						</div> --%>
+						</div>
 					</div>
-					
+
 					<!-- Permissions -->
-					
+
 					<div class="section">
-						<div class="sectionLabel"><spring:message code="label.permissions"/></div>
+						<div class="sectionLabel">
+							<spring:message code="label.permissions" />
+						</div>
 						<div class="input">
 							<div class="formLabel">
 								<spring:message code="label.mail_permission" />
 							</div>
 							<div class="value">
-								<form:checkbox  path="contact.mailPermission" />
+								<form:checkbox path="contact.mailPermission" />
 							</div>
 						</div>
 						<div class="input">
@@ -167,11 +173,11 @@
 							</div>
 						</div> --%>
 					</div>
-					
+
 					<!-- Submit  -->
 					<div class="button">
-					<input type="submit"/>
-					<%-- <spring:message code="label.submit"/> --%>
+						<input type="submit" />
+						<%-- <spring:message code="label.submit"/> --%>
 					</div>
 				</form:form>
 			</div>
@@ -179,9 +185,9 @@
 	</div>
 	<!-- /.container -->
 	<!-- jQuery -->
-	<script src="js/jquery.js" />
+	<script src="js/jquery.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js" />
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

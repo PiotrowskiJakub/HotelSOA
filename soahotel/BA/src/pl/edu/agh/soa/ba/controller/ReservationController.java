@@ -57,6 +57,7 @@ public class ReservationController extends BaseController {
 	
 	@RequestMapping(value="/sendMessage", method=RequestMethod.POST)
 	public String sendMessage(@ModelAttribute("form") MailForm form, BindingResult result, HttpSession session){
+		@SuppressWarnings("unused")
 		ResponseEntity<String> reservationResponse = post(BASE_URL + "/complaint/mail", form.getMail() , session);		
 		return "hotel_management";
 	}
