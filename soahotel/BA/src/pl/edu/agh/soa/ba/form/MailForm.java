@@ -1,13 +1,12 @@
 package pl.edu.agh.soa.ba.form;
 
-import pl.edu.agh.soa.core.dto.Mail;
 
 /**
  * @author Piotr Konsek
  *
  */
 public class MailForm {
-	private Mail mail = new Mail();
+	private MailForm mail = new MailForm();
 
 	public String getEmail() {
 		return mail.getEmail();
@@ -33,11 +32,11 @@ public class MailForm {
 		mail.setSubject(subject);
 	}
 
-	public Mail getMail() {
+	public MailForm getMail() {
 		return mail;
 	}
 
-	public void setMail(Mail mail) {
+	public void setMail(MailForm mail) {
 		this.mail = mail;
 	}
 	

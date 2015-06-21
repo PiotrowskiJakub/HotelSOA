@@ -3,11 +3,7 @@ package pl.edu.agh.soa.core.dto;
 import java.io.Serializable;
 
 public class Mail implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5749927663563628335L;
-	
 	private String email;
 	private String subject;
 	private String message;
