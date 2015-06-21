@@ -1,6 +1,7 @@
 package pl.edu.agh.soa.core.dao.impl;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import pl.edu.agh.soa.core.bean.Payment;
 import pl.edu.agh.soa.core.dao.AbstractDAO;
 import pl.edu.agh.soa.core.dao.PaymentDAO;
@@ -10,6 +11,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Stateless
@@ -24,18 +26,28 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
         logger = Logger.getLogger(AccountDAOImpl.class);
     }
 
+    @Override
+    public Payment getPayment(Long paymentId) {
+        Payment payment = entityManager.find(Payment.class, paymentId);
+        return payment;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
-    public List<Payment> listPayment() {
+    public List<Payment> listPayments() {
         logger.info("Get all Payments");
-        return entityManager.createNativeQuery("select * from soahotel.payment").getResultList();
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>)  entityManager.createNativeQuery("select * from soahotel.payment").getResultList();
+//        return (List<Payment>) session.createSQLQuery("select p.*" +
+//                " from soahotel.payment p").addEntity(Payment.class).list();
     }
 
     @Override
     public List<Payment> listPaymentByUser(Long userId) {
-        return (List<Payment>) entityManager.createNativeQuery("select pay_id,pay_due_date, pay_gross_cost, pay_status, pay_res_id" +
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>) entityManager.createNativeQuery("select pay_id,res_id, pay_due_date, pay_gross_cost, pay_status, res_paid" +
                 " from soahotel.payment natural join soahotel.reservation " +
-                "where '" + userId + "' = res_acc_id").getResultList();
+                "where  res_acc_id = " + userId).getResultList();
 
     }
 
@@ -46,12 +58,6 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
         ).getResultList();
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Payment getPayment(Long paymentId) {
-        List<Payment> results =  (List<Payment>) entityManager.createNativeQuery("select * from soahotel.payment where '" + paymentId + "' = soahotel.payment.pay_id").getResultList();
-        return  results.get(0);
-    }
 
     @SuppressWarnings("unchecked")
     @Override

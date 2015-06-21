@@ -3,11 +3,13 @@ package pl.edu.agh.soa.core.service.rest;
 import pl.edu.agh.soa.core.bean.Payment;
 import pl.edu.agh.soa.core.service.PaymentConductService;
 import pl.edu.agh.soa.core.service.PaymentManageService;
+import pl.edu.agh.soa.core.service.RotateService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,6 +33,14 @@ public class PaymentManageWS {
     @EJB
     PaymentConductService paymentConductService;
 
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPayments() {
+        List<Payment> paymentList = paymentManagingService.getPaymentsList();
+        return Response.ok(paymentList, MediaType.APPLICATION_JSON).build();
+    }
+
     @POST
     @Path("{user_id}/{payment_id}/pay")
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +51,7 @@ public class PaymentManageWS {
 
         //only one is needed
         if ((creditCard != null && bankName != null) || (creditCard == null && bankName == null)) {
-            Response.status(Response.Status.BAD_REQUEST.getStatusCode()).entity("One and only one is requried: bankName or creditCard").build();
+           return Response.status(Response.Status.BAD_REQUEST).entity("One and only one is requried: bankName or creditCard").build();
         }
         Payment payment = null;
         if (creditCard != null) {
@@ -51,7 +61,7 @@ public class PaymentManageWS {
         }
         if (payment.isPaid()) {
             return Response.ok(payment, MediaType.APPLICATION_JSON).build();
-        } else return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+        } else return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -96,5 +106,16 @@ public class PaymentManageWS {
         return Response.ok(paymentStatus, MediaType.APPLICATION_JSON).build();
     }
 
+    //TODO remove in final version - for test only
+    @EJB
+    RotateService rotateService;
+
+    @PUT
+    @Path("createPayments")
+    public Response createPayments() {
+        rotateService.createPaymentsFromReservations();
+        rotateService.changePaymentsStatusToOverDue();
+        return Response.ok().build();
+    }
 
 }

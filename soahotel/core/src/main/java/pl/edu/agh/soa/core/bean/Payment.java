@@ -25,8 +25,7 @@ public class Payment  implements Serializable{
     public Payment() {
     }
 
-    public Payment(Long id, Date dueDate, BigDecimal grossCost,  Status status,Reservation reservation) {
-        this.id = id;
+    public Payment(Date dueDate, BigDecimal grossCost,  Status status,Reservation reservation) {
         this.reservation = reservation;
         this.grossCost = grossCost;
         this.dueDate = dueDate;
@@ -39,23 +38,25 @@ public class Payment  implements Serializable{
     private Long id;
 
 
-    @JoinColumn(name = "pay_res_id", nullable = false)
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "res_id")
     private Reservation reservation;
 
 
-    @Column(name="pay_gross_cost")
+    @Column(name = "pay_gross_cost")
     private BigDecimal grossCost;
 
-    @Column(name="pay_due_date", nullable=false)
-    private Date  dueDate;
+    @Column(name = "pay_due_date", nullable = false)
+    private Date dueDate;
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
-    @Column(name="pay_status", nullable=false)
+    @Column(name = "pay_status", nullable = false)
     Status status = Status.UNPAID;
+
 
     public Reservation getReservation() {
         return reservation;
@@ -64,6 +65,7 @@ public class Payment  implements Serializable{
     public Status getStatus() {
         return status;
     }
+
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
@@ -85,14 +87,17 @@ public class Payment  implements Serializable{
     }
 
     public boolean isPaid() {
-        return this != null  && (status == Status.PAID || status == Status.CANCELED);
+        return this != null && (status == Status.PAID || status == Status.CANCELED);
     }
 
     public Long getUserId() {
-        return reservation.getAccount().id;
+        if(reservation != null) {
+            return reservation.getAccount().id;
+        }
+        else return null;
     }
 
-    public enum Status{
+    public enum Status {
         UNPAID,
         PAID,
         PROCESSED,

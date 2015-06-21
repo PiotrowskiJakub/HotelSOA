@@ -23,6 +23,11 @@ public class PaymentManageServiceImpl implements PaymentManageService {
     }
 
     @Override
+    public List<Payment> getPaymentsList() {
+        return paymentDAO.listPayments();
+    }
+
+    @Override
     public List<Payment> getUnpaidPaymentsList(Long userId) {
         return paymentDAO.listPaymentByUserAndStatus(userId, Payment.Status.UNPAID);
     }
@@ -37,7 +42,8 @@ public class PaymentManageServiceImpl implements PaymentManageService {
         Payment payment = paymentDAO.getPayment(paymentId);
         if(payment.getUserId() != userId)
             return null;
-        else return payment;
+        else
+        return payment;
     }
 
     @Override
@@ -45,6 +51,7 @@ public class PaymentManageServiceImpl implements PaymentManageService {
         Payment payment = paymentDAO.getPayment(paymentId);
         if(payment.getUserId() != userId)
             return null;
-        else return payment.getStatus().name();
+        else
+        return payment.getStatus().name();
     }
 }
