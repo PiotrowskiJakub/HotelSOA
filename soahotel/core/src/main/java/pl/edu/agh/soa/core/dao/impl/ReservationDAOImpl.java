@@ -29,10 +29,24 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 	@PersistenceContext(unitName = "soahoteldb")
 	EntityManager em;
 
-	public ReservationDAOImpl() {
-		super();
-		logger = Logger.getLogger(AccountDAOImpl.class);
-	}
+
+    public ReservationDAOImpl() {
+        super();
+        logger = Logger.getLogger(AccountDAOImpl.class);
+    }
+
+    @Override
+    public void addReservation(Reservation reservation) {
+        em.persist(reservation);
+        logger.info("Account saved successfully, AccountDetails = " + reservation);
+    }
+
+    @Override
+    public void removeReservation(Long id) {
+        Reservation reservation = em.find(Reservation.class, id);
+        em.remove(reservation);
+        logger.info("Removed reservation with details: " + reservation);
+    }
 
 	@Override
 	public Reservation getReservation(Long id) {
@@ -52,20 +66,6 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 				.addEntity(Reservation.class).list();
 	}
 
-	@Override
-	public void addReservation(Reservation reservation) {
-		em.persist(reservation);
-		logger.info("Account saved successfully, AccountDetails = "
-				+ reservation);
-	}
-
-	@Override
-	public void removeReservation(Long id) {
-		// Reservation reservation = em.getReference(Reservation.class,id);
-		Reservation reservation = em.find(Reservation.class, id);
-		em.remove(reservation);
-		logger.info("Removed reservation with details: " + reservation);
-	}
 
 	@Override
 	public List<Reservation> getHotelAndCustomerReservations(Long hotelId,

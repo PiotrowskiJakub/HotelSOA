@@ -33,7 +33,9 @@ import pl.edu.agh.soa.core.bean.RoomType;
 import pl.edu.agh.soa.core.bean.Termin;
 import pl.edu.agh.soa.core.dto.ReservationDTO;
 import pl.edu.agh.soa.core.interceptor.CheckToken;
+import pl.edu.agh.soa.core.service.ComplaintService;
 import pl.edu.agh.soa.core.service.HotelService;
+import pl.edu.agh.soa.core.service.PaymentManageService;
 import pl.edu.agh.soa.core.service.RegistrationService;
 import pl.edu.agh.soa.core.service.ReservationService;
 
@@ -50,6 +52,12 @@ public class ReservationWS {
 	
 	@EJB
 	HotelService hotelService;
+	
+	@EJB
+	PaymentManageService paymentManageService;
+	
+	@EJB
+	ComplaintService complaintService;
 	
 	@GET
 	@Path("/hotel/{id}")
@@ -195,6 +203,8 @@ public class ReservationWS {
 	@Path("reservation/{id}")
 	@CheckToken
 	public Response reservationDelete(@PathParam("id") Long id, @Context HttpServletRequest request) {
+		paymentManageService.deletePaymentByReservationId(id);
+		complaintService.deleteComplaintByReservationId(id);
 		reservationService.reservationDelete(id);
 		return Response.ok().build();
 	}
