@@ -23,7 +23,7 @@ public class CheckCostServiceImpl implements CheckCostService {
     public BigDecimal getCurrentCost(Long reservationId) {
         Reservation reservation = reservationDAO.getReservation(reservationId);
         long dateOffset = reservation.getEndDate().getTime() - reservation.getStartDate().getTime();
-        TimeUnit.MILLISECONDS.toDays(dateOffset);
+        dateOffset = TimeUnit.MILLISECONDS.toDays(dateOffset);
 
         BigDecimal cost = reservation.getRoom().getRoomType().getPrice().multiply(new BigDecimal(dateOffset));
         return cost.add(costOfAdditionalServices(reservation.getAdditionalServices()));
@@ -32,7 +32,7 @@ public class CheckCostServiceImpl implements CheckCostService {
     private BigDecimal costOfAdditionalServices(Set<AdditionalService> additionalServices) {
         BigDecimal cost = BigDecimal.ZERO;
         for (AdditionalService service : additionalServices) {
-            cost.add(service.getServiceType().getPrice().multiply(new BigDecimal(service.getCount())));
+            cost = cost.add(service.getServiceType().getPrice().multiply(new BigDecimal(service.getCount())));
         }
         return cost;
     }
