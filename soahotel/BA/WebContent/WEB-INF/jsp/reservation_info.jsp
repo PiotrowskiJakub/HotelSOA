@@ -147,6 +147,8 @@
 
 			<div id="complaint_response">
 				<form:form action="sendMessage" modelAttribute="form" method="POST">
+					<form:hidden path="subject" />
+					<form:hidden path="email"/>
 					<form:textarea path="message" />
 					<div class="tableRight">
 						<input type="submit" />
