@@ -2,6 +2,7 @@ package pl.edu.agh.soa.core.service.rest;
 
 import pl.edu.agh.soa.core.bean.Complaint;
 import pl.edu.agh.soa.core.bean.Reservation;
+import pl.edu.agh.soa.core.dto.Mail;
 import pl.edu.agh.soa.core.interceptor.CheckToken;
 import pl.edu.agh.soa.core.service.ComplaintService;
 import pl.edu.agh.soa.core.service.ReservationService;
@@ -13,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.util.List;
 
 /**
@@ -96,6 +98,15 @@ public class ComplaintWS {
     @CheckToken
     public Response deleteComplaint(@PathParam("id") Long id, @Context HttpServletRequest request) {
         complaintService.deleteComplaint(id);
+        return Response.ok().build();
+    }
+    
+    @POST
+    @Path("/mail")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @CheckToken
+    public Response sendMail(Mail mail, @Context HttpServletRequest request) {
+        complaintService.sendMailToUser(mail);
         return Response.ok().build();
     }
 

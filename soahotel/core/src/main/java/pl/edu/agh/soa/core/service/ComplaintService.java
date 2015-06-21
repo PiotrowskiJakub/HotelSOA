@@ -1,6 +1,7 @@
 package pl.edu.agh.soa.core.service;
 
 import pl.edu.agh.soa.core.bean.Complaint;
+import pl.edu.agh.soa.core.dto.Mail;
 
 import javax.ejb.Remote;
 
@@ -19,7 +20,7 @@ public interface ComplaintService {
     public List<Complaint> getAllComplaints();
     public Complaint getComplaintByReservationId(Long id);
 	public void deleteComplaintByReservationId(Long id);
-
+	public void sendMailToUser(Mail mail);
 }
 
 
