@@ -85,6 +85,13 @@ public class ReservationWS {
 		return Response.ok(reservationList,  MediaType.APPLICATION_JSON).build();
 	}
 	
+	@GET
+	@Path("/hotel/{hotelId}/account/{accountId}")
+	@CheckToken
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Reservation> getHotelAndCustomerReservations(@PathParam("hotelId") Long hotelId, @PathParam("accountId") Long accountId, @Context HttpServletRequest request) {
+		return reservationService.getHotelAndCustomerReservations(hotelId, accountId);
+	}
 
 	@GET
 	@Path("/hotel/{id}/roomType/{rt}/termins")

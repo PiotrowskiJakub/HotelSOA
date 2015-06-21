@@ -55,4 +55,5 @@ public interface ReservationService {
 
 	public List<Reservation> getHotelReservations(Long id);
 	
+	public List<Reservation> getHotelAndCustomerReservations(Long hotelId, Long accountId);
 }

@@ -1,20 +1,20 @@
 package pl.edu.agh.soa.core.service;
 
-import pl.edu.agh.soa.core.service.rest.*;
-import pl.edu.agh.soa.core.service.test.TestRest;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import pl.edu.agh.soa.core.service.rest.AstRest;
+import pl.edu.agh.soa.core.service.rest.ComplaintWS;
 import pl.edu.agh.soa.core.service.rest.HotelWS;
+import pl.edu.agh.soa.core.service.rest.InvoiceWS;
 import pl.edu.agh.soa.core.service.rest.LoginWS;
-import pl.edu.agh.soa.core.service.rest.ReportWS;
 import pl.edu.agh.soa.core.service.rest.RegisterWS;
+import pl.edu.agh.soa.core.service.rest.ReportWS;
 import pl.edu.agh.soa.core.service.rest.ReservationWS;
 import pl.edu.agh.soa.core.service.test.TestRest;
-import java.util.HashSet;
-import java.util.Set;
 
 @ApplicationPath("/")
 public class RestApplication extends Application {
@@ -30,6 +30,7 @@ public class RestApplication extends Application {
 		classes.add(HotelWS.class);
 		classes.add(ReportWS.class);
 		classes.add(ComplaintWS.class);
+		classes.add(InvoiceWS.class);
 		return classes;
 	}
 	

@@ -45,7 +45,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public File generateHotelReservationsReport(Long hotelId) {
 		List<Reservation> reservations = reservationDAO
-				.getReservationsForHotel(hotelId);
+				.getHotelReservations(hotelId);
 		
 		
 		init();

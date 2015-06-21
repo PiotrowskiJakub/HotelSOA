@@ -11,7 +11,7 @@ public interface ReservationDAO {
 
     public Reservation getReservation(Long id);
     public List<Reservation> getReservations(Long id);
-    public List<Reservation> getReservationsForHotel(Long hotelId);
+    public List<Reservation> getHotelAndCustomerReservations(Long hotelId, Long accountId);
     public void addReservation(Reservation reservation);
     public void removeReservation(Long id);
     public void updateReservation(Reservation reservation);

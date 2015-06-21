@@ -70,4 +70,8 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDAO.getHotelReservations(id);
 	}
 
+	@Override
+	public List<Reservation> getHotelAndCustomerReservations(Long hotelId, Long accountId) {
+		return reservationDAO.getHotelAndCustomerReservations(hotelId, accountId);
+	}
 }
