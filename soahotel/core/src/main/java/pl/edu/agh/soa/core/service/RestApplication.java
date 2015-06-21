@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 import pl.edu.agh.soa.core.service.rest.AstRest;
 import pl.edu.agh.soa.core.service.rest.ComplaintWS;
 import pl.edu.agh.soa.core.service.rest.CheckCostWS;
+import pl.edu.agh.soa.core.service.rest.HotelVendorAdapterWS;
 import pl.edu.agh.soa.core.service.rest.HotelWS;
 import pl.edu.agh.soa.core.service.rest.InvoiceWS;
 import pl.edu.agh.soa.core.service.rest.LoginWS;
@@ -36,6 +37,7 @@ public class RestApplication extends Application {
 		classes.add(ReportWS.class);
 		classes.add(ComplaintWS.class);
 		classes.add(InvoiceWS.class);
+		classes.add(HotelVendorAdapterWS.class);
 		return classes;
 	}
 	

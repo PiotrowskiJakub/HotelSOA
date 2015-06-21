@@ -28,7 +28,7 @@ public class Contact implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="con_id")
-	private Long id;
+	private long id;
 	
 	@Column(name="con_phone", length=20)
 	private String phone;
