@@ -3,6 +3,7 @@ package pl.edu.agh.soa.core.dao;
 import pl.edu.agh.soa.core.bean.Complaint;
 
 import javax.ejb.Local;
+
 import java.util.List;
 
 /**
@@ -18,4 +19,5 @@ public interface ComplaintDAO {
     public void removeComplaint(Long id);
     public List<Complaint> getAllComplaints();
     public Complaint getComplaintByReservaitonId(Long id);
+	public void deleteComplaintByReservationId(Long id);
 }

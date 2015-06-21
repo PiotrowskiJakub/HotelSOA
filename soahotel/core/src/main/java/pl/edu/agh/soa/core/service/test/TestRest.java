@@ -1,6 +1,5 @@
 package pl.edu.agh.soa.core.service.test;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -11,16 +10,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import pl.edu.agh.soa.core.bean.Account;
 import pl.edu.agh.soa.core.bean.Address;
 import pl.edu.agh.soa.core.bean.Contact;
-import pl.edu.agh.soa.core.bean.DiscountType;
-import pl.edu.agh.soa.core.bean.Hotel;
-import pl.edu.agh.soa.core.bean.Reservation;
-import pl.edu.agh.soa.core.bean.Room;
-import pl.edu.agh.soa.core.bean.RoomType;
 import pl.edu.agh.soa.core.dict.AccountStatus;
 import pl.edu.agh.soa.core.dict.AccountType;
 import pl.edu.agh.soa.core.service.RegistrationService;

@@ -1,12 +1,11 @@
 package pl.edu.agh.soa.core.service.impl;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
 import pl.edu.agh.soa.core.bean.Payment;
 import pl.edu.agh.soa.core.dao.PaymentDAO;
 import pl.edu.agh.soa.core.service.PaymentConductService;
-
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.ws.rs.core.Response;
 
 /**
  * Created by Ala Czyz.

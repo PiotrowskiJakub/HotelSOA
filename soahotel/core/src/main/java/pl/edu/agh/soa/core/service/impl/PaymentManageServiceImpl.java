@@ -6,6 +6,7 @@ import pl.edu.agh.soa.core.service.PaymentManageService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import java.util.List;
 
 /**
@@ -54,4 +55,9 @@ public class PaymentManageServiceImpl implements PaymentManageService {
         else
         return payment.getStatus().name();
     }
+
+	@Override
+	public void deletePaymentByReservationId(Long id) {
+		paymentDAO.removePaymentByResrvationId(id);
+	}
 }

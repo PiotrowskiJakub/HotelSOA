@@ -3,6 +3,7 @@ package pl.edu.agh.soa.core.service;
 import pl.edu.agh.soa.core.bean.Payment;
 
 import javax.ejb.Remote;
+
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public interface PaymentManageService {
     List<Payment> getOverduePaymentsList(Long userId);
     Payment getPayment(Long userId, Long paymentId);
     String getPaymentStatus(Long userId, Long paymentId);
+	void deletePaymentByReservationId(Long id);
 
 
 }

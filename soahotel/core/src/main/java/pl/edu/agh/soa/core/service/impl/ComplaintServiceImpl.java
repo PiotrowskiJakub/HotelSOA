@@ -6,6 +6,7 @@ import pl.edu.agh.soa.core.service.ComplaintService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import java.util.List;
 
 /**
@@ -48,4 +49,9 @@ public class ComplaintServiceImpl  implements ComplaintService{
     public Complaint getComplaintByReservationId(Long id) {
         return complaintDAO.getComplaintByReservaitonId(id);
     }
+
+	@Override
+	public void deleteComplaintByReservationId(Long id) {
+		complaintDAO.deleteComplaintByReservationId(id);
+	}
 }

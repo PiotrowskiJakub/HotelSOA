@@ -54,7 +54,6 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
 
     @Override
     public void removeReservation(Long id) {
-        //Reservation reservation = em.getReference(Reservation.class,id);
         Reservation reservation = em.find(Reservation.class, id);
         em.remove(reservation);
         logger.info("Removed reservation with details: " + reservation);

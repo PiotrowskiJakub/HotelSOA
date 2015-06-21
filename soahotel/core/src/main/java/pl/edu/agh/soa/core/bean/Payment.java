@@ -1,19 +1,18 @@
 package pl.edu.agh.soa.core.bean;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * Created by Ala Czyz.
