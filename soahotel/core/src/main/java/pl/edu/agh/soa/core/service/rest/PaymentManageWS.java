@@ -1,19 +1,20 @@
 package pl.edu.agh.soa.core.service.rest;
 
 import pl.edu.agh.soa.core.bean.Payment;
+import pl.edu.agh.soa.core.bean.PaymentConductHelper;
 import pl.edu.agh.soa.core.service.PaymentConductService;
 import pl.edu.agh.soa.core.service.PaymentManageService;
 import pl.edu.agh.soa.core.service.RotateService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -43,20 +44,22 @@ public class PaymentManageWS {
 
     @POST
     @Path("{user_id}/{payment_id}/pay")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response pay(@PathParam("user_id") Long userId,
                         @PathParam("payment_id") Long paymentId,
-                        @QueryParam("transfer") String bankName,
-                        @QueryParam("credit_card") String creditCard) {
+                        PaymentConductHelper paymentConductHelper) {
+        String creditCard = paymentConductHelper.creditCard;
+        String bankName = paymentConductHelper.bankName;
 
         //only one is needed
-        if ((creditCard != null && bankName != null) || (creditCard == null && bankName == null)) {
-           return Response.status(Response.Status.BAD_REQUEST).entity("One and only one is requried: bankName or creditCard").type("text/plain").build();
+        if ((creditCard.isEmpty() && bankName.isEmpty()) ||(!creditCard.isEmpty() && !bankName.isEmpty())) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("One and only one is requried: bankName or creditCard").type("text/plain").build();
         }
         Payment payment = null;
-        if (creditCard != null) {
+        if (!creditCard.isEmpty()) {
             payment = paymentConductService.payByCreditCard(paymentId, creditCard);
-        } else if (bankName != null) {
+        } else if (!bankName.isEmpty()) {
             payment = paymentConductService.payByTransfer(paymentId, bankName);
         }
         if (payment.isPaid()) {
