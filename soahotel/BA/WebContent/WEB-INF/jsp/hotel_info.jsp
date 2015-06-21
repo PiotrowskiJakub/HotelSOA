@@ -167,9 +167,11 @@
 			<c:forEach var="reservation" items="${reservations}">
 				<div class="output">
 					<div class="tableLeft">
-						<c:out value="${reservation.room.number}" />
-						<c:out value="${reservation.account.firstName}" />
-						<c:out value="${reservation.account.lastName}" />
+						<a href="reservationInfo?id=${reservation.id}">
+							<c:out value="${reservation.room.number}" />
+							<c:out value="${reservation.account.firstName}" />
+							<c:out value="${reservation.account.lastName}" />
+						</a>
 					</div>
 					<div class="tableRight">
 						<a href="remove_reservation?id=${reservation.id}">
@@ -196,8 +198,10 @@
 				</div>
 			</c:forEach>
 			<div class="tableRight">
-				<a href="add_room?id=${hotel.id}"><spring:message
-						code="label.add_room" /></a>
+				<a href="add_room?id=${hotel.id}">
+					<span id="addButton" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					<spring:message code="label.add_room" />
+				</a>
 			</div>
 		</div>
 	</div>
