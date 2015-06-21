@@ -16,6 +16,7 @@ public interface PaymentDAO {
     public List<Payment> listPaymentByUser(Long userId);
     public List<Payment> listPaymentByUserAndStatus(Long userId, Payment.Status status);
     public Payment getPayment(Long paymentId);
+    List<Payment> getPaymentByReservationId(Long reservationId);
     public void addPayment(Payment Payment);
     public void removePayment(Long paymentId);
     public void updatePayment(Payment Payment);

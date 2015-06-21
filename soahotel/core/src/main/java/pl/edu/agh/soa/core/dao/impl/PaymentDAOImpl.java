@@ -11,7 +11,6 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Stateless
@@ -49,13 +48,19 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     }
 
     @Override
+    public List<Payment> getPaymentByReservationId(Long reservationId) {
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).list();
+    }
+
+    @Override
     public List<Payment> listPaymentByUserAndStatus(Long userId, Payment.Status status) {
         Session session = (Session) entityManager.getDelegate();
         return (List<Payment>) session.createSQLQuery("select p.*" +
                 " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId +
                 "and p.pay_status = " + status.ordinal()).addEntity(Payment.class).list();
     }
-
 
     @SuppressWarnings("unchecked")
     @Override

@@ -68,11 +68,17 @@ public class RotateServiceImpl implements RotateService {
         List<Payment> payments = new ArrayList<>();
         Date now = new Date();
         for (Reservation reservation : allReservations) {
-            if (reservation.getEndDate().before(now)) {
+            if (reservation.getEndDate().before(now) && paymentNotExists(reservation.getId())) {
                 payments.add(createPayment(reservation));
             }
         }
         return payments;
+    }
+
+    private boolean paymentNotExists(Long reservationId) {
+        if (paymentDAO.getPaymentByReservationId(reservationId).size() > 0)
+            return false;
+        else return true;
     }
 
     @Override
