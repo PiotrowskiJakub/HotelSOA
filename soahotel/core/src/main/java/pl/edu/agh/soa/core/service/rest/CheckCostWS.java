@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -24,7 +25,7 @@ public class CheckCostWS {
     @GET
     @Path("/{id}/cost")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getReservation(@QueryParam("id") Long reservationId) {
+    public Response getReservation(@PathParam("id") Long reservationId) {
         BigDecimal price = checkCostService.getCurrentCost(reservationId);
         return Response.ok(price, MediaType.APPLICATION_JSON).build();
     }
