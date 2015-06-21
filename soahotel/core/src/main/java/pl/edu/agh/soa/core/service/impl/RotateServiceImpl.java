@@ -1,10 +1,10 @@
 package pl.edu.agh.soa.core.service.impl;
 
-import pl.edu.agh.soa.core.bean.AdditionalService;
 import pl.edu.agh.soa.core.bean.Payment;
 import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.dao.PaymentDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
+import pl.edu.agh.soa.core.service.CheckCostService;
 import pl.edu.agh.soa.core.service.RotateService;
 
 import javax.ejb.EJB;
@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ala Czyz.
@@ -24,12 +22,14 @@ import java.util.concurrent.TimeUnit;
 public class RotateServiceImpl implements RotateService {
 
     private static final int TIME_TO_PAY = 7;
-    private TimeUnit timeUnit;
     @EJB
     PaymentDAO paymentDAO;
 
     @EJB
     ReservationDAO reservationDAO;
+
+    @EJB
+    CheckCostService checkCostService;
 
     @Override
     public void createPaymentsFromReservations() {
@@ -51,25 +51,17 @@ public class RotateServiceImpl implements RotateService {
         c.add(Calendar.DATE, TIME_TO_PAY);
         Date dueDate = c.getTime();
 
-        return new Payment(dueDate, calcualteCost(reservation), Payment.Status.UNPAID, reservation);
+        Payment payment = new Payment();
+        payment.setDueDate(dueDate);
+        payment.setStatus(Payment.Status.UNPAID);
+        payment.setGrossCost(calcualteCost(reservation));
+        payment.setReservation(reservation);
+        return payment;
 
     }
 
     private BigDecimal calcualteCost(Reservation reservation) {
-        long dateOffset = reservation.getEndDate().getTime() - reservation.getStartDate().getTime();
-        timeUnit.toDays(dateOffset);
-
-        BigDecimal cost = reservation.getRoom().getRoomType().getPrice().multiply(new BigDecimal(dateOffset));
-        return cost.add(costOfAdditionalServices(reservation.getAdditionalServices()));
-
-    }
-
-    private BigDecimal costOfAdditionalServices(Set<AdditionalService> additionalServices) {
-        BigDecimal cost = BigDecimal.ZERO;
-        for (AdditionalService service : additionalServices) {
-            cost.add(service.getServiceType().getPrice().multiply(new BigDecimal(service.getCount())));
-        }
-        return cost;
+        return checkCostService.getCurrentCost(reservation.getId());
     }
 
     private List<Payment> createPaymentsFromReservations(List<Reservation> allReservations) {
@@ -84,7 +76,7 @@ public class RotateServiceImpl implements RotateService {
     }
 
     @Override
-    public void changePaymentsStatusToOverDue() {
+    public void changePaymentsStatusToOverdue() {
         List<Payment> payments = paymentDAO.listPayments();
         Date now = new Date();
         for (Payment payment : payments) {

@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.core.bean;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "payment")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Payment  implements Serializable{
 
     private static final long serialVersionUID = -4860796672110809073L;
@@ -38,7 +41,8 @@ public class Payment  implements Serializable{
     private Long id;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+//    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "res_id")
     private Reservation reservation;
 
@@ -86,7 +90,7 @@ public class Payment  implements Serializable{
     }
 
     public boolean isPaid() {
-        return this != null && (status == Status.PAID || status == Status.CANCELED);
+        return this != null && (status.equals(Status.PAID) || status.equals(Status.CANCELED));
     }
 
     public Long getUserId() {

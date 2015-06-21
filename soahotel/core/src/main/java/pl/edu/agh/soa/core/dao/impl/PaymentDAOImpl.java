@@ -37,7 +37,6 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     public List<Payment> listPayments() {
         logger.info("Get all Payments");
         Session session = (Session) entityManager.getDelegate();
-//        return (List<Payment>)  entityManager.createNativeQuery("select * from soahotel.payment").getResultList();
         return (List<Payment>) session.createSQLQuery("select p.*" +
                 " from soahotel.payment p natural join soahotel.reservation r").addEntity(Payment.class).list();
     }
@@ -45,17 +44,16 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     @Override
     public List<Payment> listPaymentByUser(Long userId) {
         Session session = (Session) entityManager.getDelegate();
-        return (List<Payment>) entityManager.createNativeQuery("select pay_id,res_id, pay_due_date, pay_gross_cost, pay_status, res_paid" +
-                " from soahotel.payment natural join soahotel.reservation " +
-                "where  res_acc_id = " + userId).getResultList();
-
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId).addEntity(Payment.class).list();
     }
 
     @Override
     public List<Payment> listPaymentByUserAndStatus(Long userId, Payment.Status status) {
-        return (List<Payment>) entityManager.createNativeQuery("select * from soahotel.payment natural join soahotel.reservation "
-                        + " where '" + userId + "' = soahotel.reservation.res_acc_id"
-        ).getResultList();
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId +
+                "and p.pay_status = " + status.ordinal()).addEntity(Payment.class).list();
     }
 
 

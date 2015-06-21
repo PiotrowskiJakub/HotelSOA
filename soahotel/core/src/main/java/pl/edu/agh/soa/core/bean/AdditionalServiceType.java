@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -34,7 +35,7 @@ public class AdditionalServiceType implements Serializable {
 	private String description;
 	@Column(name="dst_price", nullable=false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany(mappedBy="serviceType")
+	@OneToMany(mappedBy="serviceType", fetch = FetchType.EAGER)
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 
 	public AdditionalServiceType() {

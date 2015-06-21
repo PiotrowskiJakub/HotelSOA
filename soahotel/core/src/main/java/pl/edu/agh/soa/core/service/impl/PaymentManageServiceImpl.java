@@ -40,7 +40,7 @@ public class PaymentManageServiceImpl implements PaymentManageService {
     @Override
     public Payment getPayment(Long userId, Long paymentId) {
         Payment payment = paymentDAO.getPayment(paymentId);
-        if(payment.getUserId() != userId)
+        if(!payment.getUserId().equals(userId))
             return null;
         else
         return payment;
@@ -49,7 +49,7 @@ public class PaymentManageServiceImpl implements PaymentManageService {
     @Override
     public String getPaymentStatus(Long userId, Long paymentId) {
         Payment payment = paymentDAO.getPayment(paymentId);
-        if(payment.getUserId() != userId)
+        if(! payment.getUserId().equals(userId))
             return null;
         else
         return payment.getStatus().name();

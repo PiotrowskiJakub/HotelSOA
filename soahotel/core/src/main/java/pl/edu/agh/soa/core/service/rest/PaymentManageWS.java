@@ -51,7 +51,7 @@ public class PaymentManageWS {
 
         //only one is needed
         if ((creditCard != null && bankName != null) || (creditCard == null && bankName == null)) {
-           return Response.status(Response.Status.BAD_REQUEST).entity("One and only one is requried: bankName or creditCard").build();
+           return Response.status(Response.Status.BAD_REQUEST).entity("One and only one is requried: bankName or creditCard").type("text/plain").build();
         }
         Payment payment = null;
         if (creditCard != null) {
@@ -114,7 +114,7 @@ public class PaymentManageWS {
     @Path("createPayments")
     public Response createPayments() {
         rotateService.createPaymentsFromReservations();
-        rotateService.changePaymentsStatusToOverDue();
+        rotateService.changePaymentsStatusToOverdue();
         return Response.ok().build();
     }
 
