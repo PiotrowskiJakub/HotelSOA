@@ -1,19 +1,18 @@
 package pl.edu.agh.soa.core.dao.impl;
 
-import java.util.List;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import pl.edu.agh.soa.core.bean.Payment;
+import pl.edu.agh.soa.core.dao.AbstractDAO;
+import pl.edu.agh.soa.core.dao.PaymentDAO;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
-import pl.edu.agh.soa.core.bean.Payment;
-import pl.edu.agh.soa.core.dao.AbstractDAO;
-import pl.edu.agh.soa.core.dao.PaymentDAO;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -42,30 +41,29 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
                 " from soahotel.payment p natural join soahotel.reservation r").addEntity(Payment.class).list();
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<Payment> listPaymentByUser(Long userId) {
         Session session = (Session) entityManager.getDelegate();
         return (List<Payment>) session.createSQLQuery("select p.*" +
                 " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId).addEntity(Payment.class).list();
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
+    public List<Payment> getPaymentByReservationId(Long reservationId) {
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).list();
+    }
+
+    @Override
     public List<Payment> listPaymentByUserAndStatus(Long userId, Payment.Status status) {
         Session session = (Session) entityManager.getDelegate();
         return (List<Payment>) session.createSQLQuery("select p.*" +
                 " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId +
                 "and p.pay_status = " + status.ordinal()).addEntity(Payment.class).list();
     }
-    
-	@Override
-	public Payment listPaymentByReservation(Long reservationId) {
-		Session session = (Session) entityManager.getDelegate();
-        return (Payment) session.createSQLQuery("select p.*" +
-                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).uniqueResult();
-	}
 
+    @SuppressWarnings("unchecked")
     @Override
     public void addPayment(Payment payment) {
         entityManager.persist(payment);
@@ -83,7 +81,7 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     public void updatePayment(Payment payment) {
         entityManager.merge(payment);
     }
-
+    
 	@Override
 	public void removePaymentByResrvationId(Long id) {
 		 Session session = (Session) entityManager.getDelegate();
