@@ -39,7 +39,6 @@ public class Payment  implements Serializable{
 
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "res_id")
     private Reservation reservation;
 

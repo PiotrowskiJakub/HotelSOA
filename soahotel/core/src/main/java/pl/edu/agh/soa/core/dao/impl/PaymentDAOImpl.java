@@ -27,9 +27,9 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     }
 
     @Override
-    public Payment getPayment(Long paymentId) {
-        Payment payment = entityManager.find(Payment.class, paymentId);
-        return payment;
+    public Payment getPayment(Long id) {
+        return (Payment) entityManager.find(Payment.class, id);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -37,9 +37,9 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     public List<Payment> listPayments() {
         logger.info("Get all Payments");
         Session session = (Session) entityManager.getDelegate();
-        return (List<Payment>)  entityManager.createNativeQuery("select * from soahotel.payment").getResultList();
-//        return (List<Payment>) session.createSQLQuery("select p.*" +
-//                " from soahotel.payment p").addEntity(Payment.class).list();
+//        return (List<Payment>)  entityManager.createNativeQuery("select * from soahotel.payment").getResultList();
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r").addEntity(Payment.class).list();
     }
 
     @Override
