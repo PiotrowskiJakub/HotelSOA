@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PaymentConductHelper {
         @XmlElement
-        public String creditCard;
-        @XmlElement public String bankName;
+        public String creditCard = "";
+        @XmlElement
+        public String bankName = "" ;
 }
