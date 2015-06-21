@@ -1,18 +1,19 @@
 package pl.edu.agh.soa.core.bean;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Ala Czyz.
@@ -20,14 +21,14 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @Table(name = "payment")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Payment  implements Serializable{
+public class Payment implements Serializable {
 
     private static final long serialVersionUID = -4860796672110809073L;
 
     public Payment() {
     }
 
-    public Payment(Date dueDate, BigDecimal grossCost,  Status status,Reservation reservation) {
+    public Payment(Date dueDate, BigDecimal grossCost, Status status, Reservation reservation) {
         this.reservation = reservation;
         this.grossCost = grossCost;
         this.dueDate = dueDate;
@@ -93,10 +94,13 @@ public class Payment  implements Serializable{
     }
 
     public Long getUserId() {
-        if(reservation != null) {
+        if (reservation != null) {
             return reservation.getAccount().id;
-        }
-        else return null;
+        } else return null;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public enum Status {

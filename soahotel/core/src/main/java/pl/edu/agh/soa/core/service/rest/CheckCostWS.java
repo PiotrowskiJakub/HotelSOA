@@ -1,6 +1,6 @@
 package pl.edu.agh.soa.core.service.rest;
 
-import pl.edu.agh.soa.core.service.CheckCostService;
+import java.math.BigDecimal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -10,7 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.math.BigDecimal;
+
+import pl.edu.agh.soa.core.service.CheckCostService;
 
 /**
  * Created by Ala Czyz.
@@ -24,6 +25,7 @@ public class CheckCostWS {
     @GET
     @Path("/{id}/cost")
     @Produces(MediaType.APPLICATION_JSON)
+    //TODO uzywasz QueryParam a nie powinnaś PathParam?
     public Response getReservation(@QueryParam("id") Long reservationId) {
         BigDecimal price = checkCostService.getCurrentCost(reservationId);
         return Response.ok(price, MediaType.APPLICATION_JSON).build();

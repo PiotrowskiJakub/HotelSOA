@@ -52,19 +52,20 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
 
     @SuppressWarnings("unchecked")
 	@Override
+    public List<Payment> getPaymentByReservationId(Long reservationId) {
+        Session session = (Session) entityManager.getDelegate();
+        return (List<Payment>) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).list();
+    }
+
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Payment> listPaymentByUserAndStatus(Long userId, Payment.Status status) {
         Session session = (Session) entityManager.getDelegate();
         return (List<Payment>) session.createSQLQuery("select p.*" +
                 " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId +
                 "and p.pay_status = " + status.ordinal()).addEntity(Payment.class).list();
     }
-    
-	@Override
-	public Payment listPaymentByReservation(Long reservationId) {
-		Session session = (Session) entityManager.getDelegate();
-        return (Payment) session.createSQLQuery("select p.*" +
-                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).uniqueResult();
-	}
 
     @Override
     public void addPayment(Payment payment) {
@@ -83,7 +84,7 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
     public void updatePayment(Payment payment) {
         entityManager.merge(payment);
     }
-
+    
 	@Override
 	public void removePaymentByResrvationId(Long id) {
 		 Session session = (Session) entityManager.getDelegate();
@@ -91,5 +92,12 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
 		List<Payment> payments =  session.createSQLQuery("select p.* from soahotel.payment p where p.res_id=" + id).addEntity(Payment.class).list();
 		 if(payments != null && !payments.isEmpty())
 			 entityManager.remove(payments.get(0));
+	}
+
+	@Override
+	public Payment listPaymentByReservation(Long reservationId) {
+		Session session = (Session) entityManager.getDelegate();
+        return (Payment) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).uniqueResult();
 	}
 }
