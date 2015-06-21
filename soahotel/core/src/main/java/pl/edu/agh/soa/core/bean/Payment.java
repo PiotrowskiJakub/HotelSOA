@@ -21,19 +21,20 @@ import java.util.Date;
 @Entity
 @Table(name = "payment")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Payment  implements Serializable{
+public class Payment implements Serializable {
 
     private static final long serialVersionUID = -4860796672110809073L;
 
     public Payment() {
     }
 
-    public Payment(Date dueDate, BigDecimal grossCost,  Status status,Reservation reservation) {
+    public Payment(Date dueDate, BigDecimal grossCost, Status status, Reservation reservation) {
         this.reservation = reservation;
         this.grossCost = grossCost;
         this.dueDate = dueDate;
         this.status = status;
     }
+
 
     @Id
     @GeneratedValue
@@ -94,10 +95,13 @@ public class Payment  implements Serializable{
     }
 
     public Long getUserId() {
-        if(reservation != null) {
+        if (reservation != null) {
             return reservation.getAccount().id;
-        }
-        else return null;
+        } else return null;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public enum Status {
