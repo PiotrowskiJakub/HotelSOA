@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
@@ -55,6 +56,7 @@ public class Reservation implements Serializable {
 	private Boolean paid = false;
 	
 	@OneToMany(mappedBy="reservation", fetch=FetchType.EAGER)
+	@JsonBackReference
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 	
 	public Reservation() {

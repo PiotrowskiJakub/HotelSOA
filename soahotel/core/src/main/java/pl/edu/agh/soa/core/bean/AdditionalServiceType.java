@@ -35,7 +35,7 @@ public class AdditionalServiceType implements Serializable {
 	private String description;
 	@Column(name="dst_price", nullable=false, precision=7, scale=2)
 	private BigDecimal price;
-	@OneToMany(mappedBy="serviceType", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="serviceType")
 	private Set<AdditionalService> additionalServices = new HashSet<>(0);
 
 	public AdditionalServiceType() {
