@@ -139,17 +139,22 @@
 			</div>
 			<div class="clear"></div>
 			<div class="tableRight">
-				<span id="responseButton"
-					class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <spring:message
-						code="label.response" />			
+				<span id="responseButton" class="glyphicon glyphicon-envelope"
+					aria-hidden="true"></span>
+				<spring:message code="label.response" />
 			</div>
 			<div class="clear"></div>
-			
+
 			<div id="complaint_response">
 				<form:form action="sendMessage" modelAttribute="form" method="POST">
-					<form:textarea path="message"/>
+					<form:hidden path="subject" />
+					<form:hidden path="email"/>
+					<form:textarea path="message" />
+					<div class="tableRight">
+						<input type="submit" />
+					</div>
 				</form:form>
-				
+
 			</div>
 		</div>
 	</div>
@@ -157,7 +162,7 @@
 	<!-- /.container -->
 	<!-- jQuery -->
 	<script src="js/jquery.js"></script>
-	
+
 	<script src="js/main.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->

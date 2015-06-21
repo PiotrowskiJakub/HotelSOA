@@ -76,3 +76,8 @@
 #complaint_response{
 	display: none;
 }
+
+#message{
+	width: 100%;
+	height: 100px;
+}

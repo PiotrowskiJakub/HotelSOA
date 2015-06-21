@@ -9,12 +9,14 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.edu.agh.soa.ba.form.MessageForm;
+import pl.edu.agh.soa.ba.form.MailForm;
 import pl.edu.agh.soa.core.bean.Complaint;
 import pl.edu.agh.soa.core.bean.Reservation;
 
@@ -28,6 +30,7 @@ public class ReservationController extends BaseController {
 	@RequestMapping(value="reservationInfo", method=RequestMethod.GET)
 	public ModelAndView initialReservationInfo(@RequestParam("id") String reservationId, HttpSession session){
 		ModelAndView modelAndView = new ModelAndView("reservation_info");
+		MailForm mailForm = new MailForm();
 
 		ResponseEntity<String> reservationResponse = get(BASE_URL + "/reservation/reservation/" + reservationId, session);
 		if(reservationResponse.getStatusCode() == HttpStatus.OK){
@@ -40,13 +43,21 @@ public class ReservationController extends BaseController {
 					modelAndView.addObject("complaint", complaint);
 				}
 					
+				mailForm.setEmail(reservation.getAccount().getContact().getMail());
+				mailForm.setSubject("Complaint response");
 			} catch (JSONException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
-		modelAndView.addObject("form", new MessageForm());
+		modelAndView.addObject("form", mailForm);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/sendMessage", method=RequestMethod.POST)
+	public String sendMessage(@ModelAttribute("form") MailForm form, BindingResult result, HttpSession session){
+		ResponseEntity<String> reservationResponse = post(BASE_URL + "/complaint/mail", form.getMail() , session);		
+		return "hotel_management";
 	}
 }

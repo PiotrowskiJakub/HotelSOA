@@ -31,11 +31,12 @@ public abstract class BaseController {
 	private RestTemplate restTemplate;
 	ObjectMapper objectMapper;
 
-//		public static final String BASE_URL = "http://localhost:8080/core";
-	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
+
+		public static final String BASE_URL = "http://localhost:8082/core-0.1";
+//	public static final String BASE_URL = "http://soahotelcore-hotelcore.rhcloud.com/core-0.1";
 
 	public static final String TOKEN = "TOKEN";
-	public static final String ACCOUNT = "ACCOUNT";
+	public static final String ACCOUNT = "account";
 
 
 	public BaseController() {
