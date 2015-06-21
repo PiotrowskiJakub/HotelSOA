@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import pl.edu.agh.soa.core.interceptor.CheckToken;
 import pl.edu.agh.soa.core.service.InvoiceService;
@@ -42,7 +43,11 @@ public class InvoiceWS {
 	@Produces("application/pdf")
 	@CheckToken
 	public Response getInvoiceFile(@PathParam("invoiceId") Long invoiceId,  @Context HttpServletRequest request) {
-		Response.ResponseBuilder response = Response.ok(invoiceService.getInvoiceFile(invoiceId));
+		byte[] file = invoiceService.getInvoiceFile(invoiceId);
+		if(file == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		Response.ResponseBuilder response = Response.ok(file);
 		response.header("Content-Disposition",
 				"attachment; filename=\"Faktura.pdf\"");
 		return response.build();

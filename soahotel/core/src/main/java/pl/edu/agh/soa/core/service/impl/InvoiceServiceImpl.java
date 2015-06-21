@@ -14,8 +14,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import pl.edu.agh.soa.core.bean.Invoice;
+import pl.edu.agh.soa.core.bean.Payment;
 import pl.edu.agh.soa.core.bean.Reservation;
 import pl.edu.agh.soa.core.dao.InvoiceDAO;
+import pl.edu.agh.soa.core.dao.PaymentDAO;
 import pl.edu.agh.soa.core.dao.ReservationDAO;
 import pl.edu.agh.soa.core.service.InvoiceService;
 
@@ -39,6 +41,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@EJB
 	private ReservationDAO reservationDAO;
 
+	@EJB
+	private PaymentDAO paymentDAO;
+
 	@Override
 	public List<Invoice> getInvoices() {
 		return invoiceDAO.getInvoices();
@@ -53,7 +58,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public byte[] getInvoiceFile(Long invoiceId) {
 		return invoiceDAO.getInvoiceFile(invoiceId);
 	}
-	
+
 	@Override
 	public void generateInvoice(Long reservationID) {
 		Reservation reservation = reservationDAO.getReservation(reservationID);
@@ -84,11 +89,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 			data[i++] = Byte.valueOf(b);
 
 		Invoice invoice = new Invoice();
-		invoice.setInvoiceName("Faktura na klienta " + reservation.getAccount().getFirstName() + " " + reservation.getAccount().getLastName());
+		invoice.setInvoiceName("Faktura na klienta "
+				+ reservation.getAccount().getFirstName() + " "
+				+ reservation.getAccount().getLastName());
 		invoice.setAccount(reservation.getAccount());
 		invoice.setHotel(reservation.getRoom().getHotel());
 		invoice.setInvoiceFile(data);
-		
+
 		invoiceDAO.addInvoice(invoice);
 	}
 
@@ -133,7 +140,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 		addLine("Typ pokoju: ", reservation.getRoom().getRoomType().getName());
 		addLine("Początek pobytu: ", df.format(reservation.getStartDate()));
 		addLine("Koniec pobytu: ", df.format(reservation.getEndDate()));
-		// addLine("Należność za pobyt: ", reservation.getRoom().get);
+		Payment payment = paymentDAO.listPaymentByReservation(reservation
+				.getId());
+		if (payment != null) {
+			addLine("Należność za pobyt: ", "" + payment.getGrossCost());
+		}
 	}
 
 	private void addLine(String boldLine, String classicLine)

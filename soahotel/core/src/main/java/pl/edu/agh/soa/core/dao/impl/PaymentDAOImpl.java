@@ -58,6 +58,13 @@ public class PaymentDAOImpl extends AbstractDAO implements PaymentDAO {
                 " from soahotel.payment p natural join soahotel.reservation r where r.res_acc_id = " + userId +
                 "and p.pay_status = " + status.ordinal()).addEntity(Payment.class).list();
     }
+    
+	@Override
+	public Payment listPaymentByReservation(Long reservationId) {
+		Session session = (Session) entityManager.getDelegate();
+        return (Payment) session.createSQLQuery("select p.*" +
+                " from soahotel.payment p natural join soahotel.reservation r where r.res_id = " + reservationId).addEntity(Payment.class).uniqueResult();
+	}
 
     @Override
     public void addPayment(Payment payment) {
