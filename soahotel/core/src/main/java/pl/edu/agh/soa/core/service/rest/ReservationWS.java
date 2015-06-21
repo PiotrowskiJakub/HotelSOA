@@ -70,7 +70,7 @@ public class ReservationWS {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-//	@CheckToken
+	@CheckToken
 	public Response getReservation(@Context HttpServletRequest request){
 		List<Reservation> reservations = reservationService.getReservations();
 		return Response.ok(reservations, MediaType.APPLICATION_JSON).build();
@@ -89,7 +89,7 @@ public class ReservationWS {
 	@GET
 	@Path("/hotel/{id}/roomType/{rt}/termins")
 	@Produces(MediaType.APPLICATION_JSON)
-//	@CheckToken
+	@CheckToken
 	public Response getTermins(@PathParam("id") Long hotelID ,@PathParam("rt") Long roomTypeID, @QueryParam("year") Integer year, @Context HttpServletRequest request) {
 		List<Reservation> reservations = reservationService.getReservations(hotelID, roomTypeID, year);
 		Calendar cal = Calendar.getInstance();
@@ -147,21 +147,30 @@ public class ReservationWS {
 	@POST
 	@Path("/reservation")
 	@Consumes(MediaType.APPLICATION_JSON)
-//	@CheckToken
+	@CheckToken
 	public Response createReservation(ReservationDTO reservationDto, @Context HttpServletRequest request) {
-		Reservation reservation = createReservationFromDTO(reservationDto);
+		Reservation reservation;
+		try {
+			reservation = createReservationFromDTO(reservationDto);
+		} catch (Exception e) {
+			return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+		}
 		
 		reservationService.createReservation(reservation);
 		return Response.ok().build();
 	}
 
-	private Reservation createReservationFromDTO(ReservationDTO reservationDto) {
+	private Reservation createReservationFromDTO(ReservationDTO reservationDto) throws Exception {
 		Reservation reservation = new Reservation();
+		if(reservationDto.getHotelId() == null)
+			throw new Exception("SROKA, NIE USTAWILES HOTEL ID!!!!!!!");
 		reservation.setAccount(registrationService.getAccount(reservationDto.getAccountId()));
 		reservation.setStartDate(reservationDto.getStartDate());
 		reservation.setEndDate(reservationDto.getEndDate());
 		reservation.setPaid(false);
 		Room room = hotelService.getRoomByHotelAndType(reservationDto.getHotelId(), reservationDto.getRoomTypeId());
+		if(room == null)
+			throw new Exception("there is no free room");
 		reservation.setRoom(room);
 		return reservation;
 	}

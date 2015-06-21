@@ -86,7 +86,10 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public Room getRoomByHotelAndType(Long hotelId, Long roomTypeId) {
 		List<Room> rooms = hotelDao.getRoomsByHotelAndType(hotelId, roomTypeId);
-		return rooms.get( (int)(Math.random()*1000)  % rooms.size() );
+		if(rooms.size() > 0)
+			return rooms.get( (int)(Math.random()*1000)  % rooms.size() );
+		else
+			return null;
 		
 	}
 

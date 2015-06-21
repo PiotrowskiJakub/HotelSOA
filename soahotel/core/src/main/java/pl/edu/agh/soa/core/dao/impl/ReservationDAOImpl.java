@@ -40,7 +40,10 @@ public class ReservationDAOImpl extends AbstractDAO implements ReservationDAO {
     @Override
     public List<Reservation> getReservations(Long id) {
     	Session session = (Session) em.getDelegate();
-    	return session.createSQLQuery("select r.*, a.*, ro.* from soahotel.reservation r natural join soahotel.account a natural join soahotel.room ro where '" + id + "' = r.res_acc_id").addEntity(Reservation.class).list();
+    	return session.createSQLQuery("select distinct r.* from soahotel.reservation r "
+    			+ "natural join soahotel.account a "
+    			+ "natural join soahotel.room ro "
+    			+ "where '" + id + "' = r.res_acc_id").addEntity(Reservation.class).list();
     }
 
     @Override
