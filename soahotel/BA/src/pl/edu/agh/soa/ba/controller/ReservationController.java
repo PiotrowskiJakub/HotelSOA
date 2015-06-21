@@ -49,4 +49,10 @@ public class ReservationController extends BaseController {
 		modelAndView.addObject("form", new MessageForm());
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="complaintResponse", method=RequestMethod.POST)
+	public String sendMessage(@RequestParam("id") String reservationId, HttpSession session){
+		
+		return null;
+	}
 }
