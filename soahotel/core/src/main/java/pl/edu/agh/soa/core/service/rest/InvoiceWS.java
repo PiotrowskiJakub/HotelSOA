@@ -1,5 +1,7 @@
 package pl.edu.agh.soa.core.service.rest;
 
+import java.io.File;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
@@ -55,10 +57,13 @@ public class InvoiceWS {
 	
 	@POST
 	@Path("/{reservationID}")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces("application/pdf")
 	@CheckToken
 	public Response generateInvoice(@PathParam("reservationID") Long reservationID, @Context HttpServletRequest request) {
-		invoiceService.generateInvoice(reservationID);
-		return Response.ok("Invoice generated!").build();
+		File file = invoiceService.generateInvoice(reservationID);
+		Response.ResponseBuilder response = Response.ok(file);
+		response.header("Content-Disposition",
+				"attachment; filename=\"Faktura.pdf\"");
+		return response.build();
 	}
 }

@@ -164,7 +164,7 @@ public class ReportServiceImpl implements ReportService {
 		addRows(firstRow, true, table, timesBoldWhite11);
 
 		// Else rows
-		DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		lastUsedColor = Color.white;
 		for(Reservation res : reservations) {
 			String guest = res.getAccount().getFirstName() + " " + res.getAccount().getLastName();

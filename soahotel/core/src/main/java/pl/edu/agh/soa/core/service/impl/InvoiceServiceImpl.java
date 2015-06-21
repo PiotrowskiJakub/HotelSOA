@@ -60,7 +60,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public void generateInvoice(Long reservationID) {
+	public File generateInvoice(Long reservationID) {
 		Reservation reservation = reservationDAO.getReservation(reservationID);
 
 		init();
@@ -97,6 +97,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoice.setInvoiceFile(data);
 
 		invoiceDAO.addInvoice(invoice);
+		return file;
 	}
 
 	private void init() {
@@ -132,7 +133,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		title.setSpacingAfter(50);
 		document.add(title);
 
-		DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		addLine("Klient: ", reservation.getAccount().getFirstName() + " "
 				+ reservation.getAccount().getLastName());
 		addLine("Hotel: ", reservation.getRoom().getHotel().getName());
