@@ -100,6 +100,18 @@
 			<version>${mockito.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.19</version>
+		</dependency>
+
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>log4j</groupId>
