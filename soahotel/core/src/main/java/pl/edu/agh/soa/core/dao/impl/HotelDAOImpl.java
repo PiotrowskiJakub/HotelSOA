@@ -34,7 +34,7 @@ public class HotelDAOImpl implements HotelDAO {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void saveHotel(Hotel hotel) {
 		em.merge(hotel);
-		
+		em.flush();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,6 +52,7 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public void addRoomType(RoomType roomType) {
 		em.persist(roomType);
+		em.flush();
 	}
 
 	@SuppressWarnings("unchecked")

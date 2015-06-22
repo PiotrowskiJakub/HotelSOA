@@ -16,7 +16,6 @@ import pl.edu.agh.soa.core.service.rest.LoginWS;
 import pl.edu.agh.soa.core.service.rest.PaymentManageWS;
 import pl.edu.agh.soa.core.service.rest.ReportWS;
 import pl.edu.agh.soa.core.service.rest.RegisterWS;
-import pl.edu.agh.soa.core.service.rest.ReportWS;
 import pl.edu.agh.soa.core.service.rest.ReservationWS;
 import pl.edu.agh.soa.core.service.test.TestRest;
 
