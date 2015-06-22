@@ -16,7 +16,7 @@ public interface HotelService {
 	 * @param hotel
 	 * @return
 	 */
-	public void createHotel(Hotel hotel);
+	public Long createHotel(Hotel hotel);
 	
 	/**
 	 * @return list of all hotels
@@ -30,10 +30,10 @@ public interface HotelService {
 	public void addRoom(Room room);
 
 	/**save room type
-	 * 
+	 *
 	 * @param roomType
 	 */
-	public void addRoomType(RoomType roomType);
+	public Long addRoomType(RoomType roomType);
 
 	/**
 	 * @param id

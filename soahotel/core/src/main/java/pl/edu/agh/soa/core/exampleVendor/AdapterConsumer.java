@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.exampleVendor.vendorSite;
+package pl.edu.agh.soa.core.exampleVendor;
 
 import javax.ws.rs.core.MediaType;
 
@@ -8,15 +8,19 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import pl.edu.agh.soa.core.exampleVendor.vendorSite.classes.Hotel;
-import pl.edu.agh.soa.core.exampleVendor.vendorSite.classes.Room;
+import pl.edu.agh.soa.core.exampleVendor.classes.AncillaryService;
+import pl.edu.agh.soa.core.exampleVendor.classes.Hotel;
+import pl.edu.agh.soa.core.exampleVendor.classes.Room;
+
+import java.util.List;
 
 
 /**
  * Created by Ala Czyz.
  */
 public class AdapterConsumer {
-    public static final String BASE_URL = "http://localhost:8082/core-0.1/addVendor";
+//    public static final String BASE_URL = "http://localhost:8082/core-0.1/addVendor";
+    public static final String BASE_URL = "https://soahotelcore-hotelcore.rhcloud.com/core-0.1/addVendor";
     public static final String VENDOR_COUNTRY = "POLAND";
     public static final String VENDOR_PHONE = "126848986";
 
@@ -25,39 +29,58 @@ public class AdapterConsumer {
     static Client client;
     static WebResource webResource;
 
-    private String  hotel_id;
+    private static Long hotelId;
 
     public static void main(String[] args) {
-
-
         clientConfig = new DefaultClientConfig();
         clientConfig.getClasses().add(JacksonJsonProvider.class);
         client = Client.create(clientConfig);
         webResource = client.resource(BASE_URL);
 
         translateHotel(dataProvider.getHotel1());
-
-
-        ClientResponse clientResponse = webResource
-                .path("/roomType")
-                .queryParam("name", "awesomeName")
-                .queryParam("price", "123.00")
-                .type(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .post(ClientResponse.class);
-
-        String output = clientResponse.getEntity(String.class);
-        System.out.println(output);
+        translateHotel(dataProvider.getHotel2());
     }
 
     private static void translateHotel(Hotel hotel) {
         createHotel(hotel);
 
+        Long roomTypeId;
         for (Room room : hotel.getRooms()) {
-            createRoomType(room);
+            roomTypeId = createRoomType(room);
+            creatRoom(room, roomTypeId);
         }
+        createAdditionalServices(hotel.getAncillaryServices());
+    }
 
+    private static void createAdditionalServices(List<AncillaryService> ancillaryServices) {
+        for (AncillaryService ancillaryService : ancillaryServices) {
+            createAdditionalService(ancillaryService);
+        }
+    }
 
+    private static void createAdditionalService(AncillaryService ancillaryService) {
+        ClientResponse clientResponse = webResource
+                .path("/addservice")
+                .queryParam("name", ancillaryService.getId())
+                .queryParam("price", ancillaryService.getPrice())
+                .queryParam("desc", ancillaryService.getDesc())
+                .type(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class);
+        String output = clientResponse.getEntity(String.class);
+    }
+
+    private static void creatRoom(Room room, Long roomTypeId) {
+        ClientResponse clientResponse = webResource
+                .path("/room")
+                .queryParam("type_id", String.valueOf(roomTypeId))
+                .queryParam("hotel_id", String.valueOf(hotelId))
+                .queryParam("size", room.getSize())
+                .queryParam("number", room.getRoomNumber())
+                .type(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class);
+        String output = clientResponse.getEntity(String.class);
     }
 
     private static void createHotel(Hotel hotel) {
@@ -76,10 +99,11 @@ public class AdapterConsumer {
                 .post(ClientResponse.class);
 
         String output = clientResponse.getEntity(String.class);
-        System.out.println(output);
+        hotelId = Long.valueOf(output);
+        System.out.println("hotel "+hotelId);
     }
 
-    private static void createRoomType(Room room) {
+    private static Long createRoomType(Room room) {
         ClientResponse clientResponse = webResource
                 .path("/roomType")
                 .queryParam("name", room.getRoomType())
@@ -89,6 +113,6 @@ public class AdapterConsumer {
                 .post(ClientResponse.class);
 
         String output = clientResponse.getEntity(String.class);
-//        System.out.println(output);
+        return Long.valueOf(output);
     }
 }

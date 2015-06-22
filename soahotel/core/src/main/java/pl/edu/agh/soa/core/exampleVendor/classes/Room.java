@@ -1,13 +1,9 @@
-package pl.edu.agh.soa.core.exampleVendor.vendorSite.classes;
-
-import java.math.BigDecimal;
+package pl.edu.agh.soa.core.exampleVendor.classes;
 
 /**
  * Created by Ala Czyz.
  */
 public class Room {
-
-
     String roomNumber;
     String roomType;
     String size;

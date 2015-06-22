@@ -19,6 +19,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by Ala Czyz.
@@ -31,9 +32,9 @@ public class HotelVendorAdapterWS {
     @EJB
     AstService astService;
 
-    private static  final String STANDARD_DESC = "standard desc";
+    private static final String STANDARD_DESC = "standard desc";
 
-    private static  final String STANDARD_PHONE = "000000000000";
+    private static final String STANDARD_PHONE = "000000000000";
     private static final String STANDARD_FLOOR = "0";
 
     // http://localhost:8082/core-0.1/addVendor/hotel?city=someCity&street=someStreet&country=someCountry&house_number=43&mail=test@test.com&name=someName&code=12123&phone=414154564&desc=dajkfjdskfjdkl
@@ -45,15 +46,16 @@ public class HotelVendorAdapterWS {
                                  @QueryParam("street") String street,
                                  @QueryParam("house_number") String houseNumber,
                                  @QueryParam("code") String postalCode,
-                                 @QueryParam("lat") String  latitude,
-                                 @QueryParam("log") String  longtitude,
+                                 @QueryParam("lat") String latitude,
+                                 @QueryParam("log") String longtitude,
                                  @QueryParam("phone") String phone,
                                  @QueryParam("mail") String mail,
                                  @QueryParam("name") String name,
                                  @QueryParam("desc") String desc) {
-        if (country == null || city == null || street == null || houseNumber == null || postalCode == null || mail==null || name == null) {
+        if (country == null || city == null || street == null || houseNumber == null || postalCode == null || mail == null || name == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("coutry, city, street, house number and postal code, mail and name are obligatoty").type("text/plain").build();
         }
+
 
         Address address = new Address();
         address.setCountry(country);
@@ -61,12 +63,13 @@ public class HotelVendorAdapterWS {
         address.setStreet(street);
         address.setHouseNumber(houseNumber);
         address.setPostalCode(postalCode);
-        address.setLatitude(Double.valueOf(latitude));
-        address.setLongitude(Double.valueOf(longtitude));
+        if (latitude != null && longtitude != null) {
+            address.setLatitude(Double.valueOf(latitude));
+            address.setLongitude(Double.valueOf(longtitude));
+        }
 
-        if(phone == null)
+        if (phone == null)
             phone = STANDARD_PHONE;
-
 
         Contact contact = new Contact();
         contact.setPhone(phone);
@@ -78,8 +81,8 @@ public class HotelVendorAdapterWS {
         hotel.setName(name);
         hotel.setDesc(desc);
 
-        hotelService.createHotel(hotel);
-        return Response.ok(hotel).build();
+        Long id = hotelService.createHotel(hotel);
+        return Response.ok(id).build();
     }
 
 
@@ -87,13 +90,13 @@ public class HotelVendorAdapterWS {
     @POST
     @Path("/roomType")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addRoomTypeToHotel(@QueryParam("price") String price,
-                                       @QueryParam("name") String name,
-                                       @QueryParam("desc") String desc) {
-        if(name == null || price ==null){
+    public Response addRoomType(@QueryParam("price") String price,
+                                @QueryParam("name") String name,
+                                @QueryParam("desc") String desc) {
+        if (name == null || price == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Name and price is obligatory").type("text/plain").build();
         }
-        if(desc == null){
+        if (desc == null) {
             desc = STANDARD_DESC;
         }
 
@@ -104,9 +107,25 @@ public class HotelVendorAdapterWS {
         roomType.setName(name);
         roomType.setDescription(desc);
 
-        hotelService.addRoomType(roomType);
+        List<RoomType> availableRooms = hotelService.getRoomTypes();
 
-        return Response.ok(roomType).build();
+        Long id = getIdIfExists(roomType, availableRooms);
+        if (id == null) {
+            id = hotelService.addRoomType(roomType);
+        }
+
+        return Response.ok(id).build();
+    }
+
+    private Long getIdIfExists(RoomType roomType, List<RoomType> availableRooms) {
+        for (RoomType tmp : availableRooms) {
+            if (roomType.getPrice().equals(tmp.getPrice())
+                    && roomType.getName().equals(tmp.getName())
+                    && roomType.getDescription().equals(tmp.getDescription())) {
+                return tmp.getId();
+            }
+        }
+        return null;
     }
 
 
@@ -120,10 +139,10 @@ public class HotelVendorAdapterWS {
                                    @QueryParam("size") Integer size,
                                    @QueryParam("floor") String floor,
                                    @QueryParam("number") String number) {
-        if(roomTypeId == null || hotelId ==null || size == null || number == null){
+        if (roomTypeId == null || hotelId == null || size == null || number == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("room type id, hotel id, size and number is obligatory").type("text/plain").build();
         }
-        if(floor == null)
+        if (floor == null)
             floor = STANDARD_FLOOR;
 
         Room room = new Room();
@@ -137,17 +156,17 @@ public class HotelVendorAdapterWS {
         return Response.ok(room).build();
     }
 
-//    http://localhost:8082/core-0.1/addVendor/addservice?price=250&name=Superowy
+    //    http://localhost:8082/core-0.1/addVendor/addservice?price=250&name=Superowy
     @POST
     @Path("/addservice")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addAdditionalServices(@QueryParam("price") String price,
                                           @QueryParam("name") String name,
                                           @QueryParam("desc") String desc) {
-        if(name == null || price == null){
+        if (name == null || price == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Name and price is obligatory").type("text/plain").build();
         }
-        if(desc == null){
+        if (desc == null) {
             desc = STANDARD_DESC;
         }
         AdditionalServiceType additionalServiceType = new AdditionalServiceType();

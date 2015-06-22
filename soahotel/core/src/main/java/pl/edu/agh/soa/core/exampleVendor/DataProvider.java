@@ -1,12 +1,10 @@
-package pl.edu.agh.soa.core.exampleVendor.vendorSite;
+package pl.edu.agh.soa.core.exampleVendor;
 
-import pl.edu.agh.soa.core.exampleVendor.vendorSite.classes.AncillaryServices;
-import pl.edu.agh.soa.core.exampleVendor.vendorSite.classes.Hotel;
-import pl.edu.agh.soa.core.exampleVendor.vendorSite.classes.Room;
+import pl.edu.agh.soa.core.exampleVendor.classes.AncillaryService;
+import pl.edu.agh.soa.core.exampleVendor.classes.Hotel;
+import pl.edu.agh.soa.core.exampleVendor.classes.Room;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Ala Czyz.
@@ -34,9 +32,9 @@ public class DataProvider {
         hotel1.setPostalCode("12546");
         hotel1.setEmail("awesome@mail.com");
 
-        hotel1.setAncillaryServices(Arrays.asList(new AncillaryServices( "12.00", "12", "sniadanie"),
-                new AncillaryServices( "123.00", "13", "sauna"),
-                new AncillaryServices( "13.00", "14", "wino")));
+        hotel1.setAncillaryServices(Arrays.asList(new AncillaryService( "12.00", "12", "sniadanie"),
+                new AncillaryService( "123.00", "13", "sauna"),
+                new AncillaryService( "13.00", "14", "wino")));
 
         hotel1.setRooms(Arrays.asList(new Room("1001", "double", "2",  "120.00"),
                 new Room("1003", "double&Infant", "2",  "150.00"),
@@ -54,9 +52,9 @@ public class DataProvider {
         hotel2.setPostalCode("18546");
         hotel2.setEmail("awesome2@mail.com");
 
-        hotel2.setAncillaryServices(Arrays.asList(new AncillaryServices( "12.00", "18", "kolacja"),
-                new AncillaryServices( "24.00", "20", "woda zdrojowa"),
-                new AncillaryServices( "16.00", "19", "szachy")));
+        hotel2.setAncillaryServices(Arrays.asList(new AncillaryService( "12.00", "18", "kolacja"),
+                new AncillaryService( "24.00", "20", "woda zdrojowa"),
+                new AncillaryService( "16.00", "19", "szachy")));
 
         hotel2.setRooms(Arrays.asList(new Room("2001", "double", "2",  "100.00"),
                 new Room("2005", "family", "6",  "420.00"),

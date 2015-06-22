@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.core.exampleVendor.vendorSite.classes;
+package pl.edu.agh.soa.core.exampleVendor.classes;
 
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class Hotel {
     String email;
 
     List<Room> rooms;
-    List<AncillaryServices> ancillaryServices;
+    List<AncillaryService> ancillaryServices;
 
 
     public String getHotelName() {
@@ -74,11 +74,11 @@ public class Hotel {
         this.rooms = rooms;
     }
 
-    public List<AncillaryServices> getAncillaryServices() {
+    public List<AncillaryService> getAncillaryServices() {
         return ancillaryServices;
     }
 
-    public void setAncillaryServices(List<AncillaryServices> ancillaryServices) {
+    public void setAncillaryServices(List<AncillaryService> ancillaryServices) {
         this.ancillaryServices = ancillaryServices;
     }
 
