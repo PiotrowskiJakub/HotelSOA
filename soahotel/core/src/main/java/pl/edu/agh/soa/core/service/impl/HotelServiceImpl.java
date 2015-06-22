@@ -22,8 +22,8 @@ public class HotelServiceImpl implements HotelService {
 	HotelDAO hotelDao;
 	
 	@Override
-	public void createHotel(Hotel hotel) {
-		hotelDao.saveHotel(hotel);
+	public Long createHotel(Hotel hotel) {
+		return  hotelDao.saveHotel(hotel);
 	}
 
 	@Override
@@ -39,8 +39,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void addRoomType(RoomType roomType) {
-		hotelDao.addRoomType(roomType);	
+	public Long addRoomType(RoomType roomType) {
+		hotelDao.addRoomType(roomType);
+		return roomType.getId();
 	}
 
 	@Override

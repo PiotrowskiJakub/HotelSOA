@@ -32,9 +32,13 @@ public class HotelDAOImpl implements HotelDAO {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void saveHotel(Hotel hotel) {
-		em.merge(hotel);
-		
+	public Long saveHotel(Hotel hotel) {
+		em.persist(hotel);
+//		em.setFlushMode(FlushModeType.COMMIT);
+		return  hotel.getId();
+//		hotel.getId();
+//		em.setFlushMode(FlushModeType.AUTO);
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -50,8 +54,9 @@ public class HotelDAOImpl implements HotelDAO {
 	}
 
 	@Override
-	public void addRoomType(RoomType roomType) {
+	public Long addRoomType(RoomType roomType) {
 		em.persist(roomType);
+		return roomType.getId();
 	}
 
 	@SuppressWarnings("unchecked")

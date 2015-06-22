@@ -9,12 +9,12 @@ import javax.ws.rs.core.Application;
 import pl.edu.agh.soa.core.service.rest.AstRest;
 import pl.edu.agh.soa.core.service.rest.CheckCostWS;
 import pl.edu.agh.soa.core.service.rest.ComplaintWS;
+import pl.edu.agh.soa.core.service.rest.HotelVendorAdapterWS;
 import pl.edu.agh.soa.core.service.rest.HotelWS;
 import pl.edu.agh.soa.core.service.rest.InvoiceWS;
 import pl.edu.agh.soa.core.service.rest.LoginWS;
 import pl.edu.agh.soa.core.service.rest.PaymentManageWS;
 import pl.edu.agh.soa.core.service.rest.RegisterWS;
-import pl.edu.agh.soa.core.service.rest.ReportWS;
 import pl.edu.agh.soa.core.service.rest.ReservationWS;
 import pl.edu.agh.soa.core.service.test.TestRest;
 
@@ -35,6 +35,7 @@ public class RestApplication extends Application {
 		classes.add(ReportWS.class);
 		classes.add(ComplaintWS.class);
 		classes.add(InvoiceWS.class);
+		classes.add(HotelVendorAdapterWS.class);
 		return classes;
 	}
 	
