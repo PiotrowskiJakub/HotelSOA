@@ -8,7 +8,6 @@ import javax.ejb.Remote;
 
 @Remote
 public interface RotateService {
-    //todo to be scheduled in quartz (java cron)
-    public void createPaymentsFromReservations();
-    public void changePaymentsStatusToOverdue();
+    void createPaymentsFromReservations();
+    void changePaymentsStatusToOverdue();
 }

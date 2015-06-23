@@ -89,7 +89,7 @@ public class Payment  implements Serializable{
     }
 
     public boolean isPaid() {
-        return this != null && (status.equals(Status.PAID) || status.equals(Status.CANCELED));
+        return (status.equals(Status.PAID) || status.equals(Status.CANCELED));
     }
 
     public Long getUserId() {
@@ -102,8 +102,7 @@ public class Payment  implements Serializable{
     public enum Status {
         UNPAID,
         PAID,
-        PROCESSED,
         OVERDUE,
-        CANCELED;
+        CANCELED
     }
 }

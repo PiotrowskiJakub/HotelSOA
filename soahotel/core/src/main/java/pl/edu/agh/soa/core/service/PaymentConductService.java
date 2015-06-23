@@ -5,10 +5,10 @@ import pl.edu.agh.soa.core.bean.Payment;
 import javax.ejb.Remote;
 
 /**
- * Created by Ala Czyz on 2015-06-10.
+ * Created by Ala Czyz.
  */
 @Remote
 public interface PaymentConductService {
-    public Payment payByCreditCard(Long paymentId, String creditCard);
-    public Payment payByTransfer(Long paymentId, String bank);
+    Payment payByCreditCard(Long paymentId, String creditCard);
+    Payment payByTransfer(Long paymentId, String bank);
 }
